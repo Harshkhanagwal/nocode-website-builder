@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 import './App.css'
-import SplitHero from './components/Elements/Herosections/Splitherosection/Splitherosection'
+import DemoPage from './components/Demopage'
 
 function App() {
 
   return (
     <>
-     <SplitHero/>
+     <DemoPage/>
     </>
   )
 }
