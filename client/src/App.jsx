@@ -1,15 +1,24 @@
-import { useState } from 'react'
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
 
-import './App.css'
-import DemoPage from './components/Demopage'
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-function App() {
+import { fetchCurrentUser } from "./redux/slices/authSlice";
+
+const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
 
   return (
-    <>
-     <DemoPage/>
-    </>
-  )
-}
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
