@@ -6,6 +6,10 @@
 
   padding: 32px 20px;
 
+
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+
   background: var(--color-surface);
 }
 

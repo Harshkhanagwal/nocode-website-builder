@@ -1,12 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
-  loginUser,
-  registerUser,
-  getCurrentUser,
+    loginUser,
+    registerUser,
+    getCurrentUser,
+    logoutUser,
 } from "../../api/authApi";
-
-
 
 export const login = createAsyncThunk(
     "auth/login",
@@ -38,30 +37,45 @@ export const register = createAsyncThunk(
     }
 );
 
-
-
-export const fetchCurrentUser = createAsyncThunk(
-  "auth/fetchCurrentUser",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await getCurrentUser();
-
-      return response.user;
-    } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Not authenticated"
-      );
+export const logout = createAsyncThunk(
+    "auth/logout",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await logoutUser();
+            return response;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Logout failed"
+            );
+        }
     }
-  }
 );
 
 
+export const fetchCurrentUser = createAsyncThunk(
+    "auth/fetchCurrentUser",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await getCurrentUser();
+
+            return response.user;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || "Not authenticated"
+            );
+        }
+    }
+);
+
+
+
+
 const initialState = {
-  user: null,
-  isAuthenticated: false,
-  loading: false,
-  authChecked: false,
-  error: null,
+    user: null,
+    isAuthenticated: false,
+    loading: false,
+    authChecked: false,
+    error: null,
 };
 
 const authSlice = createSlice({
@@ -139,7 +153,30 @@ const authSlice = createSlice({
                 state.user = null;
                 state.isAuthenticated = false;
                 state.authChecked = true;
-            });
+            })
+            .addCase(logout.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+
+            .addCase(logout.fulfilled, (state) => {
+                state.loading = false;
+                state.user = null;
+                state.isAuthenticated = false;
+                state.authChecked = true;
+                state.error = null;
+            })
+
+            .addCase(logout.rejected, (state, action) => {
+                state.loading = false;
+
+                // Clear local auth state even if the backend request fails.
+                state.user = null;
+                state.isAuthenticated = false;
+                state.authChecked = true;
+
+                state.error = action.payload;
+            })
     },
 });
 

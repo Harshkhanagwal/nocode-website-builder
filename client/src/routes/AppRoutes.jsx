@@ -29,7 +29,7 @@ const AppRoutes = () => {
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Projects />} />
           <Route path="templates" element={<Templates />} />
-          <Route path="queries" element={<Queries />} />
+          <Route path="notifications" element={<Queries />} />
         </Route>
       </Route>
 

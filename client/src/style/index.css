@@ -12,37 +12,37 @@
 
   /* ---------- Brand ---------- */
 
-  --color-primary: #f07c3e;
+  /* --color-primary: #f07c3e;
   --color-primary-hover: #df6d32;
-  --color-primary-soft: #fff1e9;
+  --color-primary-soft: #fff1e9; */
 
 
   /* ---------- Background ---------- */
-
+  /* 
   --color-background: #ffffff;
   --color-surface: #f8f8f7;
   --color-surface-hover: #f2f2f0;
-  --color-surface-active: #ededeb;
+  --color-surface-active: #ededeb; */
 
 
   /* ---------- Text ---------- */
-
+  /* 
   --color-text: #202020;
   --color-text-secondary: #555555;
   --color-text-muted: #858585;
   --color-text-light: #a5a5a5;
-  --color-text-inverse: #ffffff;
+  --color-text-inverse: #ffffff; */
 
 
   /* ---------- Border ---------- */
-
+  /* 
   --color-border: #e7e7e5;
   --color-border-light: #eeeeec;
-  --color-border-dark: #d5d5d2;
+  --color-border-dark: #d5d5d2; */
 
 
   /* ---------- Status ---------- */
-
+  /* 
   --color-success: #22a06b;
   --color-success-soft: #eaf8f1;
 
@@ -53,7 +53,43 @@
   --color-danger-soft: #fff0f0;
 
   --color-info: #3478d4;
-  --color-info-soft: #edf5ff;
+  --color-info-soft: #edf5ff; */
+
+  /* Primary */
+  --color-primary: #111111;
+  --color-primary-hover: #000000;
+  --color-primary-soft: #f2f2f2;
+
+  /* Background */
+  --color-background: #ffffff;
+  --color-surface: #fafafa;
+  --color-surface-hover: #f4f4f4;
+  --color-surface-active: #eeeeee;
+
+  /* Text */
+  --color-text: #111111;
+  --color-text-secondary: #555555;
+  --color-text-muted: #888888;
+  --color-text-light: #aaaaaa;
+  --color-text-inverse: #ffffff;
+
+  /* Borders */
+  --color-border: #e5e5e5;
+  --color-border-light: #eeeeee;
+  --color-border-dark: #d2d2d2;
+
+  /* Status */
+  --color-success: #222222;
+  --color-success-soft: #f2f2f2;
+
+  --color-warning: #333333;
+  --color-warning-soft: #f4f4f4;
+
+  --color-danger: #222222;
+  --color-danger-soft: #f2f2f2;
+
+  --color-info: #333333;
+  --color-info-soft: #f3f3f3;
 
 
   /* ---------- Typography ---------- */
@@ -122,6 +158,10 @@
   --transition-slow: 250ms ease;
 }
 
+
+* {
+  box-sizing: border-box;
+}
 
 /* =========================================================
    2. BASE
