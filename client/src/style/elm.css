@@ -1,0 +1,946 @@
+/* =========================================================
+   GLOBAL INDEX.CSS
+   Prefix: elm-
+========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+/* =========================================================
+   1. ROOT VARIABLES
+========================================================= */
+
+:root {
+  /* Colors */
+   --elm-color-primary: #059669;
+  --elm-color-primary-hover: #047857;
+  --elm-color-secondary: #ffffff;
+
+  /* Text */
+  --elm-color-text: #064e3b;
+  --elm-color-text-muted: #6b7280;
+  --elm-color-text-light: #9ca3af;
+
+  /* Background */
+  --elm-color-background: #ffffff;
+  --elm-color-surface: #f0fdf4;
+
+  /* Borders */
+  --elm-color-border: #d1fae5;
+  --elm-color-border-dark: #a7f3d0;
+
+  /* Status */
+  --elm-color-success: #16a34a;
+  --elm-color-warning: #d97706;
+  --elm-color-danger: #dc2626;
+  --elm-color-info: #2563eb;
+
+
+  /* Typography */
+  --elm-font-family: Arial, Helvetica, sans-serif;
+
+  --elm-font-size-base: 16px;
+  --elm-line-height: 1.5;
+
+  --elm-font-weight-normal: 400;
+  --elm-font-weight-medium: 500;
+  --elm-font-weight-semibold: 600;
+  --elm-font-weight-bold: 700;
+
+
+  /* Spacing */
+  --elm-space-xs: 4px;
+  --elm-space-sm: 8px;
+  --elm-space-md: 16px;
+  --elm-space-lg: 24px;
+  --elm-space-xl: 32px;
+  --elm-space-2xl: 48px;
+  --elm-space-3xl: 64px;
+  --elm-space-4xl: 96px;
+
+
+  /* Border Radius */
+  --elm-radius-none: 0;
+  --elm-radius-sm: 4px;
+  --elm-radius-md: 8px;
+  --elm-radius-lg: 12px;
+  --elm-radius-xl: 16px;
+  --elm-radius-full: 9999px;
+
+
+  /* Container */
+  --elm-container-sm: 640px;
+  --elm-container-md: 768px;
+  --elm-container-lg: 1024px;
+  --elm-container-xl: 1200px;
+  --elm-container-2xl: 1400px;
+
+
+  /* Shadows */
+  --elm-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --elm-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.10);
+  --elm-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+
+  /* Transitions */
+  --elm-transition-fast: 0.15s ease;
+  --elm-transition-normal: 0.2s ease;
+  --elm-transition-slow: 0.3s ease;
+}
+
+
+/* =========================================================
+   2. GLOBAL BASE CLASSES
+========================================================= */
+
+.elm-body {
+  margin: 0;
+  padding: 0;
+
+  font-family: var(--elm-font-family);
+  font-size: var(--elm-font-size-base);
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text);
+  background-color: var(--elm-color-background);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.elm-root {
+  width: 100%;
+  min-height: 100%;
+}
+
+
+/* =========================================================
+   3. TYPOGRAPHY
+========================================================= */
+
+.elm-h1,
+.elm-h2,
+.elm-h3,
+.elm-h4,
+.elm-h5,
+.elm-h6 {
+  margin: 0 0 var(--elm-space-md);
+
+  color: var(--elm-color-text);
+
+  font-weight: var(--elm-font-weight-bold);
+  line-height: 1.2;
+}
+
+.elm-h1 {
+  font-size: 3rem;
+}
+
+.elm-h2 {
+  font-size: 2.25rem;
+}
+
+.elm-h3 {
+  font-size: 1.75rem;
+}
+
+.elm-h4 {
+  font-size: 1.5rem;
+}
+
+.elm-h5 {
+  font-size: 1.25rem;
+}
+
+.elm-h6 {
+  font-size: 1rem;
+}
+
+
+/* Paragraph */
+
+.elm-p {
+  margin: 0 0 var(--elm-space-md);
+
+  color: var(--elm-color-text);
+
+  font-size: 1rem;
+  font-weight: var(--elm-font-weight-normal);
+  line-height: 1.6;
+}
+
+
+/* Link */
+
+.elm-a {
+  color: var(--elm-color-primary);
+
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  cursor: pointer;
+
+  transition: opacity var(--elm-transition-fast);
+}
+
+.elm-a:hover {
+  opacity: 0.7;
+}
+
+
+/* Text */
+
+.elm-text {
+  color: var(--elm-color-text);
+}
+
+.elm-text-muted {
+  color: var(--elm-color-text-muted);
+}
+
+.elm-text-light {
+  color: var(--elm-color-text-light);
+}
+
+.elm-small {
+  font-size: 0.875rem;
+  color: var(--elm-color-text-muted);
+}
+
+.elm-strong {
+  font-weight: var(--elm-font-weight-bold);
+}
+
+.elm-em {
+  font-style: italic;
+}
+
+
+/* =========================================================
+   4. LISTS
+========================================================= */
+
+.elm-ul,
+.elm-ol {
+  margin: 0 0 var(--elm-space-md);
+  padding-left: 1.5rem;
+}
+
+.elm-li {
+  margin-bottom: var(--elm-space-sm);
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   5. BLOCKQUOTE
+========================================================= */
+
+.elm-blockquote {
+  margin: var(--elm-space-lg) 0;
+  padding-left: var(--elm-space-lg);
+
+  border-left: 3px solid var(--elm-color-border);
+
+  color: var(--elm-color-text-muted);
+
+  font-style: italic;
+}
+
+
+/* =========================================================
+   6. HORIZONTAL LINE
+========================================================= */
+
+.elm-hr {
+  width: 100%;
+
+  margin: var(--elm-space-lg) 0;
+
+  border: 0;
+  border-top: 1px solid var(--elm-color-border);
+}
+
+
+/* =========================================================
+   7. CONTAINER
+========================================================= */
+
+.elm-container {
+  width: 100%;
+  max-width: var(--elm-container-xl);
+
+  margin-inline: auto;
+  padding-inline: var(--elm-space-md);
+}
+
+.elm-container-sm {
+  max-width: var(--elm-container-sm);
+}
+
+.elm-container-md {
+  max-width: var(--elm-container-md);
+}
+
+.elm-container-lg {
+  max-width: var(--elm-container-lg);
+}
+
+.elm-container-xl {
+  max-width: var(--elm-container-xl);
+}
+
+.elm-container-2xl {
+  max-width: var(--elm-container-2xl);
+}
+
+
+/* =========================================================
+   8. SECTION
+========================================================= */
+
+.elm-section {
+  width: 100%;
+  padding-block: var(--elm-space-4xl);
+}
+
+
+/* =========================================================
+   9. IMAGE
+========================================================= */
+
+.elm-img {
+  display: block;
+
+  max-width: 100%;
+  height: auto;
+}
+
+.elm-img-cover {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.elm-img-contain {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.elm-img-rounded {
+  border-radius: var(--elm-radius-md);
+}
+
+.elm-img-circle {
+  border-radius: var(--elm-radius-full);
+}
+
+
+/* =========================================================
+   10. BUTTONS
+========================================================= */
+
+.elm-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--elm-space-sm);
+
+  min-height: 42px;
+
+  padding: 10px 18px;
+
+  border: 1px solid transparent;
+  border-radius: var(--elm-radius-md);
+
+  font-size: 0.875rem;
+  font-weight: var(--elm-font-weight-medium);
+
+  line-height: 1;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--elm-transition-normal),
+    color var(--elm-transition-normal),
+    border-color var(--elm-transition-normal),
+    opacity var(--elm-transition-normal);
+}
+
+
+/* Primary */
+
+.elm-btn-primary {
+  color: var(--elm-color-secondary);
+  background-color: var(--elm-color-primary);
+}
+
+.elm-btn-primary:hover {
+  background-color: var(--elm-color-primary-hover);
+}
+
+
+/* Secondary */
+
+.elm-btn-secondary {
+  color: var(--elm-color-primary);
+  background-color: var(--elm-color-secondary);
+
+  border-color: var(--elm-color-border-dark);
+}
+
+.elm-btn-secondary:hover {
+  background-color: var(--elm-color-surface);
+}
+
+
+/* Outline */
+
+.elm-btn-outline {
+  color: var(--elm-color-primary);
+
+  background-color: transparent;
+
+  border-color: var(--elm-color-primary);
+}
+
+.elm-btn-outline:hover {
+  color: var(--elm-color-secondary);
+  background-color: var(--elm-color-primary);
+}
+
+
+/* Ghost */
+
+.elm-btn-ghost {
+  color: var(--elm-color-text);
+  background-color: transparent;
+}
+
+.elm-btn-ghost:hover {
+  background-color: var(--elm-color-surface);
+}
+
+
+/* Disabled */
+
+.elm-btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   11. CARDS
+========================================================= */
+
+.elm-card {
+  padding: var(--elm-space-lg);
+
+  background-color: var(--elm-color-surface);
+
+  border: 1px solid var(--elm-color-border);
+  border-radius: var(--elm-radius-md);
+}
+
+.elm-card-shadow {
+  box-shadow: var(--elm-shadow-md);
+}
+
+
+/* =========================================================
+   12. FLEX
+========================================================= */
+
+.elm-flex {
+  display: flex;
+}
+
+.elm-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.elm-flex-center {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.elm-flex-between {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.elm-flex-start {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.elm-flex-end {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.elm-flex-wrap {
+  flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   13. GRID
+========================================================= */
+
+.elm-grid {
+  display: grid;
+}
+
+.elm-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.elm-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.elm-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+
+/* =========================================================
+   14. GAP
+========================================================= */
+
+.elm-gap-xs {
+  gap: var(--elm-space-xs);
+}
+
+.elm-gap-sm {
+  gap: var(--elm-space-sm);
+}
+
+.elm-gap-md {
+  gap: var(--elm-space-md);
+}
+
+.elm-gap-lg {
+  gap: var(--elm-space-lg);
+}
+
+.elm-gap-xl {
+  gap: var(--elm-space-xl);
+}
+
+.elm-gap-2xl {
+  gap: var(--elm-space-2xl);
+}
+
+
+/* =========================================================
+   15. TEXT ALIGNMENT
+========================================================= */
+
+.elm-text-left {
+  text-align: left;
+}
+
+.elm-text-center {
+  text-align: center;
+}
+
+.elm-text-right {
+  text-align: right;
+}
+
+
+/* =========================================================
+   16. WIDTH
+========================================================= */
+
+.elm-w-full {
+  width: 100%;
+}
+
+.elm-w-auto {
+  width: auto;
+}
+
+.elm-max-w-full {
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   17. HEIGHT
+========================================================= */
+
+.elm-h-full {
+  height: 100%;
+}
+
+.elm-h-auto {
+  height: auto;
+}
+
+.elm-min-h-screen {
+  min-height: 100vh;
+}
+
+
+/* =========================================================
+   18. DISPLAY
+========================================================= */
+
+.elm-block {
+  display: block;
+}
+
+.elm-inline {
+  display: inline;
+}
+
+.elm-inline-block {
+  display: inline-block;
+}
+
+.elm-inline-flex {
+  display: inline-flex;
+}
+
+.elm-hidden {
+  display: none;
+}
+
+
+/* =========================================================
+   19. POSITION
+========================================================= */
+
+.elm-relative {
+  position: relative;
+}
+
+.elm-absolute {
+  position: absolute;
+}
+
+.elm-fixed {
+  position: fixed;
+}
+
+.elm-sticky {
+  position: sticky;
+}
+
+
+/* =========================================================
+   20. FORM ELEMENTS
+========================================================= */
+
+.elm-label {
+  display: block;
+
+  margin-bottom: var(--elm-space-sm);
+
+  color: var(--elm-color-text);
+
+  font-size: 0.875rem;
+  font-weight: var(--elm-font-weight-medium);
+}
+
+.elm-input,
+.elm-textarea,
+.elm-select {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  color: var(--elm-color-text);
+  background-color: var(--elm-color-background);
+
+  border: 1px solid var(--elm-color-border-dark);
+  border-radius: var(--elm-radius-md);
+
+  outline: none;
+
+  transition:
+    border-color var(--elm-transition-normal),
+    box-shadow var(--elm-transition-normal);
+}
+
+.elm-input:focus,
+.elm-textarea:focus,
+.elm-select:focus {
+  border-color: var(--elm-color-primary);
+
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+.elm-input::placeholder,
+.elm-textarea::placeholder {
+  color: var(--elm-color-text-light);
+}
+
+
+/* =========================================================
+   21. SPACING
+========================================================= */
+
+.elm-m-0 {
+  margin: 0;
+}
+
+.elm-mt-sm {
+  margin-top: var(--elm-space-sm);
+}
+
+.elm-mt-md {
+  margin-top: var(--elm-space-md);
+}
+
+.elm-mt-lg {
+  margin-top: var(--elm-space-lg);
+}
+
+.elm-mt-xl {
+  margin-top: var(--elm-space-xl);
+}
+
+.elm-mb-sm {
+  margin-bottom: var(--elm-space-sm);
+}
+
+.elm-mb-md {
+  margin-bottom: var(--elm-space-md);
+}
+
+.elm-mb-lg {
+  margin-bottom: var(--elm-space-lg);
+}
+
+.elm-mb-xl {
+  margin-bottom: var(--elm-space-xl);
+}
+
+
+/* =========================================================
+   22. PADDING
+========================================================= */
+
+.elm-p-sm {
+  padding: var(--elm-space-sm);
+}
+
+.elm-p-md {
+  padding: var(--elm-space-md);
+}
+
+.elm-p-lg {
+  padding: var(--elm-space-lg);
+}
+
+.elm-p-xl {
+  padding: var(--elm-space-xl);
+}
+
+
+/* =========================================================
+   23. BORDER
+========================================================= */
+
+.elm-border {
+  border: 1px solid var(--elm-color-border);
+}
+
+.elm-border-none {
+  border: none;
+}
+
+.elm-rounded-sm {
+  border-radius: var(--elm-radius-sm);
+}
+
+.elm-rounded-md {
+  border-radius: var(--elm-radius-md);
+}
+
+.elm-rounded-lg {
+  border-radius: var(--elm-radius-lg);
+}
+
+.elm-rounded-xl {
+  border-radius: var(--elm-radius-xl);
+}
+
+.elm-rounded-full {
+  border-radius: var(--elm-radius-full);
+}
+
+
+/* =========================================================
+   24. SHADOW
+========================================================= */
+
+.elm-shadow-sm {
+  box-shadow: var(--elm-shadow-sm);
+}
+
+.elm-shadow-md {
+  box-shadow: var(--elm-shadow-md);
+}
+
+.elm-shadow-lg {
+  box-shadow: var(--elm-shadow-lg);
+}
+
+.elm-shadow-none {
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   25. OVERFLOW
+========================================================= */
+
+.elm-overflow-hidden {
+  overflow: hidden;
+}
+
+.elm-overflow-auto {
+  overflow: auto;
+}
+
+.elm-overflow-visible {
+  overflow: visible;
+}
+
+
+/* =========================================================
+   26. CURSOR
+========================================================= */
+
+.elm-cursor-pointer {
+  cursor: pointer;
+}
+
+.elm-cursor-default {
+  cursor: default;
+}
+
+.elm-cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   27. OPACITY
+========================================================= */
+
+.elm-opacity-0 {
+  opacity: 0;
+}
+
+.elm-opacity-50 {
+  opacity: 0.5;
+}
+
+.elm-opacity-75 {
+  opacity: 0.75;
+}
+
+.elm-opacity-100 {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   28. RESPONSIVE
+========================================================= */
+
+@media (max-width: 1024px) {
+
+  .elm-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .elm-h1 {
+    font-size: 2.5rem;
+  }
+
+  .elm-h2 {
+    font-size: 2rem;
+  }
+
+  .elm-section {
+    padding-block: var(--elm-space-3xl);
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .elm-h1 {
+    font-size: 2.25rem;
+  }
+
+  .elm-h2 {
+    font-size: 1.875rem;
+  }
+
+  .elm-h3 {
+    font-size: 1.5rem;
+  }
+
+  .elm-grid-2,
+  .elm-grid-3,
+  .elm-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .elm-flex-between {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .elm-section {
+    padding-block: var(--elm-space-2xl);
+  }
+}
+
+
+@media (max-width: 480px) {
+
+  .elm-container {
+    padding-inline: var(--elm-space-md);
+  }
+
+  .elm-h1 {
+    font-size: 2rem;
+  }
+
+  .elm-h2 {
+    font-size: 1.75rem;
+  }
+
+  .elm-section {
+    padding-block: var(--elm-space-xl);
+  }
+
+  .elm-btn {
+    width: 100%;
+  }
+}

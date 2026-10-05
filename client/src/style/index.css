@@ -1,0 +1,1107 @@
+/* =========================================================
+   PLATFORM DESIGN SYSTEM
+   Minimal / Premium
+========================================================= */
+
+
+/* =========================================================
+   1. ROOT VARIABLES
+========================================================= */
+
+:root {
+
+  /* ---------- Brand ---------- */
+
+  --color-primary: #f07c3e;
+  --color-primary-hover: #df6d32;
+  --color-primary-soft: #fff1e9;
+
+
+  /* ---------- Background ---------- */
+
+  --color-background: #ffffff;
+  --color-surface: #f8f8f7;
+  --color-surface-hover: #f2f2f0;
+  --color-surface-active: #ededeb;
+
+
+  /* ---------- Text ---------- */
+
+  --color-text: #202020;
+  --color-text-secondary: #555555;
+  --color-text-muted: #858585;
+  --color-text-light: #a5a5a5;
+  --color-text-inverse: #ffffff;
+
+
+  /* ---------- Border ---------- */
+
+  --color-border: #e7e7e5;
+  --color-border-light: #eeeeec;
+  --color-border-dark: #d5d5d2;
+
+
+  /* ---------- Status ---------- */
+
+  --color-success: #22a06b;
+  --color-success-soft: #eaf8f1;
+
+  --color-warning: #d99000;
+  --color-warning-soft: #fff7df;
+
+  --color-danger: #d64545;
+  --color-danger-soft: #fff0f0;
+
+  --color-info: #3478d4;
+  --color-info-soft: #edf5ff;
+
+
+  /* ---------- Typography ---------- */
+  --font-family:
+    "Sora",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 22px;
+  --font-size-3xl: 28px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ---------- Spacing ---------- */
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+
+  /* ---------- Radius ---------- */
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 999px;
+
+
+  /* ---------- Shadows ---------- */
+
+  --shadow-xs:
+    0 1px 2px rgba(0, 0, 0, 0.04);
+
+  --shadow-sm:
+    0 2px 8px rgba(0, 0, 0, 0.06);
+
+  --shadow-md:
+    0 8px 24px rgba(0, 0, 0, 0.08);
+
+  --shadow-lg:
+    0 16px 40px rgba(0, 0, 0, 0.10);
+
+
+  /* ---------- Transition ---------- */
+
+  --transition-fast: 120ms ease;
+  --transition-normal: 180ms ease;
+  --transition-slow: 250ms ease;
+}
+
+
+/* =========================================================
+   2. BASE
+========================================================= */
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+
+  color: var(--color-text);
+  background: var(--color-background);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================================
+   3. BUTTONS
+========================================================= */
+
+.button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-2);
+
+  min-height: 38px;
+
+  padding: 0 var(--space-4);
+
+  color: var(--color-text);
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
+
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.button:hover {
+  background: var(--color-surface);
+}
+
+.button.primary {
+  color: var(--color-text-inverse);
+
+  background: var(--color-primary);
+
+  border-color: var(--color-primary);
+}
+
+.button.primary:hover {
+  background: var(--color-primary-hover);
+
+  border-color: var(--color-primary-hover);
+}
+
+.button.secondary {
+  color: var(--color-text);
+
+  background: var(--color-surface);
+
+  border-color: var(--color-border);
+}
+
+.button.secondary:hover {
+  background: var(--color-surface-hover);
+}
+
+.button.ghost {
+  background: transparent;
+
+  border-color: transparent;
+}
+
+.button.ghost:hover {
+  background: var(--color-surface);
+}
+
+.button.danger {
+  color: var(--color-danger);
+
+  background: transparent;
+
+  border-color: transparent;
+}
+
+.button.danger:hover {
+  background: var(--color-danger-soft);
+}
+
+.button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   4. ICON BUTTON
+========================================================= */
+
+.icon-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  padding: 0;
+
+  color: var(--color-text-secondary);
+
+  background: transparent;
+
+  border: 0;
+  border-radius: var(--radius-md);
+
+  cursor: pointer;
+
+  transition:
+    color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.icon-button:hover {
+  color: var(--color-text);
+
+  background: var(--color-surface);
+}
+
+.icon-button.active {
+  color: var(--color-text);
+
+  background: var(--color-surface-active);
+}
+
+
+/* =========================================================
+   5. CARDS
+========================================================= */
+
+.card {
+  padding: var(--space-5);
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-lg);
+}
+
+.card.hoverable {
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.card.hoverable:hover {
+  border-color: var(--color-border-dark);
+
+  box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================================================
+   6. DROPDOWN
+========================================================= */
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+
+  z-index: 100;
+
+  min-width: 220px;
+
+  padding: var(--space-2);
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-lg);
+}
+
+.dropdown-menu.right {
+  right: 0;
+}
+
+.dropdown-menu.left {
+  left: 0;
+}
+
+.dropdown-item {
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+  min-height: 40px;
+
+  padding: 0 var(--space-3);
+
+  gap: var(--space-3);
+
+  color: var(--color-text);
+
+  background: transparent;
+
+  border: 0;
+
+  border-radius: var(--radius-md);
+
+  font-size: var(--font-size-md);
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast);
+}
+
+.dropdown-item:hover {
+  background: var(--color-surface);
+}
+
+.dropdown-item.active {
+  background: var(--color-surface-active);
+}
+
+.dropdown-item-icon {
+  width: 20px;
+
+  color: var(--color-text-secondary);
+}
+
+.dropdown-item-label {
+  flex: 1;
+}
+
+.dropdown-item-check {
+  color: var(--color-text-secondary);
+}
+
+
+/* =========================================================
+   7. MENU
+========================================================= */
+
+.menu {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-1);
+
+  padding: var(--space-2);
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-lg);
+}
+
+.menu-item {
+  display: flex;
+
+  align-items: center;
+
+  min-height: 40px;
+
+  padding: 0 var(--space-3);
+
+  gap: var(--space-3);
+
+  color: var(--color-text);
+
+  border-radius: var(--radius-md);
+
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: var(--color-surface);
+}
+
+.menu-item.active {
+  background: var(--color-surface-active);
+}
+
+
+/* =========================================================
+   8. DIVIDER
+========================================================= */
+
+.divider {
+  width: 100%;
+  height: 1px;
+
+  margin: var(--space-2) 0;
+
+  background: var(--color-border-light);
+}
+
+
+/* =========================================================
+   9. PANEL
+========================================================= */
+
+.panel {
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-lg);
+}
+
+.panel-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 52px;
+
+  padding: 0 var(--space-4);
+
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panel-title {
+  color: var(--color-text);
+
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.panel-content {
+  padding: var(--space-4);
+}
+
+
+/* =========================================================
+   10. INPUT
+========================================================= */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+}
+
+.input-label {
+  color: var(--color-text);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.input {
+  width: 100%;
+  min-height: 40px;
+
+  padding: 0 var(--space-3);
+
+  color: var(--color-text);
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border-dark);
+
+  border-radius: var(--radius-md);
+
+  outline: none;
+
+  font-size: var(--font-size-md);
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.input:hover {
+  border-color: var(--color-text-muted);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+
+  box-shadow:
+    0 0 0 3px var(--color-primary-soft);
+}
+
+.input::placeholder {
+  color: var(--color-text-light);
+}
+
+
+/* =========================================================
+   11. TEXTAREA
+========================================================= */
+
+.textarea {
+  width: 100%;
+  min-height: 100px;
+
+  padding: var(--space-3);
+
+  color: var(--color-text);
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border-dark);
+
+  border-radius: var(--radius-md);
+
+  outline: none;
+
+  resize: vertical;
+
+  font-family: inherit;
+  font-size: var(--font-size-md);
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.textarea:focus {
+  border-color: var(--color-primary);
+
+  box-shadow:
+    0 0 0 3px var(--color-primary-soft);
+}
+
+
+/* =========================================================
+   12. SELECT
+========================================================= */
+
+.select {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 40px;
+
+  padding: 0 var(--space-3);
+
+  color: var(--color-text);
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border-dark);
+
+  border-radius: var(--radius-md);
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   13. BADGES
+========================================================= */
+
+.badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 24px;
+
+  padding: 0 var(--space-2);
+
+  border-radius: var(--radius-full);
+
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.badge.primary {
+  color: var(--color-primary);
+
+  background: var(--color-primary-soft);
+}
+
+.badge.success {
+  color: var(--color-success);
+
+  background: var(--color-success-soft);
+}
+
+.badge.warning {
+  color: var(--color-warning);
+
+  background: var(--color-warning-soft);
+}
+
+.badge.danger {
+  color: var(--color-danger);
+
+  background: var(--color-danger-soft);
+}
+
+.badge.info {
+  color: var(--color-info);
+
+  background: var(--color-info-soft);
+}
+
+
+/* =========================================================
+   14. AVATAR
+========================================================= */
+
+.avatar {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  overflow: hidden;
+
+  color: var(--color-text);
+
+  background: var(--color-surface-active);
+
+  border-radius: var(--radius-full);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.avatar-sm {
+  width: 28px;
+  height: 28px;
+}
+
+.avatar-lg {
+  width: 44px;
+  height: 44px;
+}
+
+
+/* =========================================================
+   15. MODAL
+========================================================= */
+
+.modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 500;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--space-5);
+
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.modal {
+  width: 100%;
+  max-width: 520px;
+
+  background: var(--color-background);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-xl);
+
+  box-shadow: var(--shadow-lg);
+
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--space-5);
+
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title {
+  font-size: var(--font-size-lg);
+
+  font-weight: var(--font-weight-semibold);
+}
+
+.modal-content {
+  padding: var(--space-5);
+}
+
+.modal-footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: var(--space-3);
+
+  padding: var(--space-4) var(--space-5);
+
+  border-top: 1px solid var(--color-border);
+}
+
+
+/* =========================================================
+   16. TOGGLE
+========================================================= */
+
+.toggle {
+  position: relative;
+
+  width: 40px;
+  height: 22px;
+
+  background: var(--color-border-dark);
+
+  border-radius: var(--radius-full);
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast);
+}
+
+.toggle.active {
+  background: var(--color-primary);
+}
+
+.toggle-thumb {
+  position: absolute;
+
+  top: 3px;
+  left: 3px;
+
+  width: 16px;
+  height: 16px;
+
+  background: var(--color-background);
+
+  border-radius: var(--radius-full);
+
+  box-shadow: var(--shadow-xs);
+
+  transition:
+    transform var(--transition-fast);
+}
+
+.toggle.active .toggle-thumb {
+  transform: translateX(18px);
+}
+
+
+/* =========================================================
+   17. FLEX UTILITIES
+========================================================= */
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-start {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex-end {
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   18. GAP UTILITIES
+========================================================= */
+
+.gap-1 {
+  gap: var(--space-1);
+}
+
+.gap-2 {
+  gap: var(--space-2);
+}
+
+.gap-3 {
+  gap: var(--space-3);
+}
+
+.gap-4 {
+  gap: var(--space-4);
+}
+
+.gap-5 {
+  gap: var(--space-5);
+}
+
+.gap-6 {
+  gap: var(--space-6);
+}
+
+.gap-8 {
+  gap: var(--space-8);
+}
+
+
+/* =========================================================
+   19. TEXT UTILITIES
+========================================================= */
+
+.text {
+  color: var(--color-text);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-light {
+  color: var(--color-text-light);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+
+/* =========================================================
+   20. WIDTH
+========================================================= */
+
+.w-full {
+  width: 100%;
+}
+
+.w-auto {
+  width: auto;
+}
+
+
+/* =========================================================
+   21. DISPLAY
+========================================================= */
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* =========================================================
+   22. POSITION
+========================================================= */
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+
+/* =========================================================
+   23. BORDER / RADIUS
+========================================================= */
+
+.border {
+  border: 1px solid var(--color-border);
+}
+
+.border-none {
+  border: none;
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+.rounded-full {
+  border-radius: var(--radius-full);
+}
+
+
+/* =========================================================
+   24. SHADOW
+========================================================= */
+
+.shadow-xs {
+  box-shadow: var(--shadow-xs);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-none {
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   25. OVERFLOW
+========================================================= */
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+
+/* =========================================================
+   26. CURSOR
+========================================================= */
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   27. OPACITY
+========================================================= */
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.opacity-75 {
+  opacity: 0.75;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   28. RESPONSIVE
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .content {
+    padding: var(--space-4);
+  }
+
+  .modal {
+    max-width: calc(100vw - 32px);
+  }
+
+  .button {
+    min-height: 40px;
+  }
+}

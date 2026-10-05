@@ -1,148 +1,421 @@
-
 import React from "react";
 
 const DemoPage = () => {
   return (
-    <div className="elm-root">
-      <header className="elm-header">
-        <div className="elm-container elm-flex elm-justify-between elm-items-center">
-          <h2 className="elm-h2">BrandName</h2>
+    <div className="elm-body">
 
-          <nav className="elm-nav">
-            <ul className="elm-ul elm-flex elm-gap-4">
-              <li><a href="#" className="elm-a">Home</a></li>
-              <li><a href="#" className="elm-a">About</a></li>
-              <li><a href="#" className="elm-a">Services</a></li>
-              <li><a href="#" className="elm-a">Contact</a></li>
-            </ul>
+      {/* =========================
+          NAVBAR
+      ========================= */}
+
+      <header className="elm-container">
+        <div className="elm-flex elm-flex-between elm-p-md">
+
+          <a href="#" className="elm-a">
+            <strong className="elm-strong">
+              BrandName
+            </strong>
+          </a>
+
+          <nav className="elm-flex elm-flex-center elm-gap-lg">
+            <a href="#features" className="elm-a">
+              Features
+            </a>
+
+            <a href="#about" className="elm-a">
+              About
+            </a>
+
+            <a href="#contact" className="elm-a">
+              Contact
+            </a>
+
+            <button className="elm-btn elm-btn-primary">
+              Get Started
+            </button>
           </nav>
 
-          <button className="elm-btn elm-btn-primary">
-            Get Started
-          </button>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="elm-section elm-text-center">
-        <div className="elm-container">
-          <span className="elm-badge">Welcome to our platform</span>
-          <h1 className="elm-h1">
-            Build Something Amazing
-          </h1>
-          <p className="elm-p">
-            Create beautiful websites with reusable components
-            and powerful design systems.
-          </p>
 
-          <div className="elm-flex elm-justify-center elm-gap-3">
-            <button className="elm-btn elm-btn-primary">
-              Explore More
-            </button>
-            <button className="elm-btn elm-btn-secondary">
-              Learn More
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* =========================
+          HERO
+      ========================= */}
 
-      {/* About */}
-      <section className="elm-section elm-bg-light">
-        <div className="elm-container">
-          <h2 className="elm-h2 elm-text-center">About Us</h2>
-          <p className="elm-p elm-text-center">
-            We help businesses build modern digital experiences.
-          </p>
-        </div>
-      </section>
+      <main>
 
-      {/* Features - 3 columns */}
-      <section className="elm-section">
-        <div className="elm-container">
-          <h2 className="elm-h2 elm-text-center">
-            Our Features
-          </h2>
+        <section className="elm-section">
+          <div className="elm-container">
 
-          <div className="elm-grid elm-grid-3">
-            {[
-              {
-                title: "Fast Performance",
-                description: "Optimized for speed and efficiency.",
-              },
-              {
-                title: "Responsive Design",
-                description: "Looks great on every device.",
-              },
-              {
-                title: "Easy to Customize",
-                description: "Flexible styles for your needs.",
-              },
-            ].map((feature, index) => (
-              <div className="elm-card" key={index}>
-                <div className="elm-card-body">
-                  <h3 className="elm-h3">{feature.title}</h3>
-                  <p className="elm-p">{feature.description}</p>
-                  <a href="#" className="elm-a">
-                    Learn more →
-                  </a>
+            <div className="elm-grid elm-grid-2 elm-gap-2xl">
+
+              <div className="elm-flex-column elm-gap-lg">
+
+                <p className="elm-small">
+                  BUILD BETTER WEBSITES
+                </p>
+
+                <h1 className="elm-h1">
+                  Create beautiful websites with AI.
+                </h1>
+
+                <p className="elm-p elm-text-muted">
+                  Build, customize, and launch modern websites
+                  without writing complicated code.
+                </p>
+
+                <div className="elm-flex elm-gap-md">
+
+                  <button className="elm-btn elm-btn-primary">
+                    Start Building
+                  </button>
+
+                  <button className="elm-btn elm-btn-outline">
+                    Learn More
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <div className="elm-card elm-card-shadow">
+                <div className="elm-flex-column elm-gap-md">
+
+                  <p className="elm-small">
+                    AI WEBSITE BUILDER
+                  </p>
+
+                  <h3 className="elm-h3">
+                    Your website, generated instantly.
+                  </h3>
+
+                  <p className="elm-p elm-text-muted">
+                    Describe what you want and let AI
+                    create the structure, content, and design.
+                  </p>
+
+                  <div className="elm-flex elm-flex-between">
+                    <span className="elm-text-muted">
+                      Generation
+                    </span>
+
+                    <span className="elm-strong">
+                      98%
+                    </span>
+                  </div>
+
                 </div>
               </div>
-            ))}
+
+            </div>
+
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Form */}
-      <section className="elm-section elm-bg-light">
-        <div className="elm-container elm-max-w-md">
-          <h2 className="elm-h2 elm-text-center">
-            Contact Us
-          </h2>
 
-          <form className="elm-form">
-            <div className="elm-form-group">
-              <label className="elm-label">Full Name</label>
-              <input
-                type="text"
-                className="elm-input"
-                placeholder="Enter your name"
-              />
+        {/* =========================
+            FEATURES
+        ========================= */}
+
+        <section
+          id="features"
+          className="elm-section"
+        >
+          <div className="elm-container">
+
+            <div className="elm-text-center">
+              <p className="elm-small">
+                FEATURES
+              </p>
+
+              <h2 className="elm-h2">
+                Everything you need
+              </h2>
+
+              <p className="elm-p elm-text-muted">
+                Simple tools for building modern websites.
+              </p>
             </div>
 
-            <div className="elm-form-group">
-              <label className="elm-label">Email Address</label>
-              <input
-                type="email"
-                className="elm-input"
-                placeholder="Enter your email"
-              />
+
+            <div className="elm-grid elm-grid-3 elm-gap-lg">
+
+              <div className="elm-card">
+                <h3 className="elm-h3">
+                  AI Generation
+                </h3>
+
+                <p className="elm-p elm-text-muted">
+                  Generate complete website sections
+                  using natural language.
+                </p>
+
+                <a href="#" className="elm-a">
+                  Learn more
+                </a>
+              </div>
+
+
+              <div className="elm-card">
+                <h3 className="elm-h3">
+                  Visual Editing
+                </h3>
+
+                <p className="elm-p elm-text-muted">
+                  Customize your website without
+                  touching the underlying code.
+                </p>
+
+                <a href="#" className="elm-a">
+                  Learn more
+                </a>
+              </div>
+
+
+              <div className="elm-card">
+                <h3 className="elm-h3">
+                  Responsive
+                </h3>
+
+                <p className="elm-p elm-text-muted">
+                  Create websites that look great
+                  on every screen size.
+                </p>
+
+                <a href="#" className="elm-a">
+                  Learn more
+                </a>
+              </div>
+
             </div>
 
-            <div className="elm-form-group">
-              <label className="elm-label">Message</label>
-              <textarea
-                className="elm-textarea"
-                placeholder="Write your message"
-                rows="4"
-              />
+          </div>
+        </section>
+
+
+        {/* =========================
+            ABOUT
+        ========================= */}
+
+        <section
+          id="about"
+          className="elm-section"
+        >
+          <div className="elm-container">
+
+            <div className="elm-grid elm-grid-2 elm-gap-2xl">
+
+              <div>
+                <p className="elm-small">
+                  ABOUT US
+                </p>
+
+                <h2 className="elm-h2">
+                  Designed for creators.
+                </h2>
+              </div>
+
+              <div>
+                <p className="elm-p">
+                  Our platform makes it easier to turn
+                  ideas into polished websites.
+                </p>
+
+                <p className="elm-p elm-text-muted">
+                  Start with a simple prompt, customize
+                  your sections, and publish when you're ready.
+                </p>
+              </div>
+
             </div>
 
-            <button className="elm-btn elm-btn-primary" type="submit">
-              Send Message
-            </button>
-          </form>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* Footer */}
-      <footer className="elm-footer">
-        <div className="elm-container elm-text-center">
-          <h3 className="elm-h3">BrandName</h3>
-          <p className="elm-p">
+
+        {/* =========================
+            TESTIMONIAL
+        ========================= */}
+
+        <section className="elm-section">
+          <div className="elm-container elm-container-md">
+
+            <div className="elm-card elm-card-shadow">
+
+              <blockquote className="elm-blockquote">
+                "The fastest way I've found to go from
+                an idea to a real website."
+              </blockquote>
+
+              <p className="elm-strong">
+                Alex Morgan
+              </p>
+
+              <p className="elm-small">
+                Product Designer
+              </p>
+
+            </div>
+
+          </div>
+        </section>
+
+
+        {/* =========================
+            CTA
+        ========================= */}
+
+        <section className="elm-section">
+          <div className="elm-container">
+
+            <div className="elm-card">
+
+              <div className="elm-text-center">
+
+                <h2 className="elm-h2">
+                  Ready to build?
+                </h2>
+
+                <p className="elm-p elm-text-muted">
+                  Start creating your next website today.
+                </p>
+
+                <div className="elm-flex elm-flex-center elm-gap-md">
+
+                  <button className="elm-btn elm-btn-primary">
+                    Get Started
+                  </button>
+
+                  <button className="elm-btn elm-btn-secondary">
+                    View Examples
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+
+        {/* =========================
+            CONTACT
+        ========================= */}
+
+        <section
+          id="contact"
+          className="elm-section"
+        >
+          <div className="elm-container elm-container-md">
+
+            <div className="elm-text-center">
+
+              <p className="elm-small">
+                CONTACT
+              </p>
+
+              <h2 className="elm-h2">
+                Get in touch
+              </h2>
+
+              <p className="elm-p elm-text-muted">
+                Have a question? Send us a message.
+              </p>
+
+            </div>
+
+
+            <div className="elm-card">
+
+              <div className="elm-flex-column elm-gap-lg">
+
+                <div>
+                  <label className="elm-label">
+                    Name
+                  </label>
+
+                  <input
+                    className="elm-input"
+                    type="text"
+                    placeholder="Your name"
+                  />
+                </div>
+
+
+                <div>
+                  <label className="elm-label">
+                    Email
+                  </label>
+
+                  <input
+                    className="elm-input"
+                    type="email"
+                    placeholder="you@example.com"
+                  />
+                </div>
+
+
+                <div>
+                  <label className="elm-label">
+                    Message
+                  </label>
+
+                  <textarea
+                    className="elm-textarea"
+                    rows="5"
+                    placeholder="Your message"
+                  />
+                </div>
+
+
+                <button className="elm-btn elm-btn-primary">
+                  Send Message
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+
+
+      {/* =========================
+          FOOTER
+      ========================= */}
+
+      <footer className="elm-container">
+
+        <div className="elm-hr" />
+
+        <div className="elm-flex elm-flex-between elm-p-md">
+
+          <p className="elm-small">
             © 2026 BrandName. All rights reserved.
           </p>
+
+          <div className="elm-flex elm-gap-md">
+
+            <a href="#" className="elm-a">
+              Privacy
+            </a>
+
+            <a href="#" className="elm-a">
+              Terms
+            </a>
+
+          </div>
+
         </div>
+
       </footer>
+
     </div>
   );
 };
