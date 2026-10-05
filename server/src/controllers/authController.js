@@ -94,24 +94,14 @@ const login = async (req, res) => {
       });
     }
 
-    // Create JWT
-    const token = jwt.sign(
-      {
-        userId: user._id,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "7d",
-      }
-    );
+    const token = generateToken(user._id);
 
-    // Set authentication cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // true in production with HTTPS
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     return res.status(200).json({
@@ -123,7 +113,6 @@ const login = async (req, res) => {
         email: user.email,
       },
     });
-
   } catch (error) {
     console.error("Login error:", error);
 
@@ -133,6 +122,7 @@ const login = async (req, res) => {
     });
   }
 };
+
 
 const getCurrentUser = async (req, res) => {
   return res.status(200).json({
