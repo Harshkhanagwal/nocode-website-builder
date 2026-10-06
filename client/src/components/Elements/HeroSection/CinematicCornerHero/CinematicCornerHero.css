@@ -1,0 +1,754 @@
+/* =========================================
+   CINEMATIC CORNER HERO
+========================================= */
+
+.Cinematic-Corner-Hero {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+
+  min-height: 620px;
+
+  overflow: hidden;
+
+  background: var(--elm-color-background);
+
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   BACKGROUND IMAGE
+========================================= */
+
+.Cinematic-Corner-Hero-image {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 0;
+
+  transform: scale(1.02);
+}
+
+
+/* =========================================
+   CINEMATIC OVERLAY
+========================================= */
+
+.Cinematic-Corner-Hero-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.42) 0%,
+      rgba(0, 0, 0, 0.08) 35%,
+      rgba(0, 0, 0, 0.16) 55%,
+      rgba(0, 0, 0, 0.82) 100%
+    );
+}
+
+
+/* =========================================
+   FRAME
+========================================= */
+
+.Cinematic-Corner-Hero-frame {
+  position: absolute;
+
+  inset: clamp(
+    0.75rem,
+    3vw,
+    3rem
+  );
+
+  z-index: 2;
+
+  /* border: 1px solid
+    color-mix(
+      in srgb,
+      var(--elm-color-border) 65%,
+      transparent
+    ); */
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   TOP CONTENT
+========================================= */
+
+.Cinematic-Corner-Hero-top {
+  position: absolute;
+
+  top: clamp(
+    2rem,
+    6vw,
+    5rem
+  );
+
+  left: clamp(
+    2rem,
+    8vw,
+    9rem
+  );
+
+  z-index: 3;
+}
+
+
+.Cinematic-Corner-Hero-eyebrow {
+  margin: 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  font-weight: var(--elm-font-weight-medium);
+
+  line-height: 1;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  color: var(--elm-color-text);
+
+  opacity: 0.9;
+}
+
+
+/* =========================================
+   BOTTOM CONTENT
+========================================= */
+
+.Cinematic-Corner-Hero-bottom {
+  position: absolute;
+
+  left: clamp(
+    2rem,
+    8vw,
+    9rem
+  );
+
+  right: clamp(
+    2rem,
+    8vw,
+    9rem
+  );
+
+  bottom: clamp(
+    2rem,
+    7vw,
+    7rem
+  );
+
+  z-index: 3;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.15fr)
+    minmax(260px, 0.65fr);
+
+  align-items: end;
+
+  gap: clamp(
+    var(--elm-space-xl),
+    8vw,
+    var(--elm-space-4xl)
+  );
+}
+
+
+/* =========================================
+   LEFT CONTENT
+========================================= */
+
+.Cinematic-Corner-Hero-left {
+  max-width: 850px;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.Cinematic-Corner-Hero-title {
+  margin: 0;
+
+  font-family: var(--elm-font-heading);
+
+  font-size: clamp(
+    3.5rem,
+    6.5vw,
+    7rem
+  );
+
+  font-weight: var(--elm-font-weight-normal);
+
+  line-height: 0.92;
+
+  letter-spacing: -0.055em;
+
+  color: var(--elm-color-text);
+
+  text-wrap: balance;
+}
+
+
+/* =========================================
+   SUBHEADLINE
+========================================= */
+
+.Cinematic-Corner-Hero-subheadline {
+  max-width: 650px;
+
+  margin:
+    var(--elm-space-lg)
+    0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: clamp(
+    var(--elm-font-size-base),
+    1.4vw,
+    var(--elm-font-size-xl)
+  );
+
+  font-weight: var(--elm-font-weight-normal);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text);
+
+  opacity: 0.9;
+}
+
+
+/* =========================================
+   RIGHT CONTENT
+========================================= */
+
+.Cinematic-Corner-Hero-right {
+  max-width: 420px;
+
+  justify-self: end;
+
+  padding-bottom: var(--elm-space-xs);
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.Cinematic-Corner-Hero-description {
+  margin: 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  line-height: 1.65;
+
+  color: var(--elm-color-text);
+
+  opacity: 0.9;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.Cinematic-Corner-Hero-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: var(--elm-space-sm);
+
+  margin-top: var(--elm-space-xl);
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.Cinematic-Corner-Hero-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 46px;
+
+  padding:
+    0.75rem
+    1.5rem;
+
+  border-radius: var(--elm-radius-sm);
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  font-weight: var(--elm-font-weight-medium);
+
+  line-height: 1;
+
+  text-decoration: none;
+
+  transition:
+    background-color var(--elm-transition-fast),
+    color var(--elm-transition-fast),
+    border-color var(--elm-transition-fast),
+    transform var(--elm-transition-fast);
+}
+
+
+.Cinematic-Corner-Hero-button:hover {
+  text-decoration: none;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   PRIMARY
+========================================= */
+
+.Cinematic-Corner-Hero-button-primary {
+  background: var(--elm-color-primary);
+
+  color: var(--elm-color-background);
+
+  border: 1px solid var(--elm-color-primary);
+}
+
+
+.Cinematic-Corner-Hero-button-primary:hover {
+  background: var(--elm-color-primary-hover);
+
+  border-color: var(--elm-color-primary-hover);
+}
+
+
+/* =========================================
+   SECONDARY
+========================================= */
+
+.Cinematic-Corner-Hero-button-secondary {
+  background: transparent;
+
+  color: var(--elm-color-text);
+
+  border:
+    1px solid
+    color-mix(
+      in srgb,
+      var(--elm-color-text) 55%,
+      transparent
+    );
+}
+
+
+.Cinematic-Corner-Hero-button-secondary:hover {
+  background:
+    color-mix(
+      in srgb,
+      var(--elm-color-text) 12%,
+      transparent
+    );
+
+  border-color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   TRUST INDICATORS
+========================================= */
+
+.Cinematic-Corner-Hero-trust {
+  position: absolute;
+
+  left: clamp(
+    2rem,
+    8vw,
+    9rem
+  );
+
+  bottom: clamp(
+    0.75rem,
+    2vw,
+    2rem
+  );
+
+  z-index: 3;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: var(--elm-space-md);
+}
+
+
+.Cinematic-Corner-Hero-trust-item {
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-xs);
+
+  color: var(--elm-color-text);
+
+  opacity: 0.75;
+}
+
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.Cinematic-Corner-Hero-features {
+  position: absolute;
+
+  right: clamp(
+    2rem,
+    8vw,
+    9rem
+  );
+
+  bottom: clamp(
+    2rem,
+    7vw,
+    7rem
+  );
+
+  z-index: 4;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(180px, 1fr)
+    );
+
+  gap: var(--elm-space-sm);
+
+  max-width: 500px;
+}
+
+
+.Cinematic-Corner-Hero-feature {
+  padding: var(--elm-space-md);
+
+  background:
+    color-mix(
+      in srgb,
+      var(--elm-color-surface) 70%,
+      transparent
+    );
+
+  border:
+    1px solid
+    color-mix(
+      in srgb,
+      var(--elm-color-border) 45%,
+      transparent
+    );
+
+  border-radius: var(--elm-radius-md);
+
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+
+.Cinematic-Corner-Hero-feature-title {
+  margin: 0;
+
+  font-family: var(--elm-font-heading);
+
+  font-size: var(--elm-font-size-h5);
+
+  font-weight: var(--elm-font-weight-semibold);
+
+  color: var(--elm-color-text);
+}
+
+
+.Cinematic-Corner-Hero-feature-description {
+  margin:
+    var(--elm-space-xs)
+    0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text);
+
+  opacity: 0.75;
+}
+
+
+/* =========================================
+   ADDITIONAL CONTENT
+========================================= */
+
+.Cinematic-Corner-Hero-additional {
+  position: absolute;
+
+  left: clamp(
+    2rem,
+    8vw,
+    9rem
+  );
+
+  bottom: clamp(
+    1rem,
+    3vw,
+    3rem
+  );
+
+  z-index: 3;
+
+  max-width: 500px;
+
+  margin: 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  color: var(--elm-color-text);
+
+  opacity: 0.8;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .Cinematic-Corner-Hero-bottom {
+    left: 5vw;
+    right: 5vw;
+
+    grid-template-columns: 1fr;
+
+    gap: var(--elm-space-lg);
+  }
+
+
+  .Cinematic-Corner-Hero-right {
+    justify-self: start;
+
+    max-width: 520px;
+  }
+
+
+  .Cinematic-Corner-Hero-title {
+    font-size: clamp(
+      3.5rem,
+      10vw,
+      6rem
+    );
+  }
+
+
+  .Cinematic-Corner-Hero-features {
+    position: relative;
+
+    right: auto;
+    bottom: auto;
+
+    margin:
+      var(--elm-space-xl)
+      5vw
+      0;
+
+    max-width: none;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 640px) {
+
+  .Cinematic-Corner-Hero {
+    min-height: 100svh;
+  }
+
+
+  .Cinematic-Corner-Hero-frame {
+    inset: 0.75rem;
+  }
+
+
+  .Cinematic-Corner-Hero-top {
+    top: 2rem;
+    left: 2rem;
+  }
+
+
+  .Cinematic-Corner-Hero-eyebrow {
+    font-size: var(--elm-font-size-xs);
+
+    letter-spacing: 0.14em;
+  }
+
+
+  .Cinematic-Corner-Hero-bottom {
+    left: 2rem;
+    right: 2rem;
+
+    bottom: 2rem;
+
+    gap: var(--elm-space-lg);
+  }
+
+
+  .Cinematic-Corner-Hero-title {
+    font-size: clamp(
+      2.8rem,
+      14vw,
+      4.5rem
+    );
+
+    line-height: 0.95;
+  }
+
+
+  .Cinematic-Corner-Hero-subheadline {
+    margin-top: var(--elm-space-md);
+
+    font-size: var(--elm-font-size-base);
+  }
+
+
+  .Cinematic-Corner-Hero-description {
+    font-size: var(--elm-font-size-sm);
+
+    line-height: 1.55;
+  }
+
+
+  .Cinematic-Corner-Hero-actions {
+    margin-top: var(--elm-space-lg);
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .Cinematic-Corner-Hero-button {
+    width: 100%;
+  }
+
+
+  .Cinematic-Corner-Hero-trust {
+    left: 2rem;
+    right: 2rem;
+
+    bottom: 0.5rem;
+  }
+
+
+  .Cinematic-Corner-Hero-features {
+    grid-template-columns: 1fr;
+
+    margin-inline: 2rem;
+  }
+
+
+  .Cinematic-Corner-Hero-additional {
+    left: 2rem;
+    right: 2rem;
+
+    bottom: 1rem;
+
+    max-width: none;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+  .Cinematic-Corner-Hero-top {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+
+
+  .Cinematic-Corner-Hero-bottom {
+    left: 1.5rem;
+    right: 1.5rem;
+
+    bottom: 1.5rem;
+  }
+
+
+  .Cinematic-Corner-Hero-title {
+    font-size: clamp(
+      2.5rem,
+      14vw,
+      3.5rem
+    );
+  }
+
+
+  .Cinematic-Corner-Hero-description {
+    font-size: var(--elm-font-size-xs);
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .Cinematic-Corner-Hero-button {
+    transition: none;
+  }
+
+
+  .Cinematic-Corner-Hero-button:hover {
+    transform: none;
+  }
+}
