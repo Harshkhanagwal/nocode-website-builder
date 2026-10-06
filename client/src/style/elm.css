@@ -39,29 +39,30 @@
 ========================================================= */
 
 :root {
-  /* Colors */
-  --elm-color-primary: #059669;
-  --elm-color-primary-hover: #047857;
-  --elm-color-secondary: #ffffff;
+ 
+  /* Primary */
+--elm-color-primary: #8b5cf6;
+--elm-color-primary-hover: #7c3aed;
+--elm-color-secondary: #ffffff;
 
-  /* Text */
-  --elm-color-text: #064e3b;
-  --elm-color-text-muted: #6b7280;
-  --elm-color-text-light: #9ca3af;
+/* Text */
+--elm-color-text: #f5f3ff;
+--elm-color-text-muted: #a1a1aa;
+--elm-color-text-light: #71717a;
 
-  /* Background */
-  --elm-color-background: #ffffff;
-  --elm-color-surface: #f0fdf4;
+/* Background */
+--elm-color-background: #09090b;
+--elm-color-surface: #18181b;
 
-  /* Borders */
-  --elm-color-border: #d1fae5;
-  --elm-color-border-dark: #a7f3d0;
+/* Borders */
+--elm-color-border: #27272a;
+--elm-color-border-dark: #3f3f46;
 
-  /* Status */
-  --elm-color-success: #16a34a;
-  --elm-color-warning: #d97706;
-  --elm-color-danger: #dc2626;
-  --elm-color-info: #2563eb;
+/* Status */
+--elm-color-success: #22c55e;
+--elm-color-warning: #f59e0b;
+--elm-color-danger: #ef4444;
+--elm-color-info: #38bdf8;
 /* Typography */
 
   --elm-font-heading: "Sora", sans-serif;

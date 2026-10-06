@@ -1,0 +1,648 @@
+/* =========================================
+   CENTERED HERO
+========================================= */
+
+.Centered-hero {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--elm-space-4xl) var(--elm-space-lg);
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: var(--elm-color-background);
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.Centered-hero-background {
+  position: absolute;
+  inset: 0;
+
+  z-index: -2;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 5% 65%,
+      color-mix(
+        in srgb,
+        var(--elm-color-primary) 25%,
+        transparent
+      ) 0%,
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 95% 20%,
+      color-mix(
+        in srgb,
+        var(--elm-color-secondary) 10%,
+        transparent
+      ) 0%,
+      transparent 35%
+    ),
+    var(--elm-color-background);
+}
+
+
+/* =========================================
+   GRID
+========================================= */
+
+.Centered-hero::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  opacity: 0.16;
+
+  background-image:
+    linear-gradient(
+      to right,
+      var(--elm-color-border) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      var(--elm-color-border) 1px,
+      transparent 1px
+    );
+
+  background-size: 120px 120px;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.Centered-hero-container {
+  position: relative;
+
+  width: 100%;
+  max-width: var(--elm-container-xl);
+
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+}
+
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.Centered-hero-eyebrow {
+  margin: 0 0 var(--elm-space-lg);
+
+  font-family: var(--elm-font-body);
+  font-size: var(--elm-font-size-base);
+  font-weight: var(--elm-font-weight-medium);
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-primary);
+
+  letter-spacing: 0.04em;
+}
+
+
+/* =========================================
+   HEADLINE
+========================================= */
+
+.Centered-hero-title {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0;
+
+  font-family: var(--elm-font-heading);
+
+  font-size: clamp(
+    3.5rem,
+    7vw,
+    6.5rem
+  );
+
+  font-weight: var(--elm-font-weight-bold);
+
+  line-height: 0.96;
+
+  letter-spacing: -0.045em;
+
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   SUBHEADLINE
+========================================= */
+
+.Centered-hero-subheadline {
+  width: 100%;
+  max-width: 800px;
+
+  margin: var(--elm-space-xl) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: clamp(
+    var(--elm-font-size-h4),
+    2.2vw,
+    var(--elm-font-size-h3)
+  );
+
+  font-weight: var(--elm-font-weight-medium);
+
+  line-height: var(--elm-line-height-heading);
+
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.Centered-hero-description {
+  width: 100%;
+  max-width: 680px;
+
+  margin: var(--elm-space-md) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-normal);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text-muted);
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.Centered-hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: var(--elm-space-sm);
+
+  margin-top: var(--elm-space-xl);
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.Centered-hero-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 46px;
+
+  padding: 0.7rem 1.4rem;
+
+  border-radius: var(--elm-radius-md);
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-semibold);
+
+  text-decoration: none;
+
+  transition:
+    background-color var(--elm-transition-fast),
+    border-color var(--elm-transition-fast),
+    color var(--elm-transition-fast),
+    transform var(--elm-transition-fast),
+    box-shadow var(--elm-transition-fast);
+}
+
+.Centered-hero-button:hover {
+  text-decoration: none;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.Centered-hero-button-primary {
+  background: var(--elm-color-primary);
+
+  color: var(--elm-color-background);
+
+  border: 1px solid var(--elm-color-primary);
+
+  box-shadow: var(--elm-shadow-sm);
+}
+
+.Centered-hero-button-primary:hover {
+  background: var(--elm-color-primary-hover);
+
+  border-color: var(--elm-color-primary-hover);
+
+  box-shadow: var(--elm-shadow-md);
+}
+
+
+/* =========================================
+   SECONDARY BUTTON
+========================================= */
+
+.Centered-hero-button-secondary {
+  background: var(--elm-color-surface);
+
+  color: var(--elm-color-text);
+
+  border: 1px solid var(--elm-color-border);
+}
+
+.Centered-hero-button-secondary:hover {
+  background: var(--elm-color-background);
+
+  border-color: var(--elm-color-border-dark);
+
+  color: var(--elm-color-primary);
+}
+
+
+/* =========================================
+   MEDIA
+========================================= */
+
+.Centered-hero-media {
+  width: 100%;
+  max-width: var(--elm-container-lg);
+
+  margin-top: var(--elm-space-3xl);
+
+  overflow: hidden;
+
+  border: 1px solid var(--elm-color-border);
+
+  border-radius: var(--elm-radius-xl);
+
+  background: var(--elm-color-surface);
+
+  box-shadow: var(--elm-shadow-lg);
+}
+
+
+.Centered-hero-image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  max-height: 500px;
+
+  object-fit: cover;
+}
+
+
+/* =========================================
+   TRUST
+========================================= */
+
+.Centered-hero-trust {
+  width: 100%;
+  max-width: 720px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: var(--elm-space-3xl);
+
+  padding-top: var(--elm-space-lg);
+
+  border-top: 1px solid var(--elm-color-border);
+}
+
+
+.Centered-hero-trust-item {
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-medium);
+
+  color: var(--elm-color-text-muted);
+}
+
+
+/* =========================================
+   FEATURE HIGHLIGHT
+========================================= */
+
+.Centered-hero-features {
+  width: 100%;
+  max-width: 620px;
+
+  display: flex;
+  justify-content: center;
+
+  margin-top: var(--elm-space-lg);
+}
+
+
+.Centered-hero-feature {
+  position: relative;
+
+  width: 100%;
+
+  padding:
+    var(--elm-space-md)
+    var(--elm-space-xl);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--elm-space-md);
+
+  text-align: left;
+
+  background: color-mix(
+    in srgb,
+    var(--elm-color-surface) 70%,
+    transparent
+  );
+
+  border: 1px solid var(--elm-color-border);
+
+  border-radius: var(--elm-radius-full);
+
+  box-shadow: var(--elm-shadow-sm);
+
+  transition:
+    border-color var(--elm-transition-fast),
+    box-shadow var(--elm-transition-fast),
+    transform var(--elm-transition-fast);
+}
+
+
+.Centered-hero-feature::before {
+  content: "";
+
+  width: 6px;
+  height: 6px;
+
+  flex: 0 0 auto;
+
+  border-radius: var(--elm-radius-full);
+
+  background: var(--elm-color-primary);
+}
+
+
+.Centered-hero-feature:hover {
+  border-color: var(--elm-color-border-dark);
+
+  box-shadow: var(--elm-shadow-md);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   FEATURE TITLE
+========================================= */
+
+.Centered-hero-feature-title {
+  margin: 0;
+
+  font-family: var(--elm-font-heading);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-semibold);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   FEATURE DESCRIPTION
+========================================= */
+
+.Centered-hero-feature-description {
+  margin: 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text-muted);
+}
+
+
+/* =========================================
+   ADDITIONAL CONTENT
+========================================= */
+
+.Centered-hero-additional-content {
+  max-width: 600px;
+
+  margin: var(--elm-space-xl) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text-light);
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+
+  .Centered-hero {
+    min-height: 100svh;
+
+    padding:
+      var(--elm-space-3xl)
+      var(--elm-space-md);
+  }
+
+
+  .Centered-hero-title {
+    max-width: 720px;
+
+    font-size: clamp(
+      2.75rem,
+      9vw,
+      4.5rem
+    );
+  }
+
+
+  .Centered-hero-subheadline {
+    font-size: var(--elm-font-size-h4);
+  }
+
+
+  .Centered-hero-features {
+    max-width: 560px;
+  }
+
+
+  .Centered-hero-feature {
+    padding:
+      var(--elm-space-md)
+      var(--elm-space-lg);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .Centered-hero {
+    padding:
+      var(--elm-space-2xl)
+      var(--elm-space-md);
+  }
+
+
+  .Centered-hero-title {
+    font-size: clamp(
+      2.25rem,
+      12vw,
+      3.5rem
+    );
+
+    letter-spacing: -0.035em;
+  }
+
+
+  .Centered-hero-subheadline {
+    margin-top: var(--elm-space-lg);
+
+    font-size: var(--elm-font-size-h5);
+  }
+
+
+  .Centered-hero-actions {
+    width: 100%;
+
+    flex-direction: column;
+
+    margin-top: var(--elm-space-lg);
+  }
+
+
+  .Centered-hero-button {
+    width: 100%;
+  }
+
+
+  .Centered-hero-trust {
+    margin-top: var(--elm-space-2xl);
+  }
+
+
+  .Centered-hero-feature {
+    flex-direction: column;
+
+    gap: var(--elm-space-xs);
+
+    padding:
+      var(--elm-space-md)
+      var(--elm-space-lg);
+
+    text-align: center;
+
+    border-radius: var(--elm-radius-lg);
+  }
+
+
+  .Centered-hero-feature::before {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .Centered-hero-button,
+  .Centered-hero-feature {
+    transition: none;
+  }
+
+  .Centered-hero-button:hover,
+  .Centered-hero-feature:hover {
+    transform: none;
+  }
+}

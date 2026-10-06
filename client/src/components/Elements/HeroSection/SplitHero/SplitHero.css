@@ -1,0 +1,630 @@
+/* =========================================
+   SPLIT HERO
+========================================= */
+
+.Split-hero {
+  position: relative;
+  box-sizing: border-box;
+
+  width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+
+
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  overflow: hidden;
+
+  background: var(--elm-color-background);
+
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.Split-hero-content {
+  width: 100%;
+  max-width: var(--elm-container-md);
+
+  margin-inline: auto;
+
+  min-height: 100vh;
+  min-height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: flex-start;
+
+  padding:
+    var(--elm-space-4xl)
+    clamp(
+      var(--elm-space-xl),
+      6vw,
+      var(--elm-space-4xl)
+    );
+}
+
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.Split-hero-eyebrow {
+  display: inline-flex;
+
+  align-items: center;
+
+  margin: 0 0 var(--elm-space-lg);
+
+  padding:
+    var(--elm-space-xs)
+    var(--elm-space-sm);
+
+  border: 1px solid var(--elm-color-border);
+
+  border-radius: var(--elm-radius-full);
+
+  background: var(--elm-color-surface);
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  font-weight: var(--elm-font-weight-medium);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text-muted);
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.Split-hero-title {
+  width: 100%;
+
+  max-width: 650px;
+
+  margin: 0;
+
+  font-family: var(--elm-font-heading);
+
+  font-size: clamp(
+    2.75rem,
+    5vw,
+    5rem
+  );
+
+  font-weight: var(--elm-font-weight-bold);
+
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   SUBHEADLINE
+========================================= */
+
+.Split-hero-subheadline {
+  width: 100%;
+
+  max-width: 580px;
+
+  margin: var(--elm-space-xl) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: clamp(
+    var(--elm-font-size-lg),
+    2vw,
+    var(--elm-font-size-h4)
+  );
+
+  font-weight: var(--elm-font-weight-medium);
+
+  line-height: var(--elm-line-height-heading);
+
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.Split-hero-description {
+  width: 100%;
+
+  max-width: 540px;
+
+  margin: var(--elm-space-sm) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-normal);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text-muted);
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.Split-hero-actions {
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: var(--elm-space-sm);
+
+  margin-top: var(--elm-space-xl);
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.Split-hero-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+
+  padding:
+    0.7rem
+    1.25rem;
+
+  border-radius: var(--elm-radius-md);
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-semibold);
+
+  text-decoration: none;
+
+  transition:
+    background-color var(--elm-transition-fast),
+    border-color var(--elm-transition-fast),
+    color var(--elm-transition-fast),
+    transform var(--elm-transition-fast),
+    box-shadow var(--elm-transition-fast);
+}
+
+
+.Split-hero-button:hover {
+  text-decoration: none;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.Split-hero-button-primary {
+  background: var(--elm-color-primary);
+
+  color: var(--elm-color-background);
+
+  border: 1px solid var(--elm-color-primary);
+
+  box-shadow: var(--elm-shadow-sm);
+}
+
+
+.Split-hero-button-primary:hover {
+  background: var(--elm-color-primary-hover);
+
+  border-color: var(--elm-color-primary-hover);
+
+  box-shadow: var(--elm-shadow-md);
+}
+
+
+/* =========================================
+   SECONDARY BUTTON
+========================================= */
+
+.Split-hero-button-secondary {
+  background: var(--elm-color-surface);
+
+  color: var(--elm-color-text);
+
+  border: 1px solid var(--elm-color-border);
+}
+
+
+.Split-hero-button-secondary:hover {
+  background: var(--elm-color-background);
+
+  border-color: var(--elm-color-border-dark);
+
+  color: var(--elm-color-primary);
+}
+
+
+/* =========================================
+   MEDIA
+========================================= */
+
+.Split-hero-media {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: var(--elm-color-surface);
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.Split-hero-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  transition:
+    transform var(--elm-transition-slow);
+}
+
+
+.Split-hero-media:hover .Split-hero-image {
+  transform: scale(1.025);
+}
+
+
+/* =========================================
+   IMAGE OVERLAY
+========================================= */
+
+.Split-hero-media::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    color-mix(
+      in srgb,
+      var(--elm-color-background) 8%,
+      transparent
+    ),
+    transparent 30%
+  );
+}
+
+
+/* =========================================
+   TRUST
+========================================= */
+
+.Split-hero-trust {
+  width: 100%;
+
+  max-width: 540px;
+
+  display: flex;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: var(--elm-space-sm);
+
+  margin-top: var(--elm-space-xl);
+
+  padding-top: var(--elm-space-lg);
+
+  border-top: 1px solid var(--elm-color-border);
+}
+
+
+.Split-hero-trust-item {
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  font-weight: var(--elm-font-weight-medium);
+
+  color: var(--elm-color-text-muted);
+}
+
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.Split-hero-features {
+  width: 100%;
+
+  max-width: 540px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
+
+  gap: var(--elm-space-sm);
+
+  margin-top: var(--elm-space-xl);
+}
+
+
+.Split-hero-feature {
+  padding: var(--elm-space-md);
+
+  border: 1px solid var(--elm-color-border);
+
+  border-radius: var(--elm-radius-md);
+
+  background: var(--elm-color-surface);
+}
+
+
+.Split-hero-feature-title {
+  margin: 0;
+
+  font-family: var(--elm-font-heading);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-semibold);
+
+  line-height: var(--elm-line-height-heading);
+
+  color: var(--elm-color-text);
+}
+
+
+.Split-hero-feature-description {
+  margin: var(--elm-space-xs) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text-muted);
+}
+
+
+/* =========================================
+   ADDITIONAL CONTENT
+========================================= */
+
+.Split-hero-additional-content {
+  width: 100%;
+
+  max-width: 540px;
+
+  margin: var(--elm-space-xl) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  line-height: var(--elm-line-height);
+
+  color: var(--elm-color-text-light);
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .Split-hero {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 0.9fr);
+  }
+
+
+  .Split-hero-content {
+    padding:
+      var(--elm-space-3xl)
+      var(--elm-space-xl);
+  }
+
+
+  .Split-hero-title {
+    font-size: clamp(
+      2.5rem,
+      5.5vw,
+      4rem
+    );
+  }
+
+
+  .Split-hero-subheadline {
+    font-size: var(--elm-font-size-lg);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+  .Split-hero {
+    min-height: auto;
+
+    display: flex;
+
+    flex-direction: column;
+  }
+
+
+  .Split-hero-content {
+    min-height: auto;
+
+    max-width: none;
+
+    padding:
+      var(--elm-space-3xl)
+      var(--elm-space-lg);
+  }
+
+
+  .Split-hero-title {
+    max-width: 700px;
+
+    font-size: clamp(
+      2.75rem,
+      11vw,
+      4rem
+    );
+  }
+
+
+  .Split-hero-subheadline {
+    margin-top: var(--elm-space-lg);
+
+    font-size: var(--elm-font-size-lg);
+  }
+
+
+  .Split-hero-actions {
+    width: 100%;
+  }
+
+
+  .Split-hero-media {
+    width: 100%;
+
+    height: 55svh;
+
+    min-height: 320px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .Split-hero-content {
+    padding:
+      var(--elm-space-2xl)
+      var(--elm-space-md);
+  }
+
+
+  .Split-hero-title {
+    font-size: clamp(
+      2.4rem,
+      13vw,
+      3.5rem
+    );
+  }
+
+
+  .Split-hero-description {
+    font-size: var(--elm-font-size-sm);
+  }
+
+
+  .Split-hero-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .Split-hero-button {
+    width: 100%;
+  }
+
+
+  .Split-hero-media {
+    height: 300px;
+
+    min-height: 300px;
+  }
+
+
+  .Split-hero-trust {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+
+  .Split-hero-features {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .Split-hero-button,
+  .Split-hero-image {
+    transition: none;
+  }
+
+
+  .Split-hero-button:hover {
+    transform: none;
+  }
+
+
+  .Split-hero-media:hover .Split-hero-image {
+    transform: none;
+  }
+}
