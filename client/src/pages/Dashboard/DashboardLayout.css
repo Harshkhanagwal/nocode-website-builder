@@ -23,7 +23,7 @@
 
   padding: 20px 12px;
 
-  background: var(--color-background);
+  background: var( --color-surface);
   border-right: 1px solid var(--color-border);
 }
 
@@ -280,4 +280,11 @@
 .dashboard-logout:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.dashboard-main{
+    width: calc(100vw);
+    padding: 20px;
+
+    padding-left: 240px;
 }

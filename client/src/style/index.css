@@ -10,87 +10,36 @@
 
 :root {
 
-  /* ---------- Brand ---------- */
+ --color-primary: #2F80ED;
+  --color-primary-hover: #256FD1;
+  --color-primary-soft: #EAF3FF;
 
-  /* --color-primary: #f07c3e;
-  --color-primary-hover: #df6d32;
-  --color-primary-soft: #fff1e9; */
+  --color-background: #EEF6FF;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F7FBFF;
+  --color-surface-active: #EDF5FF;
 
+  --color-text: #111827;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #8A98A8;
+  --color-text-light: #B6C1CC;
+  --color-text-inverse: #FFFFFF;
 
-  /* ---------- Background ---------- */
-  /* 
-  --color-background: #ffffff;
-  --color-surface: #f8f8f7;
-  --color-surface-hover: #f2f2f0;
-  --color-surface-active: #ededeb; */
+  --color-border: #DCE8F4;
+  --color-border-light: #EAF1F7;
+  --color-border-dark: #C7D8E8;
 
+  --color-success: #22A06B;
+  --color-success-soft: #EAF8F1;
 
-  /* ---------- Text ---------- */
-  /* 
-  --color-text: #202020;
-  --color-text-secondary: #555555;
-  --color-text-muted: #858585;
-  --color-text-light: #a5a5a5;
-  --color-text-inverse: #ffffff; */
+  --color-warning: #D99A24;
+  --color-warning-soft: #FFF7E5;
 
+  --color-danger: #DC4C4C;
+  --color-danger-soft: #FDECEC;
 
-  /* ---------- Border ---------- */
-  /* 
-  --color-border: #e7e7e5;
-  --color-border-light: #eeeeec;
-  --color-border-dark: #d5d5d2; */
-
-
-  /* ---------- Status ---------- */
-  /* 
-  --color-success: #22a06b;
-  --color-success-soft: #eaf8f1;
-
-  --color-warning: #d99000;
-  --color-warning-soft: #fff7df;
-
-  --color-danger: #d64545;
-  --color-danger-soft: #fff0f0;
-
-  --color-info: #3478d4;
-  --color-info-soft: #edf5ff; */
-
-  /* Primary */
-  --color-primary: #111111;
-  --color-primary-hover: #000000;
-  --color-primary-soft: #f2f2f2;
-
-  /* Background */
-  --color-background: #ffffff;
-  --color-surface: #fafafa;
-  --color-surface-hover: #f4f4f4;
-  --color-surface-active: #eeeeee;
-
-  /* Text */
-  --color-text: #111111;
-  --color-text-secondary: #555555;
-  --color-text-muted: #888888;
-  --color-text-light: #aaaaaa;
-  --color-text-inverse: #ffffff;
-
-  /* Borders */
-  --color-border: #e5e5e5;
-  --color-border-light: #eeeeee;
-  --color-border-dark: #d2d2d2;
-
-  /* Status */
-  --color-success: #222222;
-  --color-success-soft: #f2f2f2;
-
-  --color-warning: #333333;
-  --color-warning-soft: #f4f4f4;
-
-  --color-danger: #222222;
-  --color-danger-soft: #f2f2f2;
-
-  --color-info: #333333;
-  --color-info-soft: #f3f3f3;
-
+  --color-info: #2F80ED;
+  --color-info-soft: #EAF3FF;
 
   /* ---------- Typography ---------- */
   --font-family:
@@ -809,6 +758,61 @@
 
   border-top: 1px solid var(--color-border);
 }
+.modal-input {
+  width: 100%;
+  height: 52px;
+
+  padding: 0 var(--space-3);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-surface);
+
+  color: var(--color-text);
+
+  font-family: inherit;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+
+  outline: none;
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.modal-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* .modal-input:hover {
+  border-color: var(--color-border-hover);
+} */
+
+.modal-input:focus {
+  border-color: var(--color-primary);
+
+  box-shadow: 0 0 0 3px var(--color-primary-alpha);
+}
+
+.modal-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+
+  background: var(--color-background-secondary);
+}
+
+.modal-input.error {
+  border-color: var(--color-danger);
+}
+
+.modal-input.error:focus {
+  box-shadow: 0 0 0 3px var(--color-danger-alpha);
+}
+
 
 
 /* =========================================================
@@ -857,6 +861,7 @@
 .toggle.active .toggle-thumb {
   transform: translateX(18px);
 }
+
 
 
 /* =========================================================
@@ -1144,4 +1149,17 @@
   .button {
     min-height: 40px;
   }
+}
+
+.overlay-dashboard{
+  background-color: #0000005c;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
