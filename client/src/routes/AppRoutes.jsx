@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import Home from "../pages/Home/Home";
 import Login from "../pages/Auth/Login";
@@ -13,9 +14,44 @@ import Projects from "../pages/Dashboard/Projects/Projects";
 import Templates from "../pages/Dashboard/Templates/Templates";
 import Queries from "../pages/Dashboard/Queries/Queries";
 
+import { getAllWebsites } from "../api/websiteApi";
+import UserWebPage from "../components/UserWebPage/UserWebPage";
+
 const AppRoutes = () => {
+  const [websites, setWebsites] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchWebsites = async () => {
+      try {
+        setLoading(true);
+
+        const data = await getAllWebsites();
+
+        setWebsites(data.websites);
+      } catch (error) {
+        console.error("Failed to fetch websites:", error);
+        setError("Failed to load websites");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWebsites();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   return (
     <Routes>
+      {/* Home */}
       <Route path="/" element={<Home />} />
 
       {/* Public */}
@@ -33,6 +69,16 @@ const AppRoutes = () => {
         </Route>
       </Route>
 
+      {/* User Websites */}
+      {websites.map((website) => (
+        <Route
+          key={website._id}
+          path={`/${website.slug}`}
+          element={<UserWebPage website={website} websiteId={website._id} />}
+        />
+      ))}
+
+      {/* Not Found */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

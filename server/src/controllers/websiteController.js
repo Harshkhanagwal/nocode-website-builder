@@ -191,10 +191,65 @@ const deleteWebsite = async (req, res) => {
   }
 };
 
+// Get all websites for listing
+const getAllWebsites = async (req, res) => {
+  try {
+    const websites = await Website.find({})
+      .select("_id name slug owner createdAt")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      count: websites.length,
+      websites,
+    });
+  } catch (error) {
+    console.error("Get all websites error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch websites",
+    });
+  }
+};
+
+
+// Get website by ID
+const getWebsiteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const website = await Website.findById(id)
+      .populate("theme")
+      .populate("typography");
+
+    if (!website) {
+      return res.status(404).json({
+        success: false,
+        message: "Website not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      website,
+    });
+  } catch (error) {
+    console.error("Get website by ID error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch website",
+    });
+  }
+};
+
 module.exports = {
   createWebsite,
   getWebsites,
+  getAllWebsites,
   getWebsite,
+  getWebsiteById,
   updateWebsite,
   deleteWebsite,
 };

@@ -12,3 +12,16 @@ export const createWebsite = async (websiteData) => {
 
   return response.data;
 };
+
+// Get all websites
+export const getAllWebsites = async () => {
+  const response = await API.get("/websites/all");
+
+  return response.data;
+};
+
+export const getWebsiteById = async (id) => {
+  const response = await API.get(`/websites/by-id/${id}`);
+
+  return response.data;
+};
