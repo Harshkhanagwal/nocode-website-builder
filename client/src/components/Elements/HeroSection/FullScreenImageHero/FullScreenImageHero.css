@@ -1,0 +1,684 @@
+/* =========================================
+   FULLSCREEN IMAGE HERO
+========================================= */
+
+.Fullscreen-hero {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+
+  min-height: 600px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: var(--elm-color-background);
+
+  color: var(--elm-color-background);
+}
+
+
+/* =========================================
+   BACKGROUND IMAGE
+========================================= */
+
+.Fullscreen-hero-image {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  max-width: none;
+
+  object-fit: cover;
+
+  object-position: center;
+}
+
+
+/* =========================================
+   IMAGE OVERLAY
+========================================= */
+
+.Fullscreen-hero-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(
+        in srgb,
+        var(--elm-color-text) 35%,
+        transparent
+      ) 0%,
+      color-mix(
+        in srgb,
+        var(--elm-color-text) 48%,
+        transparent
+      ) 50%,
+      color-mix(
+        in srgb,
+        var(--elm-color-text) 58%,
+        transparent
+      ) 100%
+    );
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.Fullscreen-hero-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  max-width: var(--elm-container-lg);
+
+  margin-inline: auto;
+
+  padding:
+    var(--elm-space-4xl)
+    var(--elm-space-xl);
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+}
+
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.Fullscreen-hero-eyebrow {
+  margin: 0 0 var(--elm-space-lg);
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  font-weight: var(--elm-font-weight-semibold);
+
+  line-height: var(--elm-line-height);
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: var(--elm-color-background);
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.Fullscreen-hero-title {
+  width: 100%;
+
+  max-width: 1000px;
+
+  margin: 0;
+
+  font-family: var(--elm-font-heading);
+
+  font-size: clamp(
+    3rem,
+    8vw,
+    7rem
+  );
+
+  font-weight: var(--elm-font-weight-bold);
+
+  line-height: 0.92;
+
+  letter-spacing: -0.05em;
+
+  color: var(--elm-color-background);
+
+  text-wrap: balance;
+
+  text-shadow:
+    0 2px 20px
+    color-mix(
+      in srgb,
+      var(--elm-color-text) 35%,
+      transparent
+    );
+}
+
+
+/* =========================================
+   SUBHEADLINE
+========================================= */
+
+.Fullscreen-hero-subheadline {
+  width: 100%;
+
+  max-width: 720px;
+
+  margin: var(--elm-space-xl) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: clamp(
+    var(--elm-font-size-lg),
+    2vw,
+    var(--elm-font-size-h4)
+  );
+
+  font-weight: var(--elm-font-weight-medium);
+
+  line-height: var(--elm-line-height-heading);
+
+  color: var(--elm-color-background);
+
+  text-shadow:
+    0 1px 10px
+    color-mix(
+      in srgb,
+      var(--elm-color-text) 35%,
+      transparent
+    );
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.Fullscreen-hero-description {
+  width: 100%;
+
+  max-width: 620px;
+
+  margin: var(--elm-space-sm) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-normal);
+
+  line-height: var(--elm-line-height);
+
+  color: color-mix(
+    in srgb,
+    var(--elm-color-background) 82%,
+    transparent
+  );
+
+  text-shadow:
+    0 1px 8px
+    color-mix(
+      in srgb,
+      var(--elm-color-text) 30%,
+      transparent
+    );
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.Fullscreen-hero-actions {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: var(--elm-space-sm);
+
+  margin-top: var(--elm-space-xl);
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.Fullscreen-hero-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 46px;
+
+  padding:
+    0.7rem
+    1.5rem;
+
+  border-radius: var(--elm-radius-sm);
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-semibold);
+
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  transition:
+    background-color var(--elm-transition-fast),
+    color var(--elm-transition-fast),
+    border-color var(--elm-transition-fast),
+    transform var(--elm-transition-fast),
+    box-shadow var(--elm-transition-fast);
+}
+
+
+.Fullscreen-hero-button:hover {
+  text-decoration: none;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.Fullscreen-hero-button-primary {
+  background: var(--elm-color-primary);
+
+  color: var(--elm-color-background);
+
+  border: 1px solid var(--elm-color-primary);
+
+  box-shadow: var(--elm-shadow-md);
+}
+
+
+.Fullscreen-hero-button-primary:hover {
+  background: var(--elm-color-primary-hover);
+
+  border-color: var(--elm-color-primary-hover);
+
+  box-shadow: var(--elm-shadow-lg);
+}
+
+
+/* =========================================
+   SECONDARY BUTTON
+========================================= */
+
+.Fullscreen-hero-button-secondary {
+  background: color-mix(
+    in srgb,
+    var(--elm-color-background) 12%,
+    transparent
+  );
+
+  color: var(--elm-color-background);
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--elm-color-background) 65%,
+    transparent
+  );
+
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+
+.Fullscreen-hero-button-secondary:hover {
+  background: var(--elm-color-background);
+
+  border-color: var(--elm-color-background);
+
+  color: var(--elm-color-text);
+}
+
+
+/* =========================================
+   TRUST INDICATORS
+========================================= */
+
+.Fullscreen-hero-trust {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: var(--elm-space-md);
+
+  margin-top: var(--elm-space-xl);
+
+  padding-top: var(--elm-space-lg);
+
+  border-top: 1px solid color-mix(
+    in srgb,
+    var(--elm-color-background) 30%,
+    transparent
+  );
+}
+
+
+.Fullscreen-hero-trust-item {
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  font-weight: var(--elm-font-weight-medium);
+
+  color: color-mix(
+    in srgb,
+    var(--elm-color-background) 82%,
+    transparent
+  );
+}
+
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.Fullscreen-hero-features {
+  width: 100%;
+
+  max-width: 760px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(200px, 1fr));
+
+  gap: var(--elm-space-sm);
+
+  margin-top: var(--elm-space-xl);
+}
+
+
+.Fullscreen-hero-feature {
+  padding:
+    var(--elm-space-md)
+    var(--elm-space-lg);
+
+  text-align: left;
+
+  background: color-mix(
+    in srgb,
+    var(--elm-color-background) 10%,
+    transparent
+  );
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--elm-color-background) 25%,
+    transparent
+  );
+
+  border-radius: var(--elm-radius-md);
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+
+.Fullscreen-hero-feature-title {
+  margin: 0;
+
+  font-family: var(--elm-font-heading);
+
+  font-size: var(--elm-font-size-base);
+
+  font-weight: var(--elm-font-weight-semibold);
+
+  line-height: var(--elm-line-height-heading);
+
+  color: var(--elm-color-background);
+}
+
+
+.Fullscreen-hero-feature-description {
+  margin: var(--elm-space-xs) 0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  line-height: var(--elm-line-height);
+
+  color: color-mix(
+    in srgb,
+    var(--elm-color-background) 72%,
+    transparent
+  );
+}
+
+
+/* =========================================
+   ADDITIONAL CONTENT
+========================================= */
+
+.Fullscreen-hero-additional-content {
+  max-width: 600px;
+
+  margin:
+    var(--elm-space-lg)
+    0 0;
+
+  font-family: var(--elm-font-body);
+
+  font-size: var(--elm-font-size-sm);
+
+  line-height: var(--elm-line-height);
+
+  color: color-mix(
+    in srgb,
+    var(--elm-color-background) 72%,
+    transparent
+  );
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .Fullscreen-hero {
+    min-height: 100svh;
+  }
+
+  .Fullscreen-hero-content {
+    padding:
+      var(--elm-space-3xl)
+      var(--elm-space-lg);
+  }
+
+  .Fullscreen-hero-title {
+    font-size: clamp(
+      3rem,
+      9vw,
+      5.5rem
+    );
+  }
+
+  .Fullscreen-hero-subheadline {
+    font-size: var(--elm-font-size-lg);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+  .Fullscreen-hero {
+    min-height: 100svh;
+
+    height: 100svh;
+
+    min-height: 560px;
+  }
+
+
+  .Fullscreen-hero-content {
+    max-width: 100%;
+
+    padding:
+      var(--elm-space-2xl)
+      var(--elm-space-md);
+  }
+
+
+  .Fullscreen-hero-eyebrow {
+    margin-bottom: var(--elm-space-md);
+
+    font-size: var(--elm-font-size-xs);
+
+    letter-spacing: 0.1em;
+  }
+
+
+  .Fullscreen-hero-title {
+    font-size: clamp(
+      2.75rem,
+      12vw,
+      4.5rem
+    );
+
+    line-height: 0.95;
+
+    letter-spacing: -0.04em;
+  }
+
+
+  .Fullscreen-hero-subheadline {
+    margin-top: var(--elm-space-lg);
+
+    font-size: var(--elm-font-size-lg);
+  }
+
+
+  .Fullscreen-hero-description {
+    font-size: var(--elm-font-size-sm);
+  }
+
+
+  .Fullscreen-hero-actions {
+    width: 100%;
+
+    margin-top: var(--elm-space-lg);
+  }
+
+
+  .Fullscreen-hero-button {
+    min-height: 44px;
+
+    padding-inline: 1.25rem;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .Fullscreen-hero {
+    min-height: 600px;
+  }
+
+
+  .Fullscreen-hero-content {
+    padding:
+      var(--elm-space-xl)
+      var(--elm-space-md);
+  }
+
+
+  .Fullscreen-hero-title {
+    font-size: clamp(
+      2.5rem,
+      14vw,
+      3.75rem
+    );
+  }
+
+
+  .Fullscreen-hero-subheadline {
+    font-size: var(--elm-font-size-base);
+  }
+
+
+  .Fullscreen-hero-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .Fullscreen-hero-button {
+    width: 100%;
+  }
+
+
+  .Fullscreen-hero-trust {
+    flex-direction: column;
+
+    gap: var(--elm-space-xs);
+
+    padding-top: var(--elm-space-md);
+  }
+
+
+  .Fullscreen-hero-features {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .Fullscreen-hero-button {
+    transition: none;
+  }
+
+  .Fullscreen-hero-button:hover {
+    transform: none;
+  }
+}

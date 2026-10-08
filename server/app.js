@@ -6,6 +6,10 @@ const app = express();
 
 const heroRoutes = require("./src/routes/heroRoutes");
 const authRoutes = require("./src/routes/authRoutes");
+const colorThemeRoutes = require("./src/routes/colorThemeRoutes");
+const typographyRoutes = require("./src/routes/typographyRoutes");
+const websiteRoutes = require("./src/routes/websiteRoutes");
+
 
 app.use(
   cors({
@@ -20,6 +24,9 @@ app.use(cookieParser());
 
 app.use("/api/hero", heroRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/color-themes", colorThemeRoutes);
+app.use("/api/typographies", typographyRoutes); 
+app.use("/api/websites", websiteRoutes);
 
 
 /* -------------------- HEALTH CHECK -------------------- */
