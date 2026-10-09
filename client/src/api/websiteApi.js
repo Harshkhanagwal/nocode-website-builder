@@ -25,3 +25,9 @@ export const getWebsiteById = async (id) => {
 
   return response.data;
 };
+
+export const getUserWebsites = async () => {
+  const response = await API.get("/websites");
+
+  return response.data;
+};

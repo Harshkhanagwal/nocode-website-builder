@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import SplitHero from '../Elements/HeroSection/SplitHero/SplitHero'
-import { getWebsiteById } from '../../api/websiteApi';
-
+import React, { useEffect, useState } from "react";
+import SplitHero from "../Elements/HeroSection/SplitHero/SplitHero";
+import { getWebsiteById } from "../../api/websiteApi";
 
 const heroData = {
   type: "hero",
@@ -64,12 +63,8 @@ const heroData = {
   },
 };
 
-
-
-
-const UserWebPage = ({websiteId, data}) => {
-
-const [website, setWebsite] = useState(null);
+const UserWebPage = ({ websiteId }) => {
+  const [website, setWebsite] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -82,7 +77,7 @@ const [website, setWebsite] = useState(null);
 
         setWebsite(data.website);
 
-        console.log(data.website)
+        console.log("WEBSITE:", data.website);
       } catch (error) {
         console.error("Failed to fetch website:", error);
         setError("Failed to load website");
@@ -104,11 +99,83 @@ const [website, setWebsite] = useState(null);
     return <p>{error}</p>;
   }
 
-  return (
-    <div>
-        <SplitHero data={heroData}/>
-    </div>
-  )
-}
+  if (!website) {
+    return <p>Website not found.</p>;
+  }
 
-export default UserWebPage
+
+  const colors = website?.theme?.colorPalette;
+  const typography = website?.typography;
+
+  const themeStyles = {
+    // Colors
+    "--elm-color-primary": colors?.primary,
+    "--elm-color-primary-hover": colors?.primaryHover,
+    "--elm-color-secondary": colors?.secondary,
+
+    "--elm-color-text": colors?.text,
+    "--elm-color-text-muted": colors?.textMuted,
+    "--elm-color-text-light": colors?.textLight,
+
+    "--elm-color-background": colors?.background,
+    "--elm-color-surface": colors?.surface,
+
+    "--elm-color-border": colors?.border,
+    "--elm-color-border-dark": colors?.borderDark,
+
+    "--elm-color-success": colors?.success,
+    "--elm-color-warning": colors?.warning,
+    "--elm-color-danger": colors?.danger,
+    "--elm-color-info": colors?.info,
+
+    // Fonts
+    "--elm-font-heading": `"${typography?.headingFont?.family}", ${typography?.headingFont?.category}`,
+    "--elm-font-body": `"${typography?.bodyFont?.family}", ${typography?.bodyFont?.category}`,
+
+    // Base
+    "--elm-font-size-base": `${typography?.typography?.baseSize}px`,
+
+    // Font sizes
+    "--elm-font-size-h1": `${typography?.typography?.h1?.size}px`,
+    "--elm-font-size-h2": `${typography?.typography?.h2?.size}px`,
+    "--elm-font-size-h3": `${typography?.typography?.h3?.size}px`,
+    "--elm-font-size-h4": `${typography?.typography?.h4?.size}px`,
+    "--elm-font-size-h5": `${typography?.typography?.h5?.size}px`,
+    "--elm-font-size-h6": `${typography?.typography?.h6?.size}px`,
+
+    // Line heights
+    "--elm-line-height": typography?.typography?.body?.lineHeight,
+
+    "--elm-line-height-h1": typography?.typography?.h1?.lineHeight,
+    "--elm-line-height-h2": typography?.typography?.h2?.lineHeight,
+    "--elm-line-height-h3": typography?.typography?.h3?.lineHeight,
+    "--elm-line-height-h4": typography?.typography?.h4?.lineHeight,
+    "--elm-line-height-h5": typography?.typography?.h5?.lineHeight,
+    "--elm-line-height-h6": typography?.typography?.h6?.lineHeight,
+
+    // Font weights
+    "--elm-font-weight-normal": typography?.typography?.body?.weight,
+    "--elm-font-weight-medium": 500,
+    "--elm-font-weight-semibold": 600,
+    "--elm-font-weight-bold": 700,
+
+    "--elm-font-weight-h1": typography?.typography?.h1?.weight,
+    "--elm-font-weight-h2": typography?.typography?.h2?.weight,
+    "--elm-font-weight-h3": typography?.typography?.h3?.weight,
+    "--elm-font-weight-h4": typography?.typography?.h4?.weight,
+    "--elm-font-weight-h5": typography?.typography?.h5?.weight,
+    "--elm-font-weight-h6": typography?.typography?.h6?.weight,
+  };
+
+  return (
+    <div
+      className="elm-website"
+      style={themeStyles}
+    >
+      <SplitHero data={heroData} />
+
+    </div>
+  );
+};
+
+export default UserWebPage;
