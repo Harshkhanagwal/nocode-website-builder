@@ -1,0 +1,520 @@
+.add-section-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(17, 24, 39, 0.48);
+  backdrop-filter: blur(5px);
+}
+
+.add-section-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(920px, 100%);
+  max-height: min(780px, 90vh);
+  overflow: hidden;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(17, 24, 39, 0.18);
+}
+
+/* Header */
+
+.add-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 26px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.add-section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.add-section-header h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 21px;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+
+.add-section-header p {
+  margin: 6px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.add-section-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.add-section-icon-button:hover:not(:disabled) {
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.add-section-icon-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Search and category filters */
+
+.add-section-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  padding: 20px 26px 18px;
+}
+
+.add-section-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 13px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.add-section-search:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.add-section-search input {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  outline: none;
+  font: inherit;
+  font-size: 13px;
+}
+
+.add-section-search input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.add-section-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.add-section-category {
+  padding: 8px 13px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 550;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.add-section-category:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border-color: var(--color-border-dark);
+}
+
+.add-section-category.active {
+  color: var(--color-text-inverse);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.add-section-category.active:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+/* Scrollable content */
+
+.add-section-body {
+  min-height: 180px;
+  padding: 4px 26px 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.add-section-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.add-section-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.add-section-body::-webkit-scrollbar-thumb {
+  background: var(--color-border-dark);
+  border-radius: 10px;
+}
+
+/* Section type cards */
+
+.add-section-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.add-section-type-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  padding: 17px;
+  color: var(--color-text);
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.add-section-type-card:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(47, 128, 237, 0.07);
+  transform: translateY(-1px);
+}
+
+.add-section-type-card:focus-visible,
+.add-section-variant-card:focus-visible,
+.add-section-cancel:focus-visible,
+.add-section-icon-button:focus-visible,
+.add-section-category:focus-visible {
+  outline: 3px solid var(--color-primary-soft);
+  outline-offset: 2px;
+}
+
+.add-section-type-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.add-section-type-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 5px;
+}
+
+.add-section-type-info > strong {
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.add-section-type-info > span {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.add-section-type-info > small {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Empty search results */
+
+.add-section-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 240px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.add-section-empty strong {
+  color: var(--color-text);
+  font-size: 14px;
+}
+
+.add-section-empty span {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+/* Layout variant cards */
+
+.add-section-variants-body {
+  padding-top: 22px;
+}
+
+.add-section-variant-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.add-section-variant-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  color: var(--color-text);
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.add-section-variant-card:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 22px rgba(47, 128, 237, 0.12);
+  transform: translateY(-2px);
+}
+
+.add-section-variant-card:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.add-section-variant-image-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-background);
+}
+
+.add-section-variant-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 220ms ease;
+}
+
+.add-section-variant-card:hover .add-section-variant-image {
+  transform: scale(1.035);
+}
+
+.add-section-variant-action {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  color: var(--color-text-inverse);
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    background 160ms ease;
+}
+
+.add-section-variant-card:hover .add-section-variant-action,
+.add-section-variant-card:focus-visible .add-section-variant-action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.add-section-variant-card:hover .add-section-variant-action {
+  background: var(--color-primary-hover);
+}
+
+.add-section-variant-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+}
+
+.add-section-variant-info strong {
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.add-section-variant-info span {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Error message */
+
+.add-section-error {
+  margin: 16px 0 0;
+  padding: 10px 12px;
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+  border: 1px solid var(--color-danger-soft);
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Footer */
+
+.add-section-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 26px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.add-section-footer > span {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.add-section-cancel {
+  min-height: 36px;
+  padding: 0 15px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.add-section-cancel:hover:not(:disabled) {
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border-color: var(--color-border-dark);
+}
+
+.add-section-cancel:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+
+@media (max-width: 640px) {
+  .add-section-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .add-section-modal {
+    width: 100%;
+    max-height: 92dvh;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .add-section-header {
+    padding: 20px 17px 16px;
+  }
+
+  .add-section-header h2 {
+    font-size: 18px;
+  }
+
+  .add-section-toolbar {
+    padding: 16px 17px;
+  }
+
+  .add-section-body {
+    padding-right: 17px;
+    padding-left: 17px;
+  }
+
+  .add-section-grid,
+  .add-section-variant-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .add-section-type-card {
+    padding: 14px;
+  }
+
+  .add-section-footer {
+    padding: 13px 17px;
+  }
+
+  .add-section-variant-action {
+    opacity: 1;
+    transform: none;
+  }
+}

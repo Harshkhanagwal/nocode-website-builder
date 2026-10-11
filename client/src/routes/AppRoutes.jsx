@@ -16,6 +16,7 @@ import Queries from "../pages/Dashboard/Queries/Queries";
 
 import { getAllWebsites } from "../api/websiteApi";
 import UserWebPage from "../components/UserWebPage/UserWebPage";
+import EditWebsite from "../pages/EditWebsite/EditWebsite";
 
 const AppRoutes = () => {
   const [websites, setWebsites] = useState([]);
@@ -71,11 +72,22 @@ const AppRoutes = () => {
 
       {/* User Websites */}
       {websites.map((website) => (
-        <Route
-          key={website._id}
-          path={`/${website.slug}`}
-          element={<UserWebPage website={website} websiteId={website._id} />}
-        />
+        <>
+          <Route
+            path={`/${website.slug}`}
+            element={<UserWebPage website={website}  websiteId={website._id}/>}
+          />
+
+          <Route
+            path={`/${website.slug}/edit`}
+            element={
+              <EditWebsite
+                website={website}
+                websiteId={website._id}
+              />
+            }
+          />
+        </>
       ))}
 
       {/* Not Found */}

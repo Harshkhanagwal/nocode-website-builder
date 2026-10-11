@@ -4,12 +4,12 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-const heroRoutes = require("./src/routes/heroRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const colorThemeRoutes = require("./src/routes/colorThemeRoutes");
 const typographyRoutes = require("./src/routes/typographyRoutes");
 const websiteRoutes = require("./src/routes/websiteRoutes");
-
+const heroRoutes = require("./src/routes/sections/heroRoutes");
+const connectDB = require('./src/config/db')
 
 app.use(
   cors({
@@ -27,6 +27,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/color-themes", colorThemeRoutes);
 app.use("/api/typographies", typographyRoutes); 
 app.use("/api/websites", websiteRoutes);
+app.use("/api/websites", heroRoutes);
+
 
 
 /* -------------------- HEALTH CHECK -------------------- */

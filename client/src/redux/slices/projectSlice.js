@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createWebsite } from "../../api/websiteApi";
+import {
+  createWebsite,
+  getUserWebsites,
+  getWebsiteById
+} from "../../api/websiteApi";
 
+// Create website
 export const createNewWebsite = createAsyncThunk(
   "project/createWebsite",
   async (websiteData, { rejectWithValue }) => {
@@ -13,7 +18,41 @@ export const createNewWebsite = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
-          "Failed to create website"
+        "Failed to create website"
+      );
+    }
+  }
+);
+
+// Fetch user's websites
+export const fetchUserWebsites = createAsyncThunk(
+  "project/fetchUserWebsites",
+  async (_, { rejectWithValue }) => {
+    try {
+      const data = await getUserWebsites();
+
+      console.log("USER WEBSITES:", data);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message ||
+        "Failed to fetch websites"
+      );
+    }
+  }
+);
+
+// Fetch a single website with sections
+export const fetchWebsiteById = createAsyncThunk(
+  "project/fetchWebsiteById",
+  async (websiteId, { rejectWithValue }) => {
+    try {
+      const data = await getWebsiteById(websiteId);
+      return data.website;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch website"
       );
     }
   }
@@ -21,6 +60,7 @@ export const createNewWebsite = createAsyncThunk(
 
 const initialState = {
   projects: [],
+  currentWebsite: null,
   loading: false,
   error: null,
 };
@@ -34,6 +74,8 @@ const projectSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+
+      // Create website
       .addCase(createNewWebsite.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -50,7 +92,40 @@ const projectSlice = createSlice({
       .addCase(createNewWebsite.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+
+      // Fetch user websites
+      .addCase(fetchUserWebsites.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      .addCase(fetchUserWebsites.fulfilled, (state, action) => {
+        state.loading = false;
+
+        state.projects = action.payload.websites;
+      })
+
+      .addCase(fetchUserWebsites.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+
+
+      // Fetch single website
+      .addCase(fetchWebsiteById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchWebsiteById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentWebsite = action.payload;
+      })
+      .addCase(fetchWebsiteById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
   },
 });
 

@@ -1,0 +1,26 @@
+
+/* Main website page */
+.user-web-page {
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+}
+
+/* Website content */
+.website-renderer {
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+}
+
+/* Prevent mobile viewport clipping */
+@media (max-width: 768px) {
+  .user-web-page,
+  .website-renderer {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+}
