@@ -1,4 +1,37 @@
+
 const mongoose = require("mongoose");
+
+const sectionSchema = new mongoose.Schema(
+  {
+    sectionName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    variant: {
+      type: String,
+      default: "default",
+    },
+
+    enabled: {
+      type: Boolean,
+      default: true,
+    },
+
+    order: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+
+    content: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {},
+    },
+  },
+  { _id: false }
+);
 
 const websiteSchema = new mongoose.Schema(
   {
@@ -33,6 +66,11 @@ const websiteSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Typography",
       required: true,
+    },
+
+    sections: {
+      type: [sectionSchema],
+      default: [],
     },
   },
   {

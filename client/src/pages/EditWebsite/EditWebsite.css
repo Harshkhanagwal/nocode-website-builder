@@ -249,6 +249,39 @@
 /* =========================================================
    ADD SECTION
 ========================================================= */
+.add-section-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 14px;
+  margin-top: 12px;
+
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px dashed var(--color-border-dark);
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.add-section-button:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+.add-section-button svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
 
 .editor-add-section {
   width: 100%;

@@ -1,744 +1,355 @@
-import React, {
-    useEffect,
-    useRef,
-    useState,
-} from "react";
-
+import { useEffect, useRef, useState } from "react";
 import {
-    FiEye,
-    FiSettings,
-    FiPlus,
-    FiHome,
-    FiUser,
-    FiBriefcase,
-    FiMail,
-    FiSave,
-    FiMonitor,
-    FiTablet,
-    FiSmartphone,
+  FiEye,
+  FiSettings,
+  FiPlus,
+  FiSave,
+  FiMonitor,
+  FiTablet,
+  FiSmartphone,
+  FiLayers,
 } from "react-icons/fi";
-
-import UserWebPage from "../../components/UserWebPage/UserWebPage";
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWebsiteById } from "../../redux/slices/projectSlice";
+import AddSectionPopup from "./AddSectionPopup/AddSectionPopup";
 import "./EditWebsite.css";
 
-
-/* =========================================================
-   STATIC EDITOR SECTIONS
-========================================================= */
-
-const sections = [
-    {
-        id: "hero",
-        name: "Hero",
-        icon: FiHome,
-    },
-    {
-        id: "about",
-        name: "About",
-        icon: FiUser,
-    },
-    {
-        id: "projects",
-        name: "Projects",
-        icon: FiBriefcase,
-    },
-    {
-        id: "contact",
-        name: "Contact",
-        icon: FiMail,
-    },
-];
-
-
-/* =========================================================
-   PREVIEW DEVICES
-========================================================= */
-
 const devices = [
-    {
-        id: "desktop",
-        name: "Desktop",
-        icon: FiMonitor,
-    },
-    {
-        id: "tablet",
-        name: "Tablet",
-        icon: FiTablet,
-    },
-    {
-        id: "mobile",
-        name: "Mobile",
-        icon: FiSmartphone,
-    },
+  { id: "desktop", name: "Desktop", icon: FiMonitor },
+  { id: "tablet", name: "Tablet", icon: FiTablet },
+  { id: "mobile", name: "Mobile", icon: FiSmartphone },
 ];
 
-
-/* =========================================================
-   DEVICE DIMENSIONS
-========================================================= */
-
-const DEVICE_WIDTHS = {
-    desktop: 1440,
-    tablet: 768,
-    mobile: 390,
-};
-
-const DEVICE_HEIGHTS = {
-    desktop: 900,
-    tablet: 1024,
-    mobile: 844,
-};
-
-
-/* =========================================================
-   COMPONENT
-========================================================= */
-
-const EditWebsite = ({ website, websiteId }) => {
-    const [selectedSection, setSelectedSection] =
-        useState("hero");
-
-    const [device, setDevice] =
-        useState("desktop");
-
-    const [previewScale, setPreviewScale] =
-        useState(1);
-
-    const previewCanvasRef =
-        useRef(null);
-
-
-    /* =======================================================
-       CALCULATE DESKTOP PREVIEW SCALE
-    ======================================================= */
-
-    useEffect(() => {
-        const calculateScale = () => {
-            if (!previewCanvasRef.current) {
-                return;
-            }
-
-            /*
-              Only desktop needs scaling.
-      
-              Tablet and mobile use their actual
-              viewport widths.
-            */
-
-            if (device !== "desktop") {
-                setPreviewScale(1);
-                return;
-            }
-
-            const availableWidth =
-                previewCanvasRef.current.clientWidth;
-
-            const websiteWidth =
-                DEVICE_WIDTHS.desktop;
-
-            const horizontalPadding =
-                48;
-
-            const availableWebsiteWidth =
-                availableWidth - horizontalPadding;
-
-            const calculatedScale =
-                availableWebsiteWidth / websiteWidth;
-
-            /*
-              Don't enlarge the website beyond 100%.
-            */
-
-            const scale =
-                Math.min(
-                    1,
-                    calculatedScale
-                );
-
-            /*
-              Prevent the website from becoming
-              unusably small.
-            */
-
-            setPreviewScale(
-                Math.max(scale, 0.35)
-            );
-        };
-
-
-        calculateScale();
-
-
-        const resizeObserver =
-            new ResizeObserver(
-                calculateScale
-            );
-
-
-        if (previewCanvasRef.current) {
-            resizeObserver.observe(
-                previewCanvasRef.current
-            );
-        }
-
-
-        window.addEventListener(
-            "resize",
-            calculateScale
-        );
-
-
-        return () => {
-            resizeObserver.disconnect();
-
-            window.removeEventListener(
-                "resize",
-                calculateScale
-            );
-        };
-    }, [device]);
-
-
-    /* =======================================================
-       CURRENT DEVICE DIMENSIONS
-    ======================================================= */
-
-    const deviceWidth =
-        DEVICE_WIDTHS[device];
-
-    const deviceHeight =
-        DEVICE_HEIGHTS[device];
-
-
-    /* =======================================================
-       PREVIEW DIMENSIONS
-    ======================================================= */
-
-    const previewWidth =
-        device === "desktop"
-            ? deviceWidth * previewScale
-            : deviceWidth;
-
-    const previewHeight =
-        device === "desktop"
-            ? deviceHeight * previewScale
-            : deviceHeight;
-
-
-    return (
-        <div className="editor-page">
-
-
-            {/* =====================================================
-          HEADER
-      ===================================================== */}
-
-            <header className="editor-header">
-
-                <div className="editor-header-left">
-
-                    <div className="editor-logo">
-                        OurPlatform
-                    </div>
-
-
-                    <div className="editor-header-divider" />
-
-
-                    <div className="editor-website-name">
-                        {website?.name ||
-                            "Untitled Website"}
-                    </div>
-
-                </div>
-
-
-                <div className="editor-header-actions">
-
-                    <button
-                        type="button"
-                        className="button secondary"
-                    >
-                        <FiEye />
-
-                        <span>
-                            Preview
-                        </span>
-                    </button>
-
-
-                    <button
-                        type="button"
-                        className="button primary"
-                    >
-                        <FiSave />
-
-                        <span>
-                            Save
-                        </span>
-                    </button>
-
-                </div>
-
-            </header>
-
-
-            {/* =====================================================
-          EDITOR LAYOUT
-      ===================================================== */}
-
-            <main className="editor-layout">
-
-
-                {/* ===================================================
-            LEFT SIDEBAR
-        =================================================== */}
-
-                <aside className="editor-sidebar">
-
-                    <div className="editor-sidebar-content">
-
-                        <div className="editor-sidebar-title">
-                            Sections
-                        </div>
-
-
-                        <div className="editor-section-list">
-
-                            {sections.map((section) => {
-                                const Icon = section.icon;
-
-                                return (
-                                    <button
-                                        key={section.id}
-                                        type="button"
-                                        className={`editor-section-item ${selectedSection ===
-                                            section.id
-                                            ? "active"
-                                            : ""
-                                            }`}
-                                        onClick={() =>
-                                            setSelectedSection(
-                                                section.id
-                                            )
-                                        }
-                                    >
-
-                                        <Icon />
-
-                                        <span>
-                                            {section.name}
-                                        </span>
-
-                                    </button>
-                                );
-                            })}
-
-                        </div>
-
-
-                        <button
-                            type="button"
-                            className="editor-add-section"
-                        >
-                            <FiPlus />
-
-                            <span>
-                                Add Section
-                            </span>
-                        </button>
-
-                    </div>
-
-
-                    {/* Theme Settings */}
-
-                    <div className="editor-sidebar-footer">
-
-                        <button
-                            type="button"
-                            className="editor-theme-button"
-                        >
-                            <FiSettings />
-
-                            <span>
-                                Theme Settings
-                            </span>
-
-                        </button>
-
-                    </div>
-
-                </aside>
-
-
-                {/* ===================================================
-            CENTER PREVIEW
-        =================================================== */}
-
-                <section className="editor-preview">
-
-
-                    {/* Preview Toolbar */}
-
-                    <div className="editor-preview-toolbar">
-
-
-                        {/* Left */}
-
-                        <div className="editor-preview-device-info">
-
-                            <span>
-                                Preview
-                            </span>
-
-                        </div>
-
-
-                        {/* Device Selector */}
-
-                        <div className="editor-device-switcher">
-
-                            {devices.map((item) => {
-                                const Icon = item.icon;
-
-                                return (
-                                    <button
-                                        key={item.id}
-                                        type="button"
-                                        className={`editor-device-button ${device === item.id
-                                            ? "active"
-                                            : ""
-                                            }`}
-                                        onClick={() =>
-                                            setDevice(item.id)
-                                        }
-                                        title={item.name}
-                                    >
-
-                                        <Icon />
-
-                                        <span>
-                                            {item.name}
-                                        </span>
-
-                                    </button>
-                                );
-                            })}
-
-                        </div>
-
-
-                        {/* Right */}
-
-                        <div className="editor-preview-url">
-
-                            {website?.slug
-                                ? `ourplatform.com/${website.slug}`
-                                : "Website Preview"}
-
-                        </div>
-
-                    </div>
-
-
-                    {/* =================================================
-              PREVIEW CANVAS
-          ================================================= */}
-
-                    {/* =================================================
-    PREVIEW CANVAS
-================================================= */}
-
-                    <div
-                        ref={previewCanvasRef}
-                        className="editor-preview-canvas"
-                    >
-                        <div
-                            className={`editor-preview-wrapper editor-preview-wrapper-${device}`}
-                            style={{
-                                width: `${previewWidth}px`,
-                                height: `${previewHeight}px`,
-                            }}
-                        >
-
-                            <div
-                                className={`editor-device-frame editor-device-${device}`}
-                                style={{
-                                    transform:
-                                        device === "desktop"
-                                            ? `scale(${previewScale})`
-                                            : "none",
-                                }}
-                            >
-                                <iframe
-                                    src={`/${website?.slug}`}
-                                    title={`${website?.name || "Website"} Preview`}
-                                    className="editor-website-iframe"
-                                    style={{
-                                        width: `${deviceWidth}px`,
-                                        height: `${deviceHeight}px`,
-                                        display: "block",
-                                        border: "0",
-                                    }}
-                                />
-                            </div>
-
-                        </div>
-                    </div>
-
-                </section>
-
-
-                {/* ===================================================
-            RIGHT INSPECTOR
-        =================================================== */}
-
-                <aside className="editor-inspector">
-
-
-                    {/* Inspector Header */}
-
-                    <div className="editor-inspector-header">
-
-                        <span className="editor-inspector-label">
-                            SETTINGS
-                        </span>
-
-
-                        <h3>
-                            {selectedSection
-                                .charAt(0)
-                                .toUpperCase() +
-                                selectedSection.slice(1)}
-                        </h3>
-
-                    </div>
-
-
-                    {/* Inspector Content */}
-
-                    <div className="editor-inspector-content">
-
-
-                        {/* =================================================
-                HERO
-            ================================================= */}
-
-                        {selectedSection === "hero" && (
-                            <>
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Eyebrow
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        value="Introducing Our Platform"
-                                        readOnly
-                                    />
-
-                                </div>
-
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Headline
-                                    </label>
-
-                                    <textarea
-                                        value="Build Your Next Big Idea"
-                                        readOnly
-                                    />
-
-                                </div>
-
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Subheadline
-                                    </label>
-
-                                    <textarea
-                                        value="Create stunning websites with the power of AI."
-                                        readOnly
-                                    />
-
-                                </div>
-
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Description
-                                    </label>
-
-                                    <textarea
-                                        value="No coding required. Just bring your ideas."
-                                        readOnly
-                                    />
-
-                                </div>
-
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Primary Button
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        value="Get Started"
-                                        readOnly
-                                    />
-
-                                </div>
-
-                            </>
-                        )}
-
-
-                        {/* =================================================
-                ABOUT
-            ================================================= */}
-
-                        {selectedSection === "about" && (
-                            <>
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Heading
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        value="About Me"
-                                        readOnly
-                                    />
-
-                                </div>
-
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Description
-                                    </label>
-
-                                    <textarea
-                                        value="I'm a developer focused on building modern digital experiences."
-                                        readOnly
-                                    />
-
-                                </div>
-
-                            </>
-                        )}
-
-
-                        {/* =================================================
-                PROJECTS
-            ================================================= */}
-
-                        {selectedSection === "projects" && (
-                            <>
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Heading
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        value="Selected Work"
-                                        readOnly
-                                    />
-
-                                </div>
-
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Columns
-                                    </label>
-
-                                    <select defaultValue="3">
-
-                                        <option value="2">
-                                            2 Columns
-                                        </option>
-
-                                        <option value="3">
-                                            3 Columns
-                                        </option>
-
-                                        <option value="4">
-                                            4 Columns
-                                        </option>
-
-                                    </select>
-
-                                </div>
-
-                            </>
-                        )}
-
-
-                        {/* =================================================
-                CONTACT
-            ================================================= */}
-
-                        {selectedSection === "contact" && (
-                            <>
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Heading
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        value="Let's Work Together"
-                                        readOnly
-                                    />
-
-                                </div>
-
-
-                                <div className="editor-setting-group">
-
-                                    <label>
-                                        Description
-                                    </label>
-
-                                    <textarea
-                                        value="Have a project in mind? Get in touch."
-                                        readOnly
-                                    />
-
-                                </div>
-
-                            </>
-                        )}
-
-                    </div>
-
-                </aside>
-
-            </main>
-
-        </div>
+const DEVICE_WIDTHS = { desktop: 1440, tablet: 768, mobile: 390 };
+const DEVICE_HEIGHTS = { desktop: 900, tablet: 1024, mobile: 844 };
+
+const EditWebsite = ({ website: initialWebsite, websiteId }) => {
+  const dispatch = useDispatch();
+  const { currentWebsite, loading, error } = useSelector(
+    (state) => state.project
+  );
+
+  const [selectedSection, setSelectedSection] = useState(null);
+  const [device, setDevice] = useState("desktop");
+  const [previewScale, setPreviewScale] = useState(1);
+  const [showAddSectionPopup, setShowAddSectionPopup] = useState(false);
+  const previewCanvasRef = useRef(null);
+
+  useEffect(() => {
+    if (websiteId) {
+      dispatch(fetchWebsiteById(websiteId));
+    }
+  }, [dispatch, websiteId]);
+
+  const website =
+    String(currentWebsite?._id) === String(websiteId)
+      ? currentWebsite
+      : initialWebsite;
+
+  const websiteSections = Array.isArray(website?.sections)
+    ? website.sections
+    : [];
+
+  const activeSection = websiteSections.find(
+    (section) => String(section._id) === String(selectedSection)
+  );
+
+  useEffect(() => {
+    if (!websiteSections.length) {
+      setSelectedSection(null);
+      return;
+    }
+
+    const selectionExists = websiteSections.some(
+      (section) => String(section._id) === String(selectedSection)
     );
+
+    if (!selectionExists) {
+      setSelectedSection(websiteSections[0]._id);
+    }
+  }, [websiteSections, selectedSection]);
+
+  useEffect(() => {
+    const calculateScale = () => {
+      if (!previewCanvasRef.current) return;
+
+      if (device !== "desktop") {
+        setPreviewScale(1);
+        return;
+      }
+
+      const availableWidth = previewCanvasRef.current.clientWidth - 48;
+      const scale = Math.min(1, availableWidth / DEVICE_WIDTHS.desktop);
+      setPreviewScale(Math.max(scale, 0.35));
+    };
+
+    calculateScale();
+
+    const observer = new ResizeObserver(calculateScale);
+    if (previewCanvasRef.current) {
+      observer.observe(previewCanvasRef.current);
+    }
+
+    window.addEventListener("resize", calculateScale);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", calculateScale);
+    };
+  }, [device]);
+
+  const deviceWidth = DEVICE_WIDTHS[device];
+  const deviceHeight = DEVICE_HEIGHTS[device];
+  const previewWidth =
+    device === "desktop" ? deviceWidth * previewScale : deviceWidth;
+  const previewHeight =
+    device === "desktop" ? deviceHeight * previewScale : deviceHeight;
+
+  const handleAddSection = (section) => {
+    // Backend section creation will be connected in the next step.
+    console.log("Selected section:", section);
+  };
+
+  const sectionContent = activeSection?.content ?? {};
+
+  if (loading && !currentWebsite && !initialWebsite) {
+    return <p>Loading editor...</p>;
+  }
+
+  if (error && !website) {
+    return <p>{error}</p>;
+  }
+
+  if (!website) {
+    return <p>Website not found.</p>;
+  }
+
+  return (
+    <div className="editor-page">
+      <header className="editor-header">
+        <div className="editor-header-left">
+          <div className="editor-logo">OurPlatform</div>
+          <div className="editor-header-divider" />
+          <div className="editor-website-name">
+            {website.name || "Untitled Website"}
+          </div>
+        </div>
+
+        <div className="editor-header-actions">
+          <button type="button" className="button secondary">
+            <FiEye />
+            <span>Preview</span>
+          </button>
+          <button type="button" className="button primary">
+            <FiSave />
+            <span>Save</span>
+          </button>
+        </div>
+      </header>
+
+      <main className="editor-layout">
+        <aside className="editor-sidebar">
+          <div className="editor-sidebar-content">
+            <div className="editor-sidebar-title">Sections</div>
+
+            <div className="editor-sections-list">
+              {websiteSections.length > 0 ? (
+                websiteSections.map((section, index) => (
+                  <button
+                    key={section._id || index}
+                    type="button"
+                    className={`editor-section-item ${
+                      String(selectedSection) === String(section._id)
+                        ? "active"
+                        : ""
+                    }`}
+                    onClick={() => setSelectedSection(section._id)}
+                  >
+                    <FiLayers size={20} />
+                    <span>
+                      {section.sectionName} — {section.variant}
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <p>No sections found.</p>
+              )}
+            </div>
+
+            <button
+              type="button"
+              className="add-section-button"
+              onClick={() => setShowAddSectionPopup(true)}
+            >
+              <FiPlus size={16} />
+              <span>Add Section</span>
+            </button>
+          </div>
+
+          <div className="editor-sidebar-footer">
+            <button type="button" className="editor-theme-button">
+              <FiSettings />
+              <span>Theme Settings</span>
+            </button>
+          </div>
+        </aside>
+
+        <section className="editor-preview">
+          <div className="editor-preview-toolbar">
+            <div className="editor-preview-device-info">
+              <span>Preview</span>
+            </div>
+
+            <div className="editor-device-switcher">
+              {devices.map(({ id, name, icon: Icon }) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={`editor-device-button ${
+                    device === id ? "active" : ""
+                  }`}
+                  onClick={() => setDevice(id)}
+                  title={name}
+                >
+                  <Icon />
+                  <span>{name}</span>
+                </button>
+              ))}
+            </div>
+
+            <div className="editor-preview-url">
+              {website.slug
+                ? `ourplatform.com/${website.slug}`
+                : "Website Preview"}
+            </div>
+          </div>
+
+          <div ref={previewCanvasRef} className="editor-preview-canvas">
+            <div
+              className={`editor-preview-wrapper editor-preview-wrapper-${device}`}
+              style={{
+                width: `${previewWidth}px`,
+                height: `${previewHeight}px`,
+              }}
+            >
+              <div
+                className={`editor-device-frame editor-device-${device}`}
+                style={{
+                  transform:
+                    device === "desktop"
+                      ? `scale(${previewScale})`
+                      : "none",
+                }}
+              >
+                <iframe
+                  src={website.slug ? `/${website.slug}` : "about:blank"}
+                  title={`${website.name || "Website"} Preview`}
+                  className="editor-website-iframe"
+                  style={{
+                    width: `${deviceWidth}px`,
+                    height: `${deviceHeight}px`,
+                    display: "block",
+                    border: 0,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside className="editor-inspector">
+          <div className="editor-inspector-header">
+            <span className="editor-inspector-label">SETTINGS</span>
+            <h3>
+              {activeSection?.sectionName
+                ? activeSection.sectionName.charAt(0).toUpperCase() +
+                  activeSection.sectionName.slice(1)
+                : "Select a section"}
+            </h3>
+          </div>
+
+          <div className="editor-inspector-content">
+            {activeSection ? (
+              <>
+                <div className="editor-setting-group">
+                  <label>Section name</label>
+                  <input
+                    type="text"
+                    value={activeSection.sectionName || ""}
+                    readOnly
+                  />
+                </div>
+
+                <div className="editor-setting-group">
+                  <label>Layout</label>
+                  <input
+                    type="text"
+                    value={activeSection.variant || "default"}
+                    readOnly
+                  />
+                </div>
+
+                {activeSection.sectionName === "hero" && (
+                  <>
+                    <div className="editor-setting-group">
+                      <label>Eyebrow</label>
+                      <input
+                        type="text"
+                        value={sectionContent.eyebrow || ""}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="editor-setting-group">
+                      <label>Headline</label>
+                      <textarea
+                        value={sectionContent.headline || ""}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="editor-setting-group">
+                      <label>Subheadline</label>
+                      <textarea
+                        value={sectionContent.subheadline || ""}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="editor-setting-group">
+                      <label>Description</label>
+                      <textarea
+                        value={sectionContent.description || ""}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="editor-setting-group">
+                      <label>Primary button</label>
+                      <input
+                        type="text"
+                        value={sectionContent.actions?.[0]?.text || ""}
+                        readOnly
+                      />
+                    </div>
+                  </>
+                )}
+              </>
+            ) : (
+              <p>Select a section from the sidebar to view its settings.</p>
+            )}
+          </div>
+        </aside>
+      </main>
+
+      {showAddSectionPopup && (
+        <AddSectionPopup
+          onClose={() => setShowAddSectionPopup(false)}
+          onAddSection={handleAddSection}
+        />
+      )}
+    </div>
+  );
 };
 
 export default EditWebsite;

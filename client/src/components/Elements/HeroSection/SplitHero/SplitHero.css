@@ -489,77 +489,65 @@
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
-
 @media (max-width: 700px) {
-
   .Split-hero {
-    min-height: auto;
-
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
     display: flex;
-
     flex-direction: column;
+    overflow: visible;
   }
-
 
   .Split-hero-content {
-    min-height: auto;
-
+    width: 100%;
+    height: auto;
+    min-height: 0;
     max-width: none;
-
-    padding:
-      var(--elm-space-3xl)
-      var(--elm-space-lg);
+    flex: none;
+    padding: var(--elm-space-3xl) var(--elm-space-lg);
   }
 
-
-  .Split-hero-title {
-    max-width: 700px;
-
-    font-size: clamp(
-      2.75rem,
-      11vw,
-      4rem
-    );
+  .Split-hero-media {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    flex: none;
+    overflow: hidden;
   }
 
-
-  .Split-hero-subheadline {
-    margin-top: var(--elm-space-lg);
-
-    font-size: var(--elm-font-size-lg);
+  .Split-hero-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    transform: none;
   }
 
+  .Split-hero-media:hover .Split-hero-image {
+    transform: none;
+  }
 
   .Split-hero-actions {
     width: 100%;
   }
-
-
-  .Split-hero-media {
-    width: 100%;
-
-    height: 55svh;
-
-    min-height: 320px;
-  }
 }
-
 
 /* =========================================
    SMALL MOBILE
 ========================================= */
 
 @media (max-width: 480px) {
-
   .Split-hero-content {
-    padding:
-      var(--elm-space-2xl)
-      var(--elm-space-md);
+    padding: var(--elm-space-2xl) var(--elm-space-md);
   }
-
 
   .Split-hero-title {
     font-size: clamp(
@@ -569,44 +557,42 @@
     );
   }
 
-
   .Split-hero-description {
     font-size: var(--elm-font-size-sm);
   }
 
-
   .Split-hero-actions {
     flex-direction: column;
-
     align-items: stretch;
   }
-
 
   .Split-hero-button {
     width: 100%;
   }
 
-
   .Split-hero-media {
-    height: 300px;
-
-    min-height: 300px;
+    height: auto;
+    min-height: 0;
+    max-height: none;
   }
 
+  .Split-hero-image {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    object-fit: contain;
+  }
 
   .Split-hero-trust {
     align-items: flex-start;
-
     flex-direction: column;
   }
-
 
   .Split-hero-features {
     grid-template-columns: 1fr;
   }
 }
-
-
 /* =========================================
    REDUCED MOTION
 ========================================= */

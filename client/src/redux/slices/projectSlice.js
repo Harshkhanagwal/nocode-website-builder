@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createWebsite,
   getUserWebsites,
+  getWebsiteById
 } from "../../api/websiteApi";
 
 // Create website
@@ -17,7 +18,7 @@ export const createNewWebsite = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
-          "Failed to create website"
+        "Failed to create website"
       );
     }
   }
@@ -36,7 +37,22 @@ export const fetchUserWebsites = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message ||
-          "Failed to fetch websites"
+        "Failed to fetch websites"
+      );
+    }
+  }
+);
+
+// Fetch a single website with sections
+export const fetchWebsiteById = createAsyncThunk(
+  "project/fetchWebsiteById",
+  async (websiteId, { rejectWithValue }) => {
+    try {
+      const data = await getWebsiteById(websiteId);
+      return data.website;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch website"
       );
     }
   }
@@ -44,6 +60,7 @@ export const fetchUserWebsites = createAsyncThunk(
 
 const initialState = {
   projects: [],
+  currentWebsite: null,
   loading: false,
   error: null,
 };
@@ -92,7 +109,23 @@ const projectSlice = createSlice({
       .addCase(fetchUserWebsites.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+
+
+
+      // Fetch single website
+      .addCase(fetchWebsiteById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchWebsiteById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentWebsite = action.payload;
+      })
+      .addCase(fetchWebsiteById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
   },
 });
 
