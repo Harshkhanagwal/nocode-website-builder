@@ -1,0 +1,469 @@
+
+/* =========================================
+   About Timeline Section
+   Existing design system: elm-*
+   Custom classes: AboutTimeline-*
+========================================= */
+
+.AboutTimeline-section {
+  padding-block: var(--elm-space-4xl);
+  overflow: hidden;
+  background: var(--elm-color-background);
+  color: var(--elm-color-text);
+}
+
+.AboutTimeline-container {
+  width: 100%;
+  max-width: var(--elm-container-xl);
+  margin-inline: auto;
+}
+
+/* Header */
+
+.AboutTimeline-header {
+  padding-bottom: var(--elm-space-3xl);
+  border-bottom: 1px solid var(--elm-color-border);
+}
+
+.AboutTimeline-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--elm-space-sm);
+  margin-bottom: var(--elm-space-2xl);
+  color: var(--elm-color-text-muted);
+  font-family: var(--elm-font-body);
+  font-size: 0.8rem;
+  font-weight: var(--elm-font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.AboutTimeline-eyebrow-line {
+  width: 28px;
+  height: 1px;
+  flex-shrink: 0;
+  background: var(--elm-color-primary);
+}
+
+.AboutTimeline-heading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.6fr);
+  align-items: end;
+  gap: var(--elm-space-3xl);
+}
+
+.AboutTimeline-heading-main,
+.AboutTimeline-heading-aside {
+  min-width: 0;
+}
+
+.AboutTimeline-headline {
+  max-width: 760px;
+  margin: 0;
+  font-family: var(--elm-font-heading);
+  font-size: clamp(2.7rem, 6vw, var(--elm-font-size-h1));
+  font-weight: var(--elm-font-weight-semibold);
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
+}
+
+.AboutTimeline-subheadline {
+  margin: 0 0 var(--elm-space-md);
+  font-family: var(--elm-font-heading);
+  font-size: var(--elm-font-size-h4);
+  font-weight: var(--elm-font-weight-medium);
+  line-height: var(--elm-line-height-heading);
+}
+
+.AboutTimeline-description {
+  margin: 0;
+  color: var(--elm-color-text-muted);
+  font-family: var(--elm-font-body);
+  font-size: var(--elm-font-size-base);
+  line-height: var(--elm-line-height);
+}
+
+/* Main two-column layout */
+
+.AboutTimeline-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.7fr);
+  align-items: start;
+  gap: clamp(32px, 6vw, 96px);
+  padding-top: var(--elm-space-3xl);
+}
+
+.AboutTimeline-main {
+  min-width: 0;
+}
+
+.AboutTimeline-track {
+  position: relative;
+}
+
+/* Vertical timeline line */
+
+.AboutTimeline-track::before {
+  position: absolute;
+  top: 12px;
+  bottom: 24px;
+  left: 5px;
+  width: 1px;
+  background: var(--elm-color-border);
+  content: "";
+}
+
+.AboutTimeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  gap: var(--elm-space-xl);
+  padding-bottom: var(--elm-space-3xl);
+}
+
+.AboutTimeline-item:last-child {
+  padding-bottom: var(--elm-space-md);
+}
+
+/* Timeline marker */
+
+.AboutTimeline-marker-column {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+.AboutTimeline-marker {
+  display: grid;
+  place-items: center;
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  border: 1px solid var(--elm-color-primary);
+  border-radius: var(--elm-radius-full);
+  background: var(--elm-color-background);
+}
+
+.AboutTimeline-marker-inner {
+  width: 4px;
+  height: 4px;
+  border-radius: var(--elm-radius-full);
+  background: var(--elm-color-primary);
+  transition: transform var(--elm-transition-normal);
+}
+
+.AboutTimeline-item:hover .AboutTimeline-marker-inner {
+  transform: scale(1.8);
+}
+
+/* Timeline content */
+
+.AboutTimeline-item-content {
+  min-width: 0;
+  padding-bottom: var(--elm-space-xl);
+  border-bottom: 1px solid var(--elm-color-border);
+}
+
+.AboutTimeline-item:last-child .AboutTimeline-item-content {
+  border-bottom: none;
+}
+
+.AboutTimeline-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--elm-space-sm);
+  margin-bottom: var(--elm-space-md);
+}
+
+.AboutTimeline-year {
+  color: var(--elm-color-primary);
+  font-family: var(--elm-font-body);
+  font-size: 0.75rem;
+  font-weight: var(--elm-font-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.AboutTimeline-item-number {
+  color: var(--elm-color-text-light);
+  font-family: var(--elm-font-body);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.AboutTimeline-item-title {
+  margin: 0 0 var(--elm-space-sm);
+  font-family: var(--elm-font-heading);
+  font-size: clamp(1.3rem, 2.3vw, var(--elm-font-size-h3));
+  font-weight: var(--elm-font-weight-medium);
+  line-height: var(--elm-line-height-heading);
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.AboutTimeline-item-description {
+  max-width: 520px;
+  margin: 0;
+  color: var(--elm-color-text-muted);
+  font-family: var(--elm-font-body);
+  font-size: var(--elm-font-size-base);
+  line-height: var(--elm-line-height);
+}
+
+/* Image panel */
+
+.AboutTimeline-aside {
+  position: sticky;
+  top: var(--elm-space-xl);
+  min-width: 0;
+}
+
+.AboutTimeline-image-wrap {
+  position: relative;
+  height: clamp(360px, 48vw, 620px);
+  overflow: hidden;
+  border: 1px solid var(--elm-color-border);
+  border-radius: var(--elm-radius-lg);
+  background: var(--elm-color-surface);
+}
+
+.AboutTimeline-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--elm-transition-slow);
+}
+
+.AboutTimeline-image-wrap:hover .AboutTimeline-image {
+  transform: scale(1.025);
+}
+
+.AboutTimeline-image-index {
+  position: absolute;
+  right: var(--elm-space-md);
+  bottom: var(--elm-space-md);
+  left: var(--elm-space-md);
+  width: fit-content;
+  max-width: calc(100% - 2 * var(--elm-space-md));
+  padding: var(--elm-space-sm) var(--elm-space-md);
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: var(--elm-radius-sm);
+  background: rgb(0 0 0 / 55%);
+  color: #fff;
+  font-family: var(--elm-font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  overflow-wrap: anywhere;
+}
+
+.AboutTimeline-aside-caption {
+  display: flex;
+  align-items: center;
+  gap: var(--elm-space-sm);
+  padding-top: var(--elm-space-md);
+}
+
+.AboutTimeline-caption-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: var(--elm-radius-full);
+  background: var(--elm-color-primary);
+}
+
+.AboutTimeline-aside-caption p {
+  margin: 0;
+  color: var(--elm-color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* Optional additional content */
+
+.AboutTimeline-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--elm-space-md);
+  margin-top: var(--elm-space-2xl);
+  padding: var(--elm-space-lg);
+  border: 1px solid var(--elm-color-border);
+  border-radius: var(--elm-radius-md);
+  background: var(--elm-color-surface);
+}
+
+.AboutTimeline-note-symbol {
+  flex-shrink: 0;
+  color: var(--elm-color-primary);
+  font-size: 1.3rem;
+}
+
+.AboutTimeline-note p {
+  margin: 0;
+  color: var(--elm-color-text-muted);
+  line-height: var(--elm-line-height);
+}
+
+/* Footer */
+
+.AboutTimeline-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--elm-space-xl);
+  margin-top: var(--elm-space-3xl);
+  padding-top: var(--elm-space-2xl);
+  border-top: 1px solid var(--elm-color-border);
+}
+
+.AboutTimeline-footer-copy {
+  min-width: 0;
+}
+
+.AboutTimeline-footer-eyebrow {
+  display: block;
+  margin-bottom: var(--elm-space-sm);
+  color: var(--elm-color-text-muted);
+  font-family: var(--elm-font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.AboutTimeline-footer-title {
+  margin: 0;
+  font-family: var(--elm-font-heading);
+  font-size: var(--elm-font-size-h3);
+  font-weight: var(--elm-font-weight-medium);
+  line-height: var(--elm-line-height-heading);
+}
+
+.AboutTimeline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--elm-space-sm);
+}
+
+.AboutTimeline-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--elm-space-md);
+  text-decoration: none;
+  transition:
+    background var(--elm-transition-fast),
+    color var(--elm-transition-fast),
+    transform var(--elm-transition-fast);
+}
+
+.AboutTimeline-button:hover {
+  transform: translateY(-2px);
+}
+
+.AboutTimeline-button span {
+  font-size: 1rem;
+}
+
+/* Tablet */
+
+@media (max-width: 1024px) {
+  .AboutTimeline-heading-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--elm-space-lg);
+  }
+
+  .AboutTimeline-heading-aside {
+    max-width: 620px;
+  }
+
+  .AboutTimeline-body {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.8fr);
+    gap: var(--elm-space-2xl);
+  }
+
+  .AboutTimeline-image-wrap {
+    height: 460px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .AboutTimeline-section {
+    padding-block: var(--elm-space-2xl);
+  }
+
+  .AboutTimeline-header {
+    padding-bottom: var(--elm-space-2xl);
+  }
+
+  .AboutTimeline-eyebrow {
+    margin-bottom: var(--elm-space-xl);
+  }
+
+  .AboutTimeline-headline {
+    font-size: clamp(2.3rem, 10vw, 3.5rem);
+    letter-spacing: -0.045em;
+  }
+
+  .AboutTimeline-subheadline {
+    font-size: var(--elm-font-size-h5);
+  }
+
+  .AboutTimeline-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--elm-space-2xl);
+    padding-top: var(--elm-space-2xl);
+  }
+
+  .AboutTimeline-item {
+    gap: var(--elm-space-lg);
+    padding-bottom: var(--elm-space-2xl);
+  }
+
+  .AboutTimeline-item-content {
+    padding-bottom: var(--elm-space-lg);
+  }
+
+  .AboutTimeline-item-title {
+    font-size: var(--elm-font-size-h4);
+  }
+
+  .AboutTimeline-aside {
+    position: relative;
+    top: auto;
+  }
+
+  .AboutTimeline-image-wrap {
+    height: 360px;
+  }
+
+  .AboutTimeline-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: var(--elm-space-2xl);
+    padding-top: var(--elm-space-xl);
+  }
+
+  .AboutTimeline-footer-title {
+    font-size: var(--elm-font-size-h4);
+  }
+
+  .AboutTimeline-actions {
+    width: 100%;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .AboutTimeline-marker-inner,
+  .AboutTimeline-image,
+  .AboutTimeline-button {
+    transition: none;
+  }
+}
