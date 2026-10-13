@@ -1,0 +1,368 @@
+/* ==================================================================
+   ContactDarkSplitScreen
+   Dark tokens are derived from your --elm-* variables by inverting
+   them (text colour becomes the dark background, background colour
+   becomes the light foreground), with hard fallbacks. Override any
+   --DarkSplitScreen-* token on the section to retheme.
+   Where an elm-* class shares an element, selectors are doubled
+   (.DarkSplitScreen .DarkSplitScreen__x) to win on specificity.
+   ================================================================== */
+
+.DarkSplitScreen {
+  /* fallbacks first (for browsers without color-mix) */
+  --DarkSplitScreen-bg: var(--elm-color-text, #0d0d0f);
+  --DarkSplitScreen-fg: var(--elm-color-background, #f5f5f4);
+  --DarkSplitScreen-surface: #17171a;
+  --DarkSplitScreen-muted: rgba(245, 245, 244, 0.62);
+  --DarkSplitScreen-line: rgba(245, 245, 244, 0.16);
+  --DarkSplitScreen-line-strong: rgba(245, 245, 244, 0.4);
+  --DarkSplitScreen-field: rgba(245, 245, 244, 0.05);
+
+  position: relative;
+  background: var(--DarkSplitScreen-bg);
+  color: var(--DarkSplitScreen-fg);
+  font-family: var(--elm-font-body, system-ui, sans-serif);
+  line-height: var(--elm-line-height, 1.6);
+  padding: 0;
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  .DarkSplitScreen {
+    --DarkSplitScreen-surface: color-mix(
+      in srgb,
+      var(--DarkSplitScreen-fg) 6%,
+      var(--DarkSplitScreen-bg)
+    );
+    --DarkSplitScreen-muted: color-mix(
+      in srgb,
+      var(--DarkSplitScreen-fg) 62%,
+      var(--DarkSplitScreen-bg)
+    );
+    --DarkSplitScreen-line: color-mix(
+      in srgb,
+      var(--DarkSplitScreen-fg) 16%,
+      transparent
+    );
+    --DarkSplitScreen-line-strong: color-mix(
+      in srgb,
+      var(--DarkSplitScreen-fg) 40%,
+      transparent
+    );
+    --DarkSplitScreen-field: color-mix(
+      in srgb,
+      var(--DarkSplitScreen-fg) 5%,
+      transparent
+    );
+  }
+}
+
+/* ---------- Split ---------- */
+
+.DarkSplitScreen__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: min(100vh, 60rem);
+}
+
+.DarkSplitScreen__split--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.DarkSplitScreen__panel {
+  display: flex;
+  padding: var(--elm-space-4xl, 6rem) var(--elm-space-2xl, 3rem);
+}
+
+.DarkSplitScreen__panel--info {
+  background: var(--DarkSplitScreen-bg);
+  justify-content: flex-end;
+}
+
+.DarkSplitScreen__panel--form {
+  background: var(--DarkSplitScreen-surface);
+  border-left: 1px solid var(--DarkSplitScreen-line);
+  justify-content: flex-start;
+}
+
+.DarkSplitScreen__inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 34rem;
+}
+
+.DarkSplitScreen__panel--info .DarkSplitScreen__inner {
+  justify-content: space-between;
+  gap: var(--elm-space-3xl, 5rem);
+}
+
+/* ---------- Intro ---------- */
+
+.DarkSplitScreen .DarkSplitScreen__eyebrow {
+  margin: 0 0 var(--elm-space-lg, 1.5rem);
+  font-size: var(--elm-font-size-base, 1rem);
+  color: var(--DarkSplitScreen-muted);
+}
+
+.DarkSplitScreen .DarkSplitScreen__headline {
+  margin: 0;
+  font-family: var(--elm-font-heading, var(--elm-font-body, system-ui, sans-serif));
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  font-weight: var(--elm-font-weight-semibold, 600);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--DarkSplitScreen-fg);
+}
+
+.DarkSplitScreen .DarkSplitScreen__subheadline {
+  margin: var(--elm-space-lg, 1.5rem) 0 0;
+  max-width: 28rem;
+  font-size: var(--elm-font-size-h4, 1.25rem);
+  line-height: 1.5;
+  color: var(--DarkSplitScreen-muted);
+}
+
+/* ---------- Details ---------- */
+
+.DarkSplitScreen__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elm-space-xl, 2.5rem);
+}
+
+.DarkSplitScreen__details {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--DarkSplitScreen-line);
+}
+
+.DarkSplitScreen__detail {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: var(--elm-space-md, 1rem);
+  align-items: baseline;
+  padding-block: var(--elm-space-md, 1rem);
+  border-bottom: 1px solid var(--DarkSplitScreen-line);
+}
+
+.DarkSplitScreen .DarkSplitScreen__detailLabel {
+  margin: 0;
+  font-size: var(--elm-font-size-base, 1rem);
+  color: var(--DarkSplitScreen-muted);
+}
+
+.DarkSplitScreen__detailValue {
+  margin: 0;
+  font-size: var(--elm-font-size-h5, 1.125rem);
+  overflow-wrap: anywhere;
+}
+
+.DarkSplitScreen .DarkSplitScreen__plain {
+  color: var(--DarkSplitScreen-fg);
+}
+
+.DarkSplitScreen .DarkSplitScreen__link {
+  color: var(--DarkSplitScreen-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--DarkSplitScreen-line-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--elm-transition-fast, 150ms ease);
+}
+
+.DarkSplitScreen .DarkSplitScreen__link:hover {
+  text-decoration-color: var(--DarkSplitScreen-fg);
+}
+
+.DarkSplitScreen .DarkSplitScreen__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--elm-space-lg, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.DarkSplitScreen .DarkSplitScreen__socialItem {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.DarkSplitScreen .DarkSplitScreen__additional {
+  margin: 0;
+  font-size: var(--elm-font-size-base, 1rem);
+  color: var(--DarkSplitScreen-muted);
+}
+
+/* ---------- Form ---------- */
+
+.DarkSplitScreen .DarkSplitScreen__formTitle {
+  margin: 0 0 var(--elm-space-xl, 2.5rem);
+  font-family: var(--elm-font-heading, var(--elm-font-body, system-ui, sans-serif));
+  font-size: var(--elm-font-size-h3, 1.75rem);
+  font-weight: var(--elm-font-weight-medium, 500);
+  line-height: var(--elm-line-height-heading, 1.2);
+  letter-spacing: -0.02em;
+  color: var(--DarkSplitScreen-fg);
+}
+
+.DarkSplitScreen__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elm-space-lg, 1.5rem);
+}
+
+.DarkSplitScreen__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elm-space-sm, 0.5rem);
+}
+
+.DarkSplitScreen .DarkSplitScreen__label {
+  font-size: var(--elm-font-size-base, 1rem);
+  color: var(--DarkSplitScreen-fg);
+}
+
+.DarkSplitScreen .DarkSplitScreen__optional {
+  font-size: inherit;
+  color: var(--DarkSplitScreen-muted);
+}
+
+.DarkSplitScreen .DarkSplitScreen__input {
+  width: 100%;
+  padding: var(--elm-space-md, 0.875rem) var(--elm-space-md, 1rem);
+  font: inherit;
+  font-size: var(--elm-font-size-base, 1rem);
+  color: var(--DarkSplitScreen-fg);
+  background: var(--DarkSplitScreen-field);
+  border: 1px solid var(--DarkSplitScreen-line);
+  border-radius: var(--elm-radius-md, 0.5rem);
+  box-shadow: none;
+  transition: border-color var(--elm-transition-fast, 150ms ease),
+    background-color var(--elm-transition-fast, 150ms ease);
+}
+
+.DarkSplitScreen .DarkSplitScreen__input::placeholder {
+  color: var(--DarkSplitScreen-muted);
+  opacity: 0.7;
+}
+
+.DarkSplitScreen .DarkSplitScreen__input:hover {
+  border-color: var(--DarkSplitScreen-line-strong);
+}
+
+.DarkSplitScreen .DarkSplitScreen__input:focus {
+  outline: none;
+  border-color: var(--DarkSplitScreen-fg);
+  background: transparent;
+}
+
+.DarkSplitScreen .DarkSplitScreen__textarea {
+  resize: vertical;
+  min-height: 9rem;
+  line-height: 1.5;
+}
+
+.DarkSplitScreen__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--elm-space-lg, 1.5rem);
+  margin-top: var(--elm-space-sm, 0.5rem);
+}
+
+/* Inverted button: guaranteed contrast on dark whatever --elm-color-primary is */
+.DarkSplitScreen .DarkSplitScreen__submit {
+  padding: var(--elm-space-md, 0.875rem) var(--elm-space-xl, 2rem);
+  font: inherit;
+  font-weight: var(--elm-font-weight-semibold, 600);
+  color: var(--DarkSplitScreen-bg);
+  background: var(--DarkSplitScreen-fg);
+  border: 1px solid var(--DarkSplitScreen-fg);
+  border-radius: var(--elm-radius-md, 0.5rem);
+  cursor: pointer;
+  transition: background-color var(--elm-transition-fast, 150ms ease),
+    color var(--elm-transition-fast, 150ms ease);
+}
+
+.DarkSplitScreen .DarkSplitScreen__submit:hover:not(:disabled) {
+  background: transparent;
+  color: var(--DarkSplitScreen-fg);
+}
+
+.DarkSplitScreen .DarkSplitScreen__submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.DarkSplitScreen .DarkSplitScreen__status {
+  margin: 0;
+  min-height: 1.5em;
+  font-size: var(--elm-font-size-base, 1rem);
+}
+
+.DarkSplitScreen .DarkSplitScreen__status--success {
+  color: var(--elm-color-success, #4ade80);
+}
+
+.DarkSplitScreen .DarkSplitScreen__status--error {
+  color: var(--elm-color-danger, #f87171);
+}
+
+/* ---------- Focus ---------- */
+
+.DarkSplitScreen .DarkSplitScreen__link:focus-visible,
+.DarkSplitScreen .DarkSplitScreen__input:focus-visible,
+.DarkSplitScreen .DarkSplitScreen__submit:focus-visible {
+  outline: 2px solid var(--DarkSplitScreen-fg);
+  outline-offset: 3px;
+}
+
+/* ---------- Map ---------- */
+
+.DarkSplitScreen__map {
+  border-top: 1px solid var(--DarkSplitScreen-line);
+}
+
+.DarkSplitScreen__mapFrame {
+  display: block;
+  width: 100%;
+  height: 26rem;
+  border: 0;
+  filter: grayscale(1) invert(0.92) contrast(0.9);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 880px) {
+  .DarkSplitScreen__split {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .DarkSplitScreen__panel {
+    padding: var(--elm-space-3xl, 4rem) var(--elm-space-lg, 1.5rem);
+  }
+
+  .DarkSplitScreen__panel--form {
+    border-left: 0;
+    border-top: 1px solid var(--DarkSplitScreen-line);
+  }
+
+  .DarkSplitScreen__panel--info .DarkSplitScreen__inner {
+    gap: var(--elm-space-2xl, 3rem);
+  }
+
+  .DarkSplitScreen__detail {
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .DarkSplitScreen .DarkSplitScreen__link,
+  .DarkSplitScreen .DarkSplitScreen__input,
+  .DarkSplitScreen .DarkSplitScreen__submit {
+    transition: none;
+  }
+}

@@ -1,0 +1,258 @@
+
+.about-MinimalTypography {
+  width: 100%;
+  padding: var(--elm-space-4xl, 96px) 0;
+  color: var(--elm-color-text, #171717);
+  background: var(--elm-color-background, #faf9f6);
+  overflow: hidden;
+}
+
+.about-MinimalTypography__container {
+  width: 100%;
+  max-width: var(--elm-container-xl, 1280px);
+  margin-inline: auto;
+}
+
+.about-MinimalTypography__eyebrow {
+  margin: 0 0 var(--elm-space-2xl, 48px);
+  color: var(--elm-color-text-muted, #737373);
+  font-family: var(--elm-font-body, sans-serif);
+  font-size: 0.78rem;
+  font-weight: var(--elm-font-weight-semibold, 600);
+  letter-spacing: 0.08em;
+  line-height: var(--elm-line-height, 1.5);
+  text-transform: uppercase;
+}
+
+.about-MinimalTypography__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: start;
+  gap: var(--elm-space-4xl, 96px);
+}
+
+.about-MinimalTypography__heading {
+  min-width: 0;
+}
+
+.about-MinimalTypography__title {
+  max-width: 650px;
+  margin: 0;
+  font-family: var(--elm-font-heading, sans-serif);
+  font-size: clamp(2.75rem, 5.2vw, var(--elm-font-size-h1, 4.5rem));
+  font-weight: var(--elm-font-weight-bold, 700);
+  line-height: var(--elm-line-height-heading, 0.98);
+  letter-spacing: -0.065em;
+  text-wrap: balance;
+}
+
+.about-MinimalTypography__copy {
+  max-width: 520px;
+  padding-top: var(--elm-space-md, 16px);
+}
+
+.about-MinimalTypography__subheadline {
+  margin: 0 0 var(--elm-space-lg, 24px);
+  font-family: var(--elm-font-heading, sans-serif);
+  font-size: clamp(1.25rem, 1.8vw, var(--elm-font-size-h4, 1.5rem));
+  font-weight: var(--elm-font-weight-medium, 500);
+  line-height: var(--elm-line-height-heading, 1.3);
+  letter-spacing: -0.025em;
+}
+
+.about-MinimalTypography__description {
+  max-width: 470px;
+  margin: 0;
+  color: var(--elm-color-text-muted, #737373);
+  font-family: var(--elm-font-body, sans-serif);
+  font-size: var(--elm-font-size-base, 1rem);
+  font-weight: var(--elm-font-weight-normal, 400);
+  line-height: var(--elm-line-height, 1.8);
+}
+
+.about-MinimalTypography__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--elm-space-md, 16px);
+  margin-top: var(--elm-space-xl, 32px);
+  text-decoration: none;
+  transition:
+    background var(--elm-transition-normal, 250ms ease),
+    color var(--elm-transition-normal, 250ms ease),
+    transform var(--elm-transition-fast, 150ms ease);
+}
+
+.about-MinimalTypography__action:hover {
+  transform: translateY(-2px);
+}
+
+.about-MinimalTypography__action:focus-visible {
+  outline: 2px solid var(--elm-color-primary, #171717);
+  outline-offset: 4px;
+}
+
+.about-MinimalTypography__media {
+  width: 100%;
+  margin-top: var(--elm-space-4xl, 96px);
+  overflow: hidden;
+  background: var(--elm-color-surface, #f0efeb);
+}
+
+.about-MinimalTypography__image {
+  display: block;
+  width: 100%;
+  height: clamp(260px, 40vw, 520px);
+  object-fit: cover;
+  transition: transform var(--elm-transition-slow, 500ms ease);
+}
+
+.about-MinimalTypography__media:hover
+  .about-MinimalTypography__image {
+  transform: scale(1.015);
+}
+
+.about-MinimalTypography__highlights {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--elm-space-3xl, 64px);
+  margin-top: var(--elm-space-4xl, 96px);
+  padding-top: var(--elm-space-2xl, 48px);
+  border-top: 1px solid var(--elm-color-border, #deddd8);
+}
+
+.about-MinimalTypography__highlight {
+  min-width: 0;
+}
+
+.about-MinimalTypography__number {
+  display: inline-block;
+  margin-bottom: var(--elm-space-xl, 32px);
+  color: var(--elm-color-text-light, #929292);
+  font-family: var(--elm-font-body, sans-serif);
+  font-size: 0.8rem;
+  font-weight: var(--elm-font-weight-medium, 500);
+  font-variant-numeric: tabular-nums;
+}
+
+.about-MinimalTypography__highlight-title {
+  margin: 0 0 var(--elm-space-sm, 12px);
+  font-family: var(--elm-font-heading, sans-serif);
+  font-size: var(--elm-font-size-h3, 1.5rem);
+  font-weight: var(--elm-font-weight-semibold, 600);
+  line-height: var(--elm-line-height-heading, 1.3);
+  letter-spacing: -0.035em;
+}
+
+.about-MinimalTypography__highlight-text {
+  max-width: 430px;
+  margin: 0;
+  color: var(--elm-color-text-muted, #737373);
+  font-size: var(--elm-font-size-base, 1rem);
+  line-height: var(--elm-line-height, 1.8);
+}
+
+.about-MinimalTypography__footer {
+  margin: var(--elm-space-3xl, 64px) 0 0;
+  padding-top: var(--elm-space-lg, 24px);
+  border-top: 1px solid var(--elm-color-border, #deddd8);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .about-MinimalTypography {
+    padding: var(--elm-space-3xl, 64px) 0;
+  }
+
+  .about-MinimalTypography__intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--elm-space-xl, 32px);
+  }
+
+  .about-MinimalTypography__title {
+    max-width: 750px;
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+  }
+
+  .about-MinimalTypography__copy {
+    max-width: 600px;
+    padding-top: 0;
+  }
+
+  .about-MinimalTypography__media {
+    margin-top: var(--elm-space-3xl, 64px);
+  }
+
+  .about-MinimalTypography__highlights {
+    margin-top: var(--elm-space-3xl, 64px);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .about-MinimalTypography {
+    padding: var(--elm-space-2xl, 48px) 0;
+  }
+
+  .about-MinimalTypography__container {
+    padding-inline: var(--elm-space-lg, 24px);
+  }
+
+  .about-MinimalTypography__eyebrow {
+    margin-bottom: var(--elm-space-xl, 32px);
+  }
+
+  .about-MinimalTypography__intro {
+    gap: var(--elm-space-lg, 24px);
+  }
+
+  .about-MinimalTypography__title {
+    font-size: clamp(2.5rem, 11vw, 3.75rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
+  }
+
+  .about-MinimalTypography__subheadline {
+    margin-bottom: var(--elm-space-md, 16px);
+  }
+
+  .about-MinimalTypography__description {
+    font-size: 0.95rem;
+  }
+
+  .about-MinimalTypography__media {
+    margin-top: var(--elm-space-2xl, 48px);
+  }
+
+  .about-MinimalTypography__image {
+    height: 260px;
+  }
+
+  .about-MinimalTypography__highlights {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--elm-space-xl, 32px);
+    margin-top: var(--elm-space-2xl, 48px);
+    padding-top: var(--elm-space-xl, 32px);
+  }
+
+  .about-MinimalTypography__number {
+    margin-bottom: var(--elm-space-md, 16px);
+  }
+
+  .about-MinimalTypography__footer {
+    margin-top: var(--elm-space-2xl, 48px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-MinimalTypography__action,
+  .about-MinimalTypography__image {
+    transition: none;
+  }
+
+  .about-MinimalTypography__action:hover,
+  .about-MinimalTypography__media:hover
+    .about-MinimalTypography__image {
+    transform: none;
+  }
+}
