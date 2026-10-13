@@ -2,14 +2,14 @@
 const express = require("express");
 const router = express.Router();
 
+const authMiddleware = require("../../middleware/authMiddleware");
+const websiteOwnershipMiddleware = require("../../middleware/websiteOwnershipMiddleware");
+
 const {
   createContactSection,
   updateContactSection,
   deleteContactSection,
 } = require("../../controllers/sections/contactController");
-
-const authMiddleware = require("../../middleware/authMiddleware");
-const websiteOwnershipMiddleware = require("../../middleware/websiteOwnershipMiddleware");
 
 router.use(authMiddleware);
 router.use(websiteOwnershipMiddleware);
