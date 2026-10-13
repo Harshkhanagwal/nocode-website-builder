@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWebsiteById } from "../../redux/slices/projectSlice";
 import AddSectionPopup from "./AddSectionPopup/AddSectionPopup";
-import SectionSettings from "./SectionSettings/SectionSettings";
+import SectionSettings from "./SectionSettings/_test_SectionSettings";
 import "./EditWebsite.css";
 
 const devices = [
