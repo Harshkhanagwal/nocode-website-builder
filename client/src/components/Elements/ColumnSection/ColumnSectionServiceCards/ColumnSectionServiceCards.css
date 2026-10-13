@@ -1,0 +1,253 @@
+
+.ColumnSectionServiceCards {
+  --ColumnSectionServiceCards-bg: var(--elm-color-background, #ffffff);
+  --ColumnSectionServiceCards-text: var(--elm-color-text, #171717);
+  --ColumnSectionServiceCards-muted: var(--elm-color-text-muted, #737373);
+  --ColumnSectionServiceCards-border: var(--elm-color-border, #e5e5e5);
+  --ColumnSectionServiceCards-card-bg: var(--elm-color-surface, #ffffff);
+  --ColumnSectionServiceCards-accent: var(--elm-color-primary, #171717);
+  --ColumnSectionServiceCards-radius: var(--elm-radius-lg, 16px);
+  --ColumnSectionServiceCards-padding: var(--elm-section-padding, 80px);
+
+  width: 100%;
+  padding: var(--ColumnSectionServiceCards-padding) 24px;
+  background: var(--ColumnSectionServiceCards-bg);
+  color: var(--ColumnSectionServiceCards-text);
+  box-sizing: border-box;
+}
+
+.ColumnSectionServiceCards *,
+.ColumnSectionServiceCards *::before,
+.ColumnSectionServiceCards *::after {
+  box-sizing: border-box;
+}
+
+.ColumnSectionServiceCards__container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.ColumnSectionServiceCards__header {
+  max-width: 680px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+
+.ColumnSectionServiceCards__eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--ColumnSectionServiceCards-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.ColumnSectionServiceCards__headline {
+  margin: 0;
+  color: var(--ColumnSectionServiceCards-text);
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.ColumnSectionServiceCards__subheadline {
+  max-width: 540px;
+  margin: 16px auto 0;
+  color: var(--ColumnSectionServiceCards-muted);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.ColumnSectionServiceCards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.ColumnSectionServiceCards__card {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 250px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+  padding: 28px;
+  overflow: hidden;
+  border: 1px solid var(--ColumnSectionServiceCards-border);
+  border-radius: var(--ColumnSectionServiceCards-radius);
+  background: var(--ColumnSectionServiceCards-card-bg);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.ColumnSectionServiceCards__card:hover {
+  transform: translateY(-4px);
+  border-color: var(--ColumnSectionServiceCards-muted);
+  box-shadow: 0 14px 34px rgb(0 0 0 / 6%);
+}
+
+.ColumnSectionServiceCards__cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ColumnSectionServiceCards__number {
+  display: inline-flex;
+  min-width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ColumnSectionServiceCards-border);
+  border-radius: 12px;
+  color: var(--ColumnSectionServiceCards-text);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ColumnSectionServiceCards__arrow {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--ColumnSectionServiceCards-muted);
+  font-size: 20px;
+  transition:
+    color 220ms ease,
+    background 220ms ease,
+    transform 220ms ease;
+}
+
+.ColumnSectionServiceCards__card:hover
+.ColumnSectionServiceCards__arrow {
+  transform: translate(2px, -2px);
+  background: var(--ColumnSectionServiceCards-text);
+  color: var(--ColumnSectionServiceCards-bg);
+}
+
+.ColumnSectionServiceCards__cardContent {
+  position: relative;
+  z-index: 1;
+}
+
+.ColumnSectionServiceCards__cardTitle {
+  margin: 0 0 12px;
+  color: var(--ColumnSectionServiceCards-text);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.ColumnSectionServiceCards__cardDescription {
+  margin: 0;
+  color: var(--ColumnSectionServiceCards-muted);
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.ColumnSectionServiceCards__cardAccent {
+  position: absolute;
+  right: -36px;
+  bottom: -54px;
+  width: 112px;
+  height: 112px;
+  border: 1px solid var(--ColumnSectionServiceCards-border);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 260ms ease;
+}
+
+.ColumnSectionServiceCards__cardAccent::after {
+  position: absolute;
+  inset: 13px;
+  border: 1px solid var(--ColumnSectionServiceCards-border);
+  border-radius: 50%;
+  content: "";
+}
+
+.ColumnSectionServiceCards__card:hover
+.ColumnSectionServiceCards__cardAccent {
+  transform: scale(1.12);
+}
+
+@media (max-width: 900px) {
+  .ColumnSectionServiceCards {
+    padding: 64px 22px;
+  }
+
+  .ColumnSectionServiceCards__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .ColumnSectionServiceCards__card {
+    min-height: 230px;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ColumnSectionServiceCards {
+    padding: 48px 16px;
+  }
+
+  .ColumnSectionServiceCards__header {
+    margin-bottom: 30px;
+  }
+
+  .ColumnSectionServiceCards__headline {
+    font-size: clamp(28px, 8vw, 36px);
+  }
+
+  .ColumnSectionServiceCards__subheadline {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+
+  .ColumnSectionServiceCards__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .ColumnSectionServiceCards__card {
+    min-height: 210px;
+    padding: 22px;
+    gap: 28px;
+  }
+
+  .ColumnSectionServiceCards__cardTitle {
+    font-size: 19px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ColumnSectionServiceCards__card,
+  .ColumnSectionServiceCards__arrow,
+  .ColumnSectionServiceCards__cardAccent {
+    transition: none;
+  }
+
+  .ColumnSectionServiceCards__card:hover,
+  .ColumnSectionServiceCards__card:hover
+  .ColumnSectionServiceCards__arrow,
+  .ColumnSectionServiceCards__card:hover
+  .ColumnSectionServiceCards__cardAccent {
+    transform: none;
+  }
+}
