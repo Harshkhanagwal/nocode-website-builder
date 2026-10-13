@@ -1,79 +1,57 @@
-
-import { useEffect, useState } from "react";
 import { FiEye, FiEyeOff, FiSave } from "react-icons/fi";
 
-const clone = (data) => structuredClone(data);
+/**
+ * Controlled component: NO local draft.
+ * `section` comes from EditWebsite's draft (localWebsite), and every edit
+ * calls onChange(newSection) so the draft + live preview update immediately.
+ */
+const HeroSettings = ({ section, onChange, onSave, saving = false }) => {
+    if (!section) return null;
 
-const HeroSettings = ({ section, onSave, saving = false }) => {
-    const [draft, setDraft] = useState(() => clone(section));
+    const content = section.content || {};
+    const visibility = section.visibility || {};
 
-    useEffect(() => {
-        setDraft(clone(section));
-    }, [section?._id]);
-
-    if (!draft) return null;
-
-    const content = draft.content || {};
-    const visibility = draft.visibility || {};
+    // Helper: build a new section object and send it up
+    const emit = (patch) => onChange({ ...section, ...patch });
 
     const updateContent = (key, value) => {
-        setDraft((prev) => ({
-            ...prev,
-            content: {
-                ...prev.content,
-                [key]: value,
-            },
-        }));
+        emit({ content: { ...content, [key]: value } });
     };
 
     const updateVisibility = (key, value) => {
-        setDraft((prev) => ({
-            ...prev,
-            visibility: {
-                ...prev.visibility,
-                [key]: value,
-            },
-        }));
+        emit({ visibility: { ...visibility, [key]: value } });
     };
 
     const updateMedia = (key, value) => {
-        setDraft((prev) => ({
-            ...prev,
+        emit({
             content: {
-                ...prev.content,
-                media: {
-                    ...prev.content?.media,
-                    [key]: value,
-                },
+                ...content,
+                media: { ...content.media, [key]: value },
             },
-        }));
+        });
     };
 
     const updateArrayItem = (key, index, field, value) => {
-        setDraft((prev) => ({
-            ...prev,
+        emit({
             content: {
-                ...prev.content,
-                [key]: (prev.content?.[key] || []).map((item, i) =>
+                ...content,
+                [key]: (content[key] || []).map((item, i) =>
                     i === index ? { ...item, [field]: value } : item
                 ),
             },
-        }));
+        });
     };
 
     const toggleItem = (key, index) => {
         const item = (content[key] || [])[index];
-
         if (!item) return;
-
         updateArrayItem(key, index, "enabled", item.enabled === false);
     };
 
     const renderVisibility = (key, isVisible = visibility[key] !== false) => (
         <button
             type="button"
-            className={`section-settings__visibility ${isVisible ? "is-visible" : ""
-                }`}
+            className={`section-settings__visibility ${isVisible ? "is-visible" : ""}`}
             onClick={() => {
                 if (key.startsWith("item:")) {
                     const [, arrayKey, index] = key.split(":");
@@ -268,7 +246,7 @@ const HeroSettings = ({ section, onSave, saving = false }) => {
                         />
                     </div>
 
-                    {content.media?.type === "image" && content.media?.src && (
+                    {(content.media?.type || "image") === "image" && content.media?.src && (
                         <div className="section-settings__media-preview">
                             <img
                                 src={content.media.src}
@@ -288,12 +266,12 @@ const HeroSettings = ({ section, onSave, saving = false }) => {
                 </div>
             </section>
 
-            {/* Save the local draft */}
+            {/* Saves the whole draft held in EditWebsite */}
             <button
                 type="button"
                 className="section-settings__add-button"
                 disabled={saving}
-                onClick={() => onSave(clone(draft))}
+                onClick={() => onSave?.()}
             >
                 <FiSave />
                 {saving ? "Saving..." : "Save Changes"}

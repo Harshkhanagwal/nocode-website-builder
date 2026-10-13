@@ -39,24 +39,23 @@
 ========================================================= */
 
 :root {
- 
-  /* Primary */
---elm-color-primary: #8b5cf6;
---elm-color-primary-hover: #7c3aed;
+ /* Primary */
+--elm-color-primary: #10b981;
+--elm-color-primary-hover: #059669;
 --elm-color-secondary: #ffffff;
 
 /* Text */
---elm-color-text: #f5f3ff;
+--elm-color-text: #ecfdf5;
 --elm-color-text-muted: #a1a1aa;
 --elm-color-text-light: #71717a;
 
 /* Background */
---elm-color-background: #09090b;
---elm-color-surface: #18181b;
+--elm-color-background: #090f0d;
+--elm-color-surface: #141f1b;
 
 /* Borders */
---elm-color-border: #27272a;
---elm-color-border-dark: #3f3f46;
+--elm-color-border: #263a31;
+--elm-color-border-dark: #365347;
 
 /* Status */
 --elm-color-success: #22c55e;
