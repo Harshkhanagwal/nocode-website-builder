@@ -10,6 +10,8 @@ const typographyRoutes = require("./src/routes/typographyRoutes");
 const websiteRoutes = require("./src/routes/websiteRoutes");
 const heroRoutes = require("./src/routes/sections/heroRoutes");
 const connectDB = require('./src/config/db')
+const contactRoutes = require("./src/routes/sections/contactRoutes");
+
 
 app.use(
   cors({
@@ -28,6 +30,7 @@ app.use("/api/color-themes", colorThemeRoutes);
 app.use("/api/typographies", typographyRoutes); 
 app.use("/api/websites", websiteRoutes);
 app.use("/api/websites", heroRoutes);
+app.use("/api/websites", contactRoutes);
 
 
 
