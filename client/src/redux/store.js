@@ -4,6 +4,7 @@ import authReducer from "./slices/authSlice";
 import colorThemeReducer from "./slices/colorThemeSlice";
 import typographyReducer from "./slices/typographySlice";
 import projectReducer from "./slices/projectSlice";
+    import heroReducer from "./slices/heroSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,5 +12,6 @@ export const store = configureStore({
     colorThemes: colorThemeReducer,
     typography: typographyReducer,
     project: projectReducer,
+    hero: heroReducer,
   },
 });

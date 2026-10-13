@@ -186,38 +186,38 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
 
     const hasWebsite = !!localWebsite;
 
-/* Preview scaling -------------------------------------------------- */
-useEffect(() => {
-    if (!hasWebsite) return; // canvas isn't rendered yet
+    /* Preview scaling -------------------------------------------------- */
+    useEffect(() => {
+        if (!hasWebsite) return; // canvas isn't rendered yet
 
-    const calculateScale = () => {
-        const canvas = previewCanvasRef.current;
-        if (!canvas) return;
+        const calculateScale = () => {
+            const canvas = previewCanvasRef.current;
+            if (!canvas) return;
 
-        if (device !== "desktop") {
-            setPreviewScale(1);
-            return;
+            if (device !== "desktop") {
+                setPreviewScale(1);
+                return;
+            }
+
+            const availableWidth = canvas.clientWidth - 48;
+            const scale = Math.min(1, availableWidth / DEVICE_WIDTHS.desktop);
+            setPreviewScale(Math.max(scale, 0.35));
+        };
+
+        calculateScale();
+
+        const observer = new ResizeObserver(calculateScale);
+        if (previewCanvasRef.current) {
+            observer.observe(previewCanvasRef.current);
         }
 
-        const availableWidth = canvas.clientWidth - 48;
-        const scale = Math.min(1, availableWidth / DEVICE_WIDTHS.desktop);
-        setPreviewScale(Math.max(scale, 0.35));
-    };
+        window.addEventListener("resize", calculateScale);
 
-    calculateScale();
-
-    const observer = new ResizeObserver(calculateScale);
-    if (previewCanvasRef.current) {
-        observer.observe(previewCanvasRef.current);
-    }
-
-    window.addEventListener("resize", calculateScale);
-
-    return () => {
-        observer.disconnect();
-        window.removeEventListener("resize", calculateScale);
-    };
-}, [device, hasWebsite]);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("resize", calculateScale);
+        };
+    }, [device, hasWebsite]);
 
     const deviceWidth = DEVICE_WIDTHS[device];
     const deviceHeight = DEVICE_HEIGHTS[device];
@@ -287,8 +287,8 @@ useEffect(() => {
                                         key={section._id || index}
                                         type="button"
                                         className={`editor-section-item ${String(selectedSection) === String(section._id)
-                                                ? "active"
-                                                : ""
+                                            ? "active"
+                                            : ""
                                             }`}
                                         onClick={() => setSelectedSection(section._id)}
                                     >
@@ -393,6 +393,7 @@ useEffect(() => {
                             onChange={handleSectionChange}
                             onSave={handleSave}
                             saving={saving}
+                            websiteId={websiteId}
                         />
                     ) : (
                         <p>Select a section from the sidebar to view its settings.</p>

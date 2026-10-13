@@ -2,9 +2,10 @@ import HeroSettings from "./HeroSettings";
 
 import "./SectionSettings.css";
 
-const SectionSettings = ({ section, onChange, onSave, saving }) => {
+const SectionSettings = ({ websiteId, section, onChange, onSave, saving }) => {
   if (!section) return <p>Select a section.</p>;
 
+  console.log(websiteId)
   switch (section.sectionName) {
     case "hero":
       return (
@@ -13,6 +14,7 @@ const SectionSettings = ({ section, onChange, onSave, saving }) => {
           onChange={onChange}
           onSave={onSave}
           saving={saving}
+          websiteId={websiteId}
         />
       );
     default:

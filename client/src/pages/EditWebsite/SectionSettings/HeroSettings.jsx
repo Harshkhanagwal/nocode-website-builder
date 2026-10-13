@@ -1,15 +1,45 @@
 import { FiEye, FiEyeOff, FiSave } from "react-icons/fi";
 
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+// import { saveHeroSection } from "../../../../redux/slices/heroSlice";
+import { saveHeroSection } from "../../../redux/slices/heroSlice";
+
 /**
  * Controlled component: NO local draft.
  * `section` comes from EditWebsite's draft (localWebsite), and every edit
  * calls onChange(newSection) so the draft + live preview update immediately.
  */
-const HeroSettings = ({ section, onChange, onSave, saving = false }) => {
+const HeroSettings = ({ section, websiteId, onChange, onSave }) => {
     if (!section) return null;
 
     const content = section.content || {};
     const visibility = section.visibility || {};
+
+    const dispatch = useDispatch();
+    const [saving, setSaving] = useState(false);
+
+    const handleSave = async () => {
+        try {
+            setSaving(true);
+
+            await dispatch(
+                saveHeroSection({
+                    websiteId,
+                    sectionData: {
+                        content: section.content,
+                    },
+                })
+            ).unwrap();
+
+            console.log("Hero section saved successfully");
+        } catch (error) {
+            console.error("Failed to save hero section:", error);
+        } finally {
+            setSaving(false);
+        }
+    };
+
 
     // Helper: build a new section object and send it up
     const emit = (patch) => onChange({ ...section, ...patch });
@@ -271,7 +301,7 @@ const HeroSettings = ({ section, onChange, onSave, saving = false }) => {
                 type="button"
                 className="section-settings__add-button"
                 disabled={saving}
-                onClick={() => onSave?.()}
+                onClick={handleSave}
             >
                 <FiSave />
                 {saving ? "Saving..." : "Save Changes"}
