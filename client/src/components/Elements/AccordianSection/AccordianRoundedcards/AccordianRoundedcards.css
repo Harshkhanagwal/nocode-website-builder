@@ -1,0 +1,349 @@
+
+.AccordianRoundedcards {
+  --arc-bg-start: #e0f0ef;
+  --arc-bg-middle: #eee8ed;
+  --arc-bg-end: #f5d9cc;
+  --arc-panel: #f0efed;
+  --arc-card: #ffffff;
+  --arc-text: #171717;
+  --arc-muted: #65656b;
+  --arc-border: rgba(20, 20, 20, 0.07);
+
+  display: block;
+  width: 100%;
+  padding: 96px 24px;
+  box-sizing: border-box;
+  color: var(--arc-text);
+
+  background: linear-gradient(
+    125deg,
+    var(--arc-bg-start) 0%,
+    var(--arc-bg-middle) 48%,
+    var(--arc-bg-end) 100%
+  );
+
+  font-family: Inter, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.AccordianRoundedcards *,
+.AccordianRoundedcards *::before,
+.AccordianRoundedcards *::after {
+  box-sizing: border-box;
+}
+
+.AccordianRoundedcards__container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Header */
+
+.AccordianRoundedcards__header {
+  display: block;
+  max-width: 760px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.AccordianRoundedcards__eyebrow {
+  margin: 0 0 14px;
+  color: var(--arc-muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.AccordianRoundedcards__headline {
+  margin: 0;
+  color: var(--arc-text);
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 750;
+  line-height: 1.12;
+  letter-spacing: -2px;
+  overflow-wrap: anywhere;
+}
+
+.AccordianRoundedcards__subheadline {
+  max-width: 600px;
+  margin: 18px auto 0;
+  color: var(--arc-muted);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+/* Outer panel */
+
+.AccordianRoundedcards__panel {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 26px;
+  background: var(--arc-panel);
+
+  box-shadow: 0 18px 60px rgba(30, 30, 30, 0.07);
+}
+
+/* Accordion list */
+
+.AccordianRoundedcards__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Individual cards */
+
+.AccordianRoundedcards__card {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+
+  border: 1px solid var(--arc-border);
+  border-radius: 18px;
+  background: var(--arc-card);
+
+  transition:
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.AccordianRoundedcards__card--open {
+  border-color: rgba(0, 0, 0, 0.09);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.045);
+}
+
+/* Clickable question */
+
+.AccordianRoundedcards__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  width: 100%;
+  min-height: 76px;
+  padding: 22px 26px;
+
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--arc-text);
+
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition: background-color 180ms ease;
+}
+
+.AccordianRoundedcards__trigger:hover {
+  background: rgba(0, 0, 0, 0.025);
+}
+
+.AccordianRoundedcards__question {
+  display: block;
+  flex: 1;
+  min-width: 0;
+
+  color: var(--arc-text);
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.5;
+  letter-spacing: -0.3px;
+  overflow-wrap: anywhere;
+}
+
+/* Plus / minus icon */
+
+.AccordianRoundedcards__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  background: #f6f5f3;
+  color: var(--arc-text);
+
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.AccordianRoundedcards__icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.AccordianRoundedcards__plus {
+  transform-origin: center;
+  transition: transform 220ms ease;
+}
+
+.AccordianRoundedcards__card--open
+  .AccordianRoundedcards__icon {
+  background: var(--arc-text);
+  color: #ffffff;
+}
+
+.AccordianRoundedcards__card--open
+  .AccordianRoundedcards__plus {
+  transform: rotate(45deg);
+}
+
+/* Answer */
+
+.AccordianRoundedcards__answer {
+  display: block;
+  padding: 0 26px 25px;
+}
+
+.AccordianRoundedcards__answer[hidden] {
+  display: none !important;
+}
+
+.AccordianRoundedcards__answer-text {
+  max-width: 780px;
+  margin: 0;
+
+  color: var(--arc-muted);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+
+/* Keyboard accessibility */
+
+.AccordianRoundedcards__trigger:focus-visible {
+  position: relative;
+  z-index: 2;
+  outline: 2px solid #68616d;
+  outline-offset: -4px;
+}
+
+.AccordianRoundedcards__trigger:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .AccordianRoundedcards {
+    padding: 72px 24px;
+  }
+
+  .AccordianRoundedcards__header {
+    margin-bottom: 36px;
+  }
+
+  .AccordianRoundedcards__panel {
+    padding: 15px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .AccordianRoundedcards {
+    padding: 52px 16px;
+  }
+
+  .AccordianRoundedcards__header {
+    margin-bottom: 28px;
+  }
+
+  .AccordianRoundedcards__eyebrow {
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+
+  .AccordianRoundedcards__headline {
+    font-size: clamp(29px, 8vw, 40px);
+    letter-spacing: -1.2px;
+    line-height: 1.16;
+  }
+
+  .AccordianRoundedcards__subheadline {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .AccordianRoundedcards__panel {
+    padding: 9px;
+    border-radius: 20px;
+  }
+
+  .AccordianRoundedcards__list {
+    gap: 9px;
+  }
+
+  .AccordianRoundedcards__card {
+    border-radius: 14px;
+  }
+
+  .AccordianRoundedcards__trigger {
+    min-height: 64px;
+    gap: 12px;
+    padding: 17px 15px;
+  }
+
+  .AccordianRoundedcards__question {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .AccordianRoundedcards__icon {
+    width: 29px;
+    height: 29px;
+    flex-basis: 29px;
+  }
+
+  .AccordianRoundedcards__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .AccordianRoundedcards__answer {
+    padding: 0 15px 19px;
+  }
+
+  .AccordianRoundedcards__answer-text {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .AccordianRoundedcards *,
+  .AccordianRoundedcards *::before,
+  .AccordianRoundedcards *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

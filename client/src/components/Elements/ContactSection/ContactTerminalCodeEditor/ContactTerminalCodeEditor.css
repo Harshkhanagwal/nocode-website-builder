@@ -1,0 +1,443 @@
+/* ==========================================================================
+   Terminal / code-editor style  ·  prefix: .terminal-code-editor
+   Theme comes from --elm-* variables (fallbacks included).
+   The editor is always dark: its background is derived from --elm-color-text
+   and its foreground from --elm-color-background. Override the local
+   --terminal-code-editor-* tokens below to force a different look.
+   ========================================================================== */
+
+.terminal-code-editor {
+  /* surfaces */
+  --terminal-code-editor-bg: var(--elm-color-text, #12171b);
+  --terminal-code-editor-bg-raised: color-mix(
+    in srgb, var(--terminal-code-editor-bg) 90%, white
+  );
+  --terminal-code-editor-bg-sunken: color-mix(
+    in srgb, var(--terminal-code-editor-bg) 82%, black
+  );
+  --terminal-code-editor-line: color-mix(
+    in srgb, var(--terminal-code-editor-bg) 80%, white
+  );
+  --terminal-code-editor-fg: var(--elm-color-background, #e8edef);
+  --terminal-code-editor-dim: color-mix(
+    in srgb, var(--terminal-code-editor-fg) 48%, var(--terminal-code-editor-bg)
+  );
+
+  /* syntax tokens */
+  --terminal-code-editor-keyword: color-mix(
+    in srgb, var(--elm-color-primary, #3aa6b9) 55%, white
+  );
+  --terminal-code-editor-string: color-mix(
+    in srgb, var(--elm-color-success, #3fb97a) 70%, white
+  );
+  --terminal-code-editor-property: color-mix(
+    in srgb, var(--elm-color-secondary, #e0a458) 70%, white
+  );
+  --terminal-code-editor-ident: color-mix(
+    in srgb, var(--elm-color-info, #5b9bd5) 60%, white
+  );
+  --terminal-code-editor-danger: color-mix(
+    in srgb, var(--elm-color-danger, #d9534f) 70%, white
+  );
+
+  --terminal-code-editor-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono",
+    "Fira Code", Menlo, Consolas, "Liberation Mono", monospace;
+
+  padding: var(--elm-space-4xl, 5rem) 0;
+  background: var(--elm-color-background, #f4f6f7);
+  color: var(--elm-color-text, #12171b);
+  font-family: var(--elm-font-body, system-ui, sans-serif);
+}
+
+/* ---------- Window ------------------------------------------------------ */
+
+.terminal-code-editor__window {
+  overflow: hidden;
+  color: var(--terminal-code-editor-fg);
+  font-family: var(--terminal-code-editor-mono);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  background: var(--terminal-code-editor-bg);
+  border: 1px solid var(--terminal-code-editor-line);
+  border-radius: var(--elm-radius-lg, 0.875rem);
+  box-shadow: var(--elm-shadow-lg, 0 28px 70px rgba(10, 20, 26, 0.35));
+}
+
+.terminal-code-editor__window--map {
+  margin-top: var(--elm-space-xl, 2rem);
+}
+
+.terminal-code-editor__titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem var(--elm-space-md, 1rem);
+  background: var(--terminal-code-editor-bg-raised);
+  border-bottom: 1px solid var(--terminal-code-editor-line);
+}
+
+.terminal-code-editor__dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.terminal-code-editor__dot {
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: var(--elm-radius-full, 999px);
+}
+
+.terminal-code-editor__dot--close { background: var(--elm-color-danger, #e5534b); }
+.terminal-code-editor__dot--min   { background: var(--elm-color-warning, #e5a93b); }
+.terminal-code-editor__dot--max   { background: var(--elm-color-success, #3fb97a); }
+
+.terminal-code-editor__window-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8125rem;
+  color: var(--terminal-code-editor-dim);
+  white-space: nowrap;
+}
+
+/* ---------- Panes ------------------------------------------------------- */
+
+.terminal-code-editor__panes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.terminal-code-editor__pane {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-code-editor__pane--terminal {
+  background: var(--terminal-code-editor-bg-sunken);
+  border-top: 1px solid var(--terminal-code-editor-line);
+}
+
+.terminal-code-editor__tab {
+  display: flex;
+  padding: 0 var(--elm-space-md, 1rem);
+  background: var(--terminal-code-editor-bg-raised);
+  border-bottom: 1px solid var(--terminal-code-editor-line);
+}
+
+.terminal-code-editor__tab-name {
+  padding: 0.5rem 0.25rem 0.4rem;
+  font-size: 0.8125rem;
+  color: var(--terminal-code-editor-fg);
+  border-bottom: 2px solid var(--elm-color-primary, #3aa6b9);
+  margin-bottom: -1px;
+}
+
+/* ---------- Editor ------------------------------------------------------ */
+
+.terminal-code-editor__code {
+  flex: 1;
+  padding: var(--elm-space-lg, 1.25rem) 0;
+  counter-reset: terminal-code-editor-line;
+}
+
+.terminal-code-editor__line {
+  position: relative;
+  min-height: 1.7em;
+  padding: 0 var(--elm-space-lg, 1.25rem) 0 4rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.terminal-code-editor__line::before {
+  counter-increment: terminal-code-editor-line;
+  content: counter(terminal-code-editor-line);
+  position: absolute;
+  left: 0;
+  width: 2.75rem;
+  padding-right: 0.5rem;
+  text-align: right;
+  color: var(--terminal-code-editor-dim);
+  opacity: 0.7;
+  user-select: none;
+}
+
+.terminal-code-editor__line:hover {
+  background: color-mix(in srgb, var(--terminal-code-editor-fg) 5%, transparent);
+}
+
+.terminal-code-editor__line--indent {
+  padding-left: calc(4rem + 1.5rem);
+}
+
+.terminal-code-editor__line--headline {
+  margin: var(--elm-space-xs, 0.25rem) 0;
+}
+
+/* syntax */
+.terminal-code-editor__kw      { color: var(--terminal-code-editor-keyword); }
+.terminal-code-editor__id      { color: var(--terminal-code-editor-ident); }
+.terminal-code-editor__str     { color: var(--terminal-code-editor-string); }
+.terminal-code-editor__prop    { color: var(--terminal-code-editor-property); }
+.terminal-code-editor__punc    { color: var(--terminal-code-editor-dim); }
+.terminal-code-editor__comment { color: var(--terminal-code-editor-dim); font-style: italic; }
+
+.terminal-code-editor__headline,
+.terminal-code-editor__subheadline {
+  display: inline;
+  margin: 0;
+  font-family: inherit;
+  font-weight: var(--elm-font-weight-normal, 400);
+  color: inherit;
+}
+
+.terminal-code-editor__headline {
+  font-size: clamp(1.5rem, 3.4vw, 2.25rem);
+  font-weight: var(--elm-font-weight-bold, 700);
+  line-height: 1.3;
+}
+
+.terminal-code-editor__subheadline {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.terminal-code-editor__link {
+  color: var(--terminal-code-editor-string);
+  text-decoration: underline;
+  text-decoration-color: color-mix(
+    in srgb, var(--terminal-code-editor-string) 40%, transparent
+  );
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--elm-transition-fast, 150ms ease);
+}
+
+.terminal-code-editor__link:hover {
+  text-decoration-color: currentColor;
+}
+
+/* ---------- Terminal / form -------------------------------------------- */
+
+.terminal-code-editor__shell {
+  flex: 1;
+  padding: var(--elm-space-lg, 1.25rem) var(--elm-space-lg, 1.25rem)
+    var(--elm-space-xl, 2rem);
+}
+
+.terminal-code-editor__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--elm-space-md, 1rem);
+}
+
+.terminal-code-editor__form-title {
+  margin: 0 0 var(--elm-space-xs, 0.25rem);
+  font-family: inherit;
+  font-size: 1.0625rem;
+  font-weight: var(--elm-font-weight-semibold, 600);
+  line-height: 1.4;
+  color: var(--terminal-code-editor-fg);
+}
+
+.terminal-code-editor__prompt {
+  color: var(--terminal-code-editor-string);
+  user-select: none;
+}
+
+.terminal-code-editor__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.terminal-code-editor__label {
+  font-size: 0.8125rem;
+}
+
+.terminal-code-editor__required {
+  color: var(--terminal-code-editor-danger);
+}
+
+.terminal-code-editor__input-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  padding: 0.375rem 0.25rem;
+  border-bottom: 1px dashed var(--terminal-code-editor-line);
+  transition: border-color var(--elm-transition-fast, 150ms ease);
+}
+
+.terminal-code-editor__input-row:focus-within {
+  border-bottom-style: solid;
+  border-bottom-color: var(--elm-color-primary, #3aa6b9);
+}
+
+.terminal-code-editor__input-row .terminal-code-editor__prompt {
+  line-height: 1.7;
+}
+
+.terminal-code-editor__control {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--terminal-code-editor-fg);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  caret-color: var(--terminal-code-editor-string);
+  caret-shape: block;
+}
+
+textarea.terminal-code-editor__control {
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+.terminal-code-editor__control::placeholder {
+  color: var(--terminal-code-editor-dim);
+  opacity: 0.75;
+}
+
+.terminal-code-editor__control:focus {
+  outline: none;
+}
+
+.terminal-code-editor__field--error .terminal-code-editor__input-row {
+  border-bottom-color: var(--terminal-code-editor-danger);
+}
+
+.terminal-code-editor__error {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--terminal-code-editor-danger);
+}
+
+.terminal-code-editor__submit {
+  align-self: flex-start;
+  margin-top: var(--elm-space-sm, 0.5rem);
+  font-family: inherit;
+}
+
+.terminal-code-editor__submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+/* ---------- Terminal output (success) ---------------------------------- */
+
+.terminal-code-editor__output {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.terminal-code-editor__output p {
+  margin: 0;
+}
+
+.terminal-code-editor__ok    { color: var(--terminal-code-editor-string); }
+.terminal-code-editor__muted { color: var(--terminal-code-editor-dim); }
+
+.terminal-code-editor__reset {
+  margin-top: var(--elm-space-md, 1rem);
+  font-family: inherit;
+}
+
+/* ---------- Status bar -------------------------------------------------- */
+
+.terminal-code-editor__statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--elm-space-lg, 1.25rem);
+  padding: 0.375rem var(--elm-space-md, 1rem);
+  font-size: 0.75rem;
+  color: var(--terminal-code-editor-dim);
+  background: var(--terminal-code-editor-bg-raised);
+  border-top: 1px solid var(--terminal-code-editor-line);
+}
+
+.terminal-code-editor__status-item:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: auto;
+  color: var(--terminal-code-editor-fg);
+}
+
+.terminal-code-editor__status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--elm-radius-full, 999px);
+  background: var(--terminal-code-editor-dim);
+}
+
+.terminal-code-editor__status-dot--idle    { background: var(--elm-color-info, #5b9bd5); }
+.terminal-code-editor__status-dot--sending { background: var(--elm-color-warning, #e5a93b); animation: terminal-code-editor-blink 1s steps(2, start) infinite; }
+.terminal-code-editor__status-dot--success { background: var(--elm-color-success, #3fb97a); }
+.terminal-code-editor__status-dot--error   { background: var(--elm-color-danger, #e5534b); }
+
+@keyframes terminal-code-editor-blink {
+  to { opacity: 0.25; }
+}
+
+/* ---------- Map --------------------------------------------------------- */
+
+.terminal-code-editor__map-frame {
+  display: block;
+  width: 100%;
+  min-height: 20rem;
+  border: 0;
+}
+
+.terminal-code-editor__map-empty {
+  display: grid;
+  place-items: center;
+  min-height: 14rem;
+  padding: var(--elm-space-lg, 1.25rem);
+}
+
+/* ---------- Focus ------------------------------------------------------- */
+
+.terminal-code-editor__link:focus-visible,
+.terminal-code-editor__submit:focus-visible,
+.terminal-code-editor__reset:focus-visible {
+  outline: 2px solid var(--elm-color-primary, #3aa6b9);
+  outline-offset: 3px;
+}
+
+/* ---------- Desktop: editor left, terminal right ------------------------ */
+
+@media (min-width: 900px) {
+  .terminal-code-editor__panes--split {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+
+  .terminal-code-editor__panes--split .terminal-code-editor__pane--terminal {
+    border-top: 0;
+    border-left: 1px solid var(--terminal-code-editor-line);
+  }
+
+  .terminal-code-editor__shell {
+    padding: var(--elm-space-xl, 2rem);
+  }
+}
+
+@media (max-width: 599px) {
+  .terminal-code-editor__window { font-size: 0.875rem; }
+  .terminal-code-editor__line   { padding-left: 3rem; padding-right: 0.75rem; }
+  .terminal-code-editor__line::before { width: 2rem; }
+  .terminal-code-editor__line--indent { padding-left: 4.25rem; }
+  .terminal-code-editor__window-title { display: none; }
+}
+
+/* ---------- Reduced motion --------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-code-editor__status-dot--sending { animation: none; }
+  .terminal-code-editor__link,
+  .terminal-code-editor__input-row { transition: none; }
+}

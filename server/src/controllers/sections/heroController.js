@@ -28,7 +28,7 @@ const createHeroSection = async (req, res, next) => {
       enabled: true,
       order: website.sections.length,
       content: {},
-      visibility: {},
+      visibility: req.body.visibility ?? {},
     });
 
     console.log("Hero data:", heroData);
@@ -50,6 +50,7 @@ const createHeroSection = async (req, res, next) => {
     return res.status(201).json({
       success: true,
       message: "Hero section added successfully.",
+      section: createdHero,
       data: createdHero,
     });
   } catch (error) {
@@ -70,7 +71,7 @@ const updateHeroSection = async (req, res, next) => {
     const website = req.website;
 
     const index = website.sections.findIndex(
-      (section) => section.sectionName === "hero"
+      (section) => section.sectionName === "hero" && String(section._id) === String(req.query.sectionId)
     );
 
     if (index === -1) {
@@ -117,6 +118,7 @@ const updateHeroSection = async (req, res, next) => {
 
     const validatedHero = await validateHeroSection(mergedHero);
 
+    validatedHero._id = existingHero._id;
     website.sections.set
       ? website.sections.set(index, validatedHero)
       : website.sections.splice(index, 1, validatedHero);
@@ -147,7 +149,7 @@ const deleteHeroSection = async (req, res, next) => {
     const website = req.website;
 
     const index = website.sections.findIndex(
-      (section) => section.sectionName === "hero"
+      (section) => section.sectionName === "hero" && String(section._id) === String(req.query.sectionId)
     );
 
     if (index === -1) {

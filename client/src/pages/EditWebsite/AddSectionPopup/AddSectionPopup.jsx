@@ -14,40 +14,42 @@ import {
 } from "react-icons/fi";
 
 import "./AddSectionPopup.css";
+import { useDispatch } from "react-redux";
+import { createSection } from "../../../redux/slices/sectionSlice";
 
 const sectionCatalog = [
   {
     id: "hero",
     name: "Hero",
-    description: "Introduce your website with a strong first impression.",
+    description: "Make a strong first impression.",
     icon: FiLayout,
     category: "Essentials",
     variants: [
       {
         id: "split",
         name: "Split Hero",
-        description: "Text on one side, image on the other.",
+        description: "Text and image side by side.",
         image:
           "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
       },
       {
         id: "centered",
         name: "Centered Hero",
-        description: "Centered content with a clean layout.",
+        description: "Centered content and a clean layout.",
         image:
           "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
       },
       {
         id: "fullscreen-image",
-        name: "Full Screen Hero",
-        description: "A large, immersive background image.",
+        name: "Full Screen Image",
+        description: "An immersive, image-led hero.",
         image:
           "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80",
       },
       {
         id: "cinematic-corner",
-        name: "Cinematic Hero",
-        description: "An image-led layout with an editorial feel.",
+        name: "Cinematic Corner",
+        description: "An editorial image-led layout.",
         image:
           "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=900&q=80",
       },
@@ -56,138 +58,148 @@ const sectionCatalog = [
   {
     id: "about",
     name: "About",
-    description: "Tell visitors about you, your brand, or your team.",
+    description: "Tell visitors about you or your team.",
     icon: FiUser,
     category: "Essentials",
     variants: [
       {
-        id: "split",
-        name: "Split About",
-        description: "Image alongside your story.",
+        id: "editorial",
+        name: "Editorial",
+        description: "An editorial-style introduction.",
         image:
           "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80",
       },
       {
-        id: "centered",
-        name: "Centered Bio",
-        description: "A focused introduction with centered content.",
+        id: "minimal-typography",
+        name: "Minimal Typography",
+        description: "A typography-focused introduction.",
         image:
           "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80",
       },
-    ],
-  },
-  {
-    id: "projects",
-    name: "Projects",
-    description: "Showcase your work and featured projects.",
-    icon: FiBriefcase,
-    category: "Content",
-    variants: [
       {
-        id: "grid",
-        name: "Project Grid",
-        description: "Display projects in a structured grid.",
+        id: "timeline",
+        name: "Timeline",
+        description: "Present your story as a timeline.",
+        image:
+          "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "bento-grid",
+        name: "Bento Grid",
+        description: "Organize your story into visual cards.",
         image:
           "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
-      },
-      {
-        id: "featured",
-        name: "Featured Project",
-        description: "Give one project more visual emphasis.",
-        image:
-          "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=900&q=80",
-      },
-    ],
-  },
-  {
-    id: "features",
-    name: "Features",
-    description: "Highlight your services, skills, or key benefits.",
-    icon: FiZap,
-    category: "Content",
-    variants: [
-      {
-        id: "icon-grid",
-        name: "Icon Grid",
-        description: "Highlight features in a compact grid.",
-        image:
-          "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80",
-      },
-      {
-        id: "feature-rows",
-        name: "Feature Rows",
-        description: "Present features in stacked rows.",
-        image:
-          "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80",
-      },
-    ],
-  },
-  {
-    id: "testimonials",
-    name: "Testimonials",
-    description: "Display feedback and client reviews.",
-    icon: FiMessageSquare,
-    category: "Content",
-    variants: [
-      {
-        id: "cards",
-        name: "Testimonial Cards",
-        description: "Show reviews in separate cards.",
-        image:
-          "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=900&q=80",
-      },
-      {
-        id: "centered",
-        name: "Featured Quote",
-        description: "Emphasize one testimonial.",
-        image:
-          "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
       },
     ],
   },
   {
     id: "contact",
     name: "Contact",
-    description: "Give visitors a way to reach you.",
+    description: "Help visitors get in touch.",
     icon: FiMail,
     category: "Essentials",
     variants: [
       {
-        id: "contact-form",
-        name: "Contact Form",
-        description: "A form for visitor enquiries.",
+        id: "dark-split-screen",
+        name: "Dark Split Screen",
+        description: "Contact details beside the enquiry form.",
         image:
           "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",
       },
       {
-        id: "contact-details",
-        name: "Contact Details",
-        description: "Display contact information clearly.",
+        id: "terminal-code-editor",
+        name: "Terminal Code Editor",
+        description: "A developer-inspired contact layout.",
+        image:
+          "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "floating-form-card",
+        name: "Floating Form Card",
+        description: "A prominent form card layout.",
         image:
           "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "minimal-typography",
+        name: "Minimal Typography",
+        description: "A clean, typography-focused contact section.",
+        image:
+          "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
       },
     ],
   },
   {
-    id: "footer",
-    name: "Footer",
-    description: "Finish your website with navigation and links.",
+    id: "accordion",
+    name: "Accordion / FAQ",
+    description: "Answer common visitor questions.",
     icon: FiLayers,
-    category: "Essentials",
+    category: "Content",
     variants: [
       {
-        id: "simple",
-        name: "Simple Footer",
-        description: "A minimal footer with essential links.",
-        image:
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80",
-      },
-      {
-        id: "multi-column",
-        name: "Multi-column Footer",
-        description: "Organize links into multiple columns.",
+        id: "borderless-minimal",
+        name: "Borderless Minimal",
+        description: "Simple, minimal expandable answers.",
         image:
           "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "dark-futuristic",
+        name: "Dark Futuristic",
+        description: "A dark, modern FAQ layout.",
+        image:
+          "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "rounded-cards",
+        name: "Rounded Cards",
+        description: "Questions displayed in rounded cards.",
+        image:
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "two-column-faq",
+        name: "Two-Column FAQ",
+        description: "Organize questions into two columns.",
+        image:
+          "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80",
+      },
+    ],
+  },
+  {
+    id: "columns",
+    name: "Columns",
+    description: "Arrange content into structured layouts.",
+    icon: FiBriefcase,
+    category: "Content",
+    variants: [
+      {
+        id: "bento",
+        name: "Bento",
+        description: "A flexible grid of content cards.",
+        image:
+          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "classic",
+        name: "Classic",
+        description: "A traditional column layout.",
+        image:
+          "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "people",
+        name: "People",
+        description: "Showcase people and team members.",
+        image:
+          "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80",
+      },
+      {
+        id: "service-cards",
+        name: "Service Cards",
+        description: "Present services in individual cards.",
+        image:
+          "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80",
       },
     ],
   },
@@ -195,12 +207,21 @@ const sectionCatalog = [
 
 const categories = ["All sections", "Essentials", "Content"];
 
-function AddSectionPopup({ onClose, onAddSection }) {
+
+function AddSectionPopup({
+  onClose,
+  onAddSection,
+  websiteId,
+  sectionCount = 0,
+
+}) {
   const [selectedSection, setSelectedSection] = useState(null);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All sections");
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch();
 
   const filteredSections = useMemo(() => {
     const term = search.trim().toLowerCase();
@@ -222,6 +243,7 @@ function AddSectionPopup({ onClose, onAddSection }) {
     });
   }, [search, activeCategory]);
 
+
   const handleAdd = async (variant) => {
     if (!selectedSection || adding) return;
 
@@ -229,24 +251,40 @@ function AddSectionPopup({ onClose, onAddSection }) {
     setError("");
 
     try {
-      await onAddSection({
-        sectionName: selectedSection.id,
-        sectionLabel: selectedSection.name,
-        variant: variant.id,
-        variantLabel: variant.name,
-        enabled: true,
-        content: {},
-        visibility: {},
-      });
+      const response = await dispatch(
+        createSection({
+          websiteId,
+          sectionName: selectedSection.id,
+          data: {
+            variant: variant.id,
+            enabled: true,
+            order: sectionCount,
+            content: {},
+          },
+        })
+      ).unwrap();
 
+      if (!response?.section?._id) {
+        throw new Error("The server did not return the created section.");
+      }
+
+      await onAddSection(response.section);
       onClose();
     } catch (err) {
       console.error("Failed to add section:", err);
-      setError("Unable to add this section. Please try again.");
+
+      setError(
+        typeof err === "string"
+          ? err
+          : err?.message || "Unable to add this section. Please try again."
+      );
     } finally {
       setAdding(false);
     }
   };
+
+
+
 
   return (
     <div
@@ -326,9 +364,8 @@ function AddSectionPopup({ onClose, onAddSection }) {
                   <button
                     key={category}
                     type="button"
-                    className={`add-section-category ${
-                      activeCategory === category ? "active" : ""
-                    }`}
+                    className={`add-section-category ${activeCategory === category ? "active" : ""
+                      }`}
                     onClick={() => setActiveCategory(category)}
                   >
                     {category}

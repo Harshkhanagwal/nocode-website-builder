@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import SplitHero from "../Elements/HeroSection/SplitHero/SplitHero";
 import { getWebsiteById } from "../../api/websiteApi";
 import WebsiteRenderer from "../../renderer/WebsiteRenderer";
+import useLivePreviewData from "../../hooks/useLivePreviewData";
 
-import './UserWebPage.css'
+import "./UserWebPage.css";
 
 const UserWebPage = ({ websiteId }) => {
-  const [website, setWebsite] = useState(null);
+  const [serverWebsite, setServerWebsite] = useState(null); // data from the API
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Normally returns serverWebsite.
+  // Inside the editor's iframe, it returns the live draft sent by the editor.
+  // (Must stay above the early returns below.)
+  const website = useLivePreviewData(serverWebsite);
 
   useEffect(() => {
     const fetchWebsite = async () => {
@@ -17,11 +22,9 @@ const UserWebPage = ({ websiteId }) => {
 
         const data = await getWebsiteById(websiteId);
 
-        setWebsite(data.website);
-
-        console.log("WEBSITE:", data.website);
-      } catch (error) {
-        console.error("Failed to fetch website:", error);
+        setServerWebsite(data.website);
+      } catch (err) {
+        console.error("Failed to fetch website:", err);
         setError("Failed to load website");
       } finally {
         setLoading(false);
@@ -44,7 +47,6 @@ const UserWebPage = ({ websiteId }) => {
   if (!website) {
     return <p>Website not found.</p>;
   }
-
 
   const colors = website?.theme?.colorPalette;
   const typography = website?.typography;
@@ -110,14 +112,8 @@ const UserWebPage = ({ websiteId }) => {
   };
 
   return (
-    <div
-      className="elm-website"
-      style={themeStyles}
-    >
-
+    <div className="elm-website" style={themeStyles}>
       <WebsiteRenderer website={website} />
-    
-
     </div>
   );
 };

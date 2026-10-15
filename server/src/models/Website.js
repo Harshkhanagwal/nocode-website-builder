@@ -29,8 +29,14 @@ const sectionSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.Mixed,
       default: {},
     },
+    visibility: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {},
+    },
   },
-  { _id: false }
+  // Keep MongoDB's generated _id on every section instance. The editor uses
+  // this id for selection and targeted updates.
+  { _id: true }
 );
 
 const websiteSchema = new mongoose.Schema(

@@ -1,0 +1,335 @@
+.editor-inspector-content {
+    background-color: var(--color-surface);
+    border-left: 1px solid var(--color-border);
+}
+
+/* Hero settings — align with the platform design system */
+
+.hero-settings,
+.hero-settings * {
+    box-sizing: border-box;
+}
+
+.hero-settings {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-md);
+}
+
+.hero-settings-intro {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-settings-label {
+    display: block;
+    margin-bottom: var(--space-3);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.08em;
+}
+
+.hero-settings-intro h3 {
+    margin: 0 0 var(--space-3);
+    color: var(--color-text);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.35;
+}
+
+.hero-settings-intro p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+}
+
+.hero-settings-group {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    box-shadow: none;
+}
+
+.hero-settings-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    text-align: left;
+    cursor: pointer;
+}
+
+.hero-settings-group-header svg {
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    transition: transform var(--transition-fast);
+}
+
+.hero-settings-group-header svg.rotated {
+    transform: rotate(180deg);
+}
+
+.hero-settings-group-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+    min-width: 0;
+    margin-top: var(--space-4);
+}
+
+.hero-settings-field-with-visibility,
+.hero-settings-field,
+.hero-settings .editor-setting-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+.hero-settings-field label,
+.hero-settings .editor-setting-group label {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+}
+
+.hero-settings-field input,
+.hero-settings-field textarea,
+.hero-settings-field select,
+.hero-settings .editor-setting-group input,
+.hero-settings .editor-setting-group textarea,
+.hero-settings .editor-setting-group select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.hero-settings-field input:focus,
+.hero-settings-field textarea:focus,
+.hero-settings-field select:focus,
+.hero-settings .editor-setting-group input:focus,
+.hero-settings .editor-setting-group textarea:focus,
+.hero-settings .editor-setting-group select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.hero-settings-field textarea,
+.hero-settings .editor-setting-group textarea {
+    min-height: 84px;
+    resize: vertical;
+}
+
+.hero-visibility-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    gap: var(--space-2);
+    width: auto;
+    max-width: 100%;
+    min-height: 34px;
+    margin: 0;
+    padding: 6px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+}
+
+.hero-visibility-toggle.is-visible {
+    border-color: var(--color-primary);
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.hero-visibility-toggle svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.hero-settings-item-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-hover);
+}
+
+.hero-settings-item-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--color-text);
+    font-size: var(--font-size-md);
+}
+
+.hero-settings-add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    min-height: 40px;
+    margin: 0;
+    padding: 10px var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-primary);
+    font-family: inherit;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.hero-settings-add-button:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-soft);
+}
+
+.hero-settings-add-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.hero-settings-media-preview {
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-background);
+}
+
+.hero-settings-media-preview img {
+    display: block;
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+}
+
+@media (max-width: 600px) {
+    .hero-settings-group {
+        padding: var(--space-3);
+    }
+
+    .hero-settings-item-card {
+        padding: var(--space-3);
+    }
+}
+
+
+.hero-settings-field-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  margin-bottom: var(--space-2);
+}
+
+.hero-settings-field-title label {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+}
+
+.hero-visibility-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.hero-visibility-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.hero-visibility-icon:hover {
+  background: var(--color-surface-active);
+  color: var(--color-primary);
+}
+
+.hero-visibility-icon.is-visible {
+  color: var(--color-primary);
+}
+
+.hero-visibility-icon:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
