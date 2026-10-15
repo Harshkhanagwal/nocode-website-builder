@@ -159,6 +159,7 @@ const aboutSectionSchema = new mongoose.Schema(
       type: aboutContentSchema,
       default: () => ({}),
     },
+    visibility: { type: mongoose.Schema.Types.Mixed, default: () => ({}) },
   },
   { _id: false }
 );

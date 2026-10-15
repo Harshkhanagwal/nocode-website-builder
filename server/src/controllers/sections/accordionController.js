@@ -24,16 +24,6 @@ const createAccordionSection = async (req, res) => {
       });
     }
 
-    const existingSection = website.sections.find(
-      (section) => section.sectionName === "accordion"
-    );
-
-    if (existingSection) {
-      return res.status(409).json({
-        success: false,
-        message: "Accordion section already exists.",
-      });
-    }
 
     const sectionData = await validateAccordionSection({
       sectionName: "accordion",
@@ -41,6 +31,7 @@ const createAccordionSection = async (req, res) => {
       enabled: req.body.enabled ?? true,
       order: req.body.order ?? website.sections.length,
       content: req.body.content ?? {},
+      visibility: req.body.visibility ?? {},
     });
 
     website.sections.push(sectionData);
@@ -51,7 +42,7 @@ const createAccordionSection = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Accordion section created successfully.",
-      section: sectionData,
+      section: website.sections[website.sections.length - 1],
     });
   } catch (error) {
     console.error("Create Accordion Section Error:", error);
@@ -76,7 +67,7 @@ const updateAccordionSection = async (req, res) => {
     }
 
     const sectionIndex = website.sections.findIndex(
-      (section) => section.sectionName === "accordion"
+      (section) => section.sectionName === "accordion" && String(section._id) === String(req.query.sectionId)
     );
 
     if (sectionIndex === -1) {
@@ -103,10 +94,15 @@ const updateAccordionSection = async (req, res) => {
         ...(existingSection.content || {}),
         ...(req.body.content || {}),
       },
+      visibility: {
+        ...(existingSection.visibility || {}),
+        ...(req.body.visibility || {}),
+      },
     };
 
     const validatedSection = await validateAccordionSection(updatedSection);
 
+    validatedSection._id = existingSection._id;
     website.sections.set(sectionIndex, validatedSection);
     website.markModified("sections");
 
@@ -115,7 +111,7 @@ const updateAccordionSection = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Accordion section updated successfully.",
-      section: validatedSection,
+      section: website.sections[sectionIndex],
     });
   } catch (error) {
     console.error("Update Accordion Section Error:", error);
@@ -140,7 +136,7 @@ const deleteAccordionSection = async (req, res) => {
     }
 
     const sectionIndex = website.sections.findIndex(
-      (section) => section.sectionName === "accordion"
+      (section) => section.sectionName === "accordion" && String(section._id) === String(req.query.sectionId)
     );
 
     if (sectionIndex === -1) {

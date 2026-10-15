@@ -24,16 +24,6 @@ const createContactSection = async (req, res) => {
       });
     }
 
-    const existingSection = website.sections.find(
-      (section) => section.sectionName === "contact"
-    );
-
-    if (existingSection) {
-      return res.status(409).json({
-        success: false,
-        message: "Contact section already exists.",
-      });
-    }
 
     const sectionData = await validateContactSection({
       sectionName: "contact",
@@ -41,6 +31,7 @@ const createContactSection = async (req, res) => {
       enabled: req.body.enabled ?? true,
       order: req.body.order ?? website.sections.length,
       content: req.body.content ?? {},
+      visibility: req.body.visibility ?? {},
     });
 
     website.sections.push(sectionData);
@@ -51,7 +42,7 @@ const createContactSection = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Contact section created successfully.",
-      section: sectionData,
+      section: website.sections[website.sections.length - 1],
     });
   } catch (error) {
     console.error("Create Contact Section Error:", error);
@@ -76,7 +67,7 @@ const updateContactSection = async (req, res) => {
     }
 
     const sectionIndex = website.sections.findIndex(
-      (section) => section.sectionName === "contact"
+      (section) => section.sectionName === "contact" && String(section._id) === String(req.query.sectionId)
     );
 
     if (sectionIndex === -1) {
@@ -105,6 +96,10 @@ const updateContactSection = async (req, res) => {
           : existingSection.content || {}),
         ...(req.body.content || {}),
       },
+      visibility: {
+        ...(existingSection.visibility || {}),
+        ...(req.body.visibility || {}),
+      },
     };
 
     // Preserve existing form properties when only part of the form is updated.
@@ -119,6 +114,7 @@ const updateContactSection = async (req, res) => {
 
     const validatedSection = await validateContactSection(updatedSection);
 
+    validatedSection._id = existingSection._id;
     website.sections.set
       ? website.sections.set(sectionIndex, validatedSection)
       : (website.sections[sectionIndex] = validatedSection);
@@ -130,7 +126,7 @@ const updateContactSection = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Contact section updated successfully.",
-      section: validatedSection,
+      section: website.sections[sectionIndex],
     });
   } catch (error) {
     console.error("Update Contact Section Error:", error);
@@ -155,7 +151,7 @@ const deleteContactSection = async (req, res) => {
     }
 
     const sectionIndex = website.sections.findIndex(
-      (section) => section.sectionName === "contact"
+      (section) => section.sectionName === "contact" && String(section._id) === String(req.query.sectionId)
     );
 
     if (sectionIndex === -1) {

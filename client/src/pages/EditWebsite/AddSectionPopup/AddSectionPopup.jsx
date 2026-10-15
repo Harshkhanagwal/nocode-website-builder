@@ -14,7 +14,8 @@ import {
 } from "react-icons/fi";
 
 import "./AddSectionPopup.css";
-
+import { useDispatch } from "react-redux";
+import { createSection } from "../../../redux/slices/sectionSlice";
 
 const sectionCatalog = [
   {
@@ -207,12 +208,20 @@ const sectionCatalog = [
 const categories = ["All sections", "Essentials", "Content"];
 
 
-function AddSectionPopup({ onClose, onAddSection }) {
+function AddSectionPopup({
+  onClose,
+  onAddSection,
+  websiteId,
+  sectionCount = 0,
+
+}) {
   const [selectedSection, setSelectedSection] = useState(null);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All sections");
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch();
 
   const filteredSections = useMemo(() => {
     const term = search.trim().toLowerCase();
@@ -234,6 +243,7 @@ function AddSectionPopup({ onClose, onAddSection }) {
     });
   }, [search, activeCategory]);
 
+
   const handleAdd = async (variant) => {
     if (!selectedSection || adding) return;
 
@@ -241,24 +251,40 @@ function AddSectionPopup({ onClose, onAddSection }) {
     setError("");
 
     try {
-      await onAddSection({
-        sectionName: selectedSection.id,
-        sectionLabel: selectedSection.name,
-        variant: variant.id,
-        variantLabel: variant.name,
-        enabled: true,
-        content: {},
-        visibility: {},
-      });
+      const response = await dispatch(
+        createSection({
+          websiteId,
+          sectionName: selectedSection.id,
+          data: {
+            variant: variant.id,
+            enabled: true,
+            order: sectionCount,
+            content: {},
+          },
+        })
+      ).unwrap();
 
+      if (!response?.section?._id) {
+        throw new Error("The server did not return the created section.");
+      }
+
+      await onAddSection(response.section);
       onClose();
     } catch (err) {
       console.error("Failed to add section:", err);
-      setError("Unable to add this section. Please try again.");
+
+      setError(
+        typeof err === "string"
+          ? err
+          : err?.message || "Unable to add this section. Please try again."
+      );
     } finally {
       setAdding(false);
     }
   };
+
+
+
 
   return (
     <div
@@ -338,9 +364,8 @@ function AddSectionPopup({ onClose, onAddSection }) {
                   <button
                     key={category}
                     type="button"
-                    className={`add-section-category ${
-                      activeCategory === category ? "active" : ""
-                    }`}
+                    className={`add-section-category ${activeCategory === category ? "active" : ""
+                      }`}
                     onClick={() => setActiveCategory(category)}
                   >
                     {category}

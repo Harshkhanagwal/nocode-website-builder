@@ -1,9 +1,8 @@
-
 const express = require("express");
 const router = express.Router();
 
 const authMiddleware = require("../../middleware/authMiddleware");
-const websiteOwnershipMiddleware = require("../../middleware/websiteOwnershipMiddleware");
+const verifyWebsiteOwnership = require("../../middleware/websiteOwnershipMiddleware");
 
 const {
   createAboutSection,
@@ -11,13 +10,27 @@ const {
   deleteAboutSection,
 } = require("../../controllers/sections/aboutUsController");
 
-router.use(authMiddleware);
-router.use(websiteOwnershipMiddleware);
+router.post(
+  "/:websiteId/sections/about",
+  authMiddleware,
+  verifyWebsiteOwnership,
+  createAboutSection
+);
 
-router
-  .route("/:websiteId/sections/about")
-  .post(createAboutSection)
-  .patch(updateAboutSection)
-  .delete(deleteAboutSection);
+router.patch(
+  "/:websiteId/sections/about",
+  authMiddleware,
+  verifyWebsiteOwnership,
+  updateAboutSection
+);
+
+
+
+router.delete(
+  "/:websiteId/sections/about",
+  authMiddleware,
+  verifyWebsiteOwnership,
+  deleteAboutSection
+);
 
 module.exports = router;

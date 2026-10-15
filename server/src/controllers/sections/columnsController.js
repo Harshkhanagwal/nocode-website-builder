@@ -22,16 +22,6 @@ const createColumnsSection = async (req, res) => {
       });
     }
 
-    const existingSection = website.sections.find(
-      (section) => section.sectionName === SECTION_NAME
-    );
-
-    if (existingSection) {
-      return res.status(409).json({
-        success: false,
-        message: "Columns section already exists.",
-      });
-    }
 
     const sectionData = await validateColumnsSection({
       sectionName: SECTION_NAME,
@@ -39,6 +29,7 @@ const createColumnsSection = async (req, res) => {
       enabled: req.body.enabled ?? true,
       order: req.body.order ?? website.sections.length,
       content: req.body.content || {},
+      visibility: req.body.visibility || {},
     });
 
     website.sections.push(sectionData);
@@ -48,9 +39,7 @@ const createColumnsSection = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Columns section created successfully.",
-      section: website.sections.find(
-        (section) => section.sectionName === SECTION_NAME
-      ),
+      section: website.sections[website.sections.length - 1],
     });
   } catch (error) {
     if (error.name === "ValidationError") {
@@ -83,7 +72,7 @@ const updateColumnsSection = async (req, res) => {
     }
 
     const sectionIndex = website.sections.findIndex(
-      (section) => section.sectionName === SECTION_NAME
+      (section) => section.sectionName === SECTION_NAME && String(section._id) === String(req.query.sectionId)
     );
 
     if (sectionIndex === -1) {
@@ -112,10 +101,15 @@ const updateColumnsSection = async (req, res) => {
         ...existingSection.content,
         ...(req.body.content || {}),
       },
+      visibility: {
+        ...(existingSection.visibility || {}),
+        ...(req.body.visibility || {}),
+      },
     };
 
     const validatedSection = await validateColumnsSection(updatedData);
 
+    validatedSection._id = existingSection._id;
     website.sections[sectionIndex] = validatedSection;
     website.markModified("sections");
     await website.save();
@@ -124,7 +118,7 @@ const updateColumnsSection = async (req, res) => {
       success: true,
       message: "Columns section updated successfully.",
       section: website.sections.find(
-        (section) => section.sectionName === SECTION_NAME
+        (section) => section.sectionName === SECTION_NAME && String(section._id) === String(req.query.sectionId)
       ),
     });
   } catch (error) {
@@ -158,7 +152,7 @@ const deleteColumnsSection = async (req, res) => {
     }
 
     const sectionIndex = website.sections.findIndex(
-      (section) => section.sectionName === SECTION_NAME
+      (section) => section.sectionName === SECTION_NAME && String(section._id) === String(req.query.sectionId)
     );
 
     if (sectionIndex === -1) {

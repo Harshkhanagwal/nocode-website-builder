@@ -17,17 +17,18 @@ export const createSectionApi = async ({
     data
   );
 
-  return response.data;
+  return { ...response.data, section: response.data.section || response.data.data };
 };
 
 // Update a section
 export const updateSectionApi = async ({
   websiteId,
   sectionName,
+  sectionId,
   data,
 }) => {
   const response = await sectionApi.patch(
-    `/websites/${websiteId}/sections/${sectionName}`,
+    `/websites/${websiteId}/sections/${sectionName}?sectionId=${encodeURIComponent(sectionId)}`,
     data
   );
 
@@ -38,9 +39,10 @@ export const updateSectionApi = async ({
 export const deleteSectionApi = async ({
   websiteId,
   sectionName,
+  sectionId,
 }) => {
   const response = await sectionApi.delete(
-    `/websites/${websiteId}/sections/${sectionName}`
+    `/websites/${websiteId}/sections/${sectionName}?sectionId=${encodeURIComponent(sectionId)}`
   );
 
   return response.data;

@@ -11,13 +11,10 @@ const {
   deleteAccordionSection,
 } = require("../../controllers/sections/accordionController");
 
-router.use(authMiddleware);
-router.use(websiteOwnershipMiddleware);
-
 router
   .route("/:websiteId/sections/accordion")
-  .post(createAccordionSection)
-  .patch(updateAccordionSection)
-  .delete(deleteAccordionSection);
+  .post(authMiddleware, websiteOwnershipMiddleware, createAccordionSection)
+  .patch(authMiddleware, websiteOwnershipMiddleware, updateAccordionSection)
+  .delete(authMiddleware, websiteOwnershipMiddleware, deleteAccordionSection);
 
 module.exports = router;

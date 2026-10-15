@@ -4,7 +4,13 @@ const Website = require("../models/Website");
 
 const verifyWebsiteOwnership = async (req, res, next) => {
   try {
-    const { websiteId } = req.params;
+    const websiteId =
+      req.params.websiteId ||
+      req.body?.websiteId ||
+      req.query?.websiteId;
+    console.log("Route params:", req.params);
+    console.log("Extracted websiteId:", websiteId);
+    console.log("Is valid ObjectId:", mongoose.isValidObjectId(websiteId));
     const userId = req.user?._id || req.user?.id;
 
     if (!userId) {

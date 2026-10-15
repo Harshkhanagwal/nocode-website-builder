@@ -185,6 +185,7 @@ const contactSectionSchema = new mongoose.Schema(
       type: contactContentSchema,
       default: () => ({}),
     },
+    visibility: { type: mongoose.Schema.Types.Mixed, default: () => ({}) },
   },
   { _id: false }
 );

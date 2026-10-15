@@ -16,6 +16,16 @@ const accordionRoutes = require("./src/routes/sections/accordionRoutes");
 const columnsRoutes = require("./src/routes/sections/columnsRoutes");
 
 
+app.use("/api", async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Middleware
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
@@ -27,16 +37,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api/hero", heroRoutes);
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/color-themes", colorThemeRoutes);
-app.use("/api/typographies", typographyRoutes); 
+app.use("/api/typographies", typographyRoutes);
+
 app.use("/api/websites", websiteRoutes);
 app.use("/api/websites", heroRoutes);
 app.use("/api/websites", contactRoutes);
 app.use("/api/websites", aboutUsRoutes);
 app.use("/api/websites", accordionRoutes);
 app.use("/api/websites", columnsRoutes);
+
+app.use("/api/hero", heroRoutes);
 
 /* -------------------- HEALTH CHECK -------------------- */
 
@@ -45,15 +58,6 @@ app.get("/api/health", (req, res) => {
     success: true,
     message: "Harsh's Portfolio API is running",
   });
-});
-
-app.use("/api", async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (error) {
-    next(error);
-  }
 });
 
 

@@ -9,7 +9,7 @@
 ========================================================= */
 
 :root {
-
+/* 
  --color-primary: #2F80ED;
   --color-primary-hover: #256FD1;
   --color-primary-soft: #EAF3FF;
@@ -39,8 +39,46 @@
   --color-danger-soft: #FDECEC;
 
   --color-info: #2F80ED;
-  --color-info-soft: #EAF3FF;
+  --color-info-soft: #EAF3FF; */
 
+  /* Primary - Softer Lime */
+  --color-primary: #A8DB55;
+  --color-primary-hover: #96C747;
+  --color-primary-soft: #303D27;
+
+  /* Background & Surfaces */
+  --color-background: #181B19;
+  --color-surface: #222623;
+  --color-surface-hover: #2A302B;
+  --color-surface-active: #343C34;
+
+  /* Text */
+  --color-text: #E8ECE6;
+  --color-text-secondary: #B9C1B7;
+  --color-text-muted: #929B90;
+  --color-text-light: #737D72;
+  --color-text-inverse: #20251D;
+
+  /* Borders */
+  --color-border: #3A423A;
+  --color-border-light: #303730;
+  --color-border-dark: #505B4F;
+
+  /* Success */
+  --color-success: #91CC65;
+  --color-success-soft: #293A28;
+
+  /* Warning */
+  --color-warning: #E8BB62;
+  --color-warning-soft: #3A3222;
+
+  /* Danger */
+  --color-danger: #F07878;
+  --color-danger-soft: #3D2929;
+
+  /* Info */
+  --color-info: #80C5D6;
+  --color-info-soft: #25353A;
   /* ---------- Typography ---------- */
   --font-family:
     "Sora",

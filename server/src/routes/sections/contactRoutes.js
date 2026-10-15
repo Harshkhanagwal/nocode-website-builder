@@ -11,13 +11,10 @@ const {
   deleteContactSection,
 } = require("../../controllers/sections/contactController");
 
-router.use(authMiddleware);
-router.use(websiteOwnershipMiddleware);
-
 router
   .route("/:websiteId/sections/contact")
-  .post(createContactSection)
-  .patch(updateContactSection)
-  .delete(deleteContactSection);
+  .post(authMiddleware, websiteOwnershipMiddleware, createContactSection)
+  .patch(authMiddleware, websiteOwnershipMiddleware, updateContactSection)
+  .delete(authMiddleware, websiteOwnershipMiddleware, deleteContactSection);
 
 module.exports = router;

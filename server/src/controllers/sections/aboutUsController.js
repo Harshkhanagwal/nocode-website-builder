@@ -23,16 +23,6 @@ const createAboutSection = async (req, res) => {
       });
     }
 
-    const existingSection = website.sections.find(
-      (section) => section.sectionName === "about"
-    );
-
-    if (existingSection) {
-      return res.status(409).json({
-        success: false,
-        message: "About section already exists.",
-      });
-    }
 
     const sectionData = await validateAboutSection({
       sectionName: "about",
@@ -40,6 +30,7 @@ const createAboutSection = async (req, res) => {
       enabled: req.body.enabled ?? true,
       order: req.body.order ?? website.sections.length,
       content: req.body.content ?? {},
+      visibility: req.body.visibility ?? {},
     });
 
     website.sections.push(sectionData);
@@ -50,7 +41,7 @@ const createAboutSection = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "About section created successfully.",
-      section: sectionData,
+      section: website.sections[website.sections.length - 1],
     });
   } catch (error) {
     console.error("Create About Section Error:", error);
@@ -75,7 +66,7 @@ const updateAboutSection = async (req, res) => {
     }
 
     const sectionIndex = website.sections.findIndex(
-      (section) => section.sectionName === "about"
+      (section) => section.sectionName === "about" && String(section._id) === String(req.query.sectionId)
     );
 
     if (sectionIndex === -1) {
@@ -102,6 +93,10 @@ const updateAboutSection = async (req, res) => {
         ...(existingSection.content || {}),
         ...(req.body.content || {}),
       },
+      visibility: {
+        ...(existingSection.visibility || {}),
+        ...(req.body.visibility || {}),
+      },
     };
 
     // Preserve other media properties during partial media updates.
@@ -114,6 +109,7 @@ const updateAboutSection = async (req, res) => {
 
     const validatedSection = await validateAboutSection(updatedSection);
 
+    validatedSection._id = existingSection._id;
     website.sections.set(sectionIndex, validatedSection);
     website.markModified("sections");
 
@@ -122,7 +118,7 @@ const updateAboutSection = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "About section updated successfully.",
-      section: validatedSection,
+      section: website.sections[sectionIndex],
     });
   } catch (error) {
     console.error("Update About Section Error:", error);
@@ -147,7 +143,7 @@ const deleteAboutSection = async (req, res) => {
     }
 
     const sectionIndex = website.sections.findIndex(
-      (section) => section.sectionName === "about"
+      (section) => section.sectionName === "about" && String(section._id) === String(req.query.sectionId)
     );
 
     if (sectionIndex === -1) {

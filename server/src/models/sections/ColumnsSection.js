@@ -84,6 +84,7 @@ const columnsSectionSchema = new mongoose.Schema(
       type: columnsContentSchema,
       default: () => ({}),
     },
+    visibility: { type: mongoose.Schema.Types.Mixed, default: () => ({}) },
   },
   { _id: false }
 );

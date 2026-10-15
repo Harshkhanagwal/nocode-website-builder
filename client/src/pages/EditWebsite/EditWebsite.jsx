@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWebsiteById } from "../../redux/slices/projectSlice";
 import AddSectionPopup from "./AddSectionPopup/AddSectionPopup";
-import SectionSettings from "./SectionSettings/_test_SectionSettings";
+import SectionSettings from "./SectionSettings/SectionSettings";
 import "./EditWebsite.css";
 
 const devices = [
@@ -178,11 +178,33 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
         [localWebsite, reduxWebsite]
     );
 
-    const handleAddSection = (section) => {
-        // TODO: build the new section object and add it to the draft, e.g.
-        // setLocalWebsite((prev) => ({ ...prev, sections: [...prev.sections, newSection] }));
-        console.log("Selected section:", section);
+    const handleAddSection = async (createdSection) => {
+        if (!createdSection?._id) {
+            throw new Error("Created section ID is missing.");
+        }
+
+        setLocalWebsite((previous) => ({
+            ...previous,
+            sections: [
+                ...(previous.sections || []),
+                createdSection,
+            ],
+        }));
+
+        setSelectedSection(createdSection._id);
     };
+
+    const handleDeleteSection = useCallback((sectionId) => {
+        setLocalWebsite((previous) => ({
+            ...previous,
+            sections: previous.sections.filter(
+                (section) => String(section._id) !== String(sectionId)
+            ),
+        }));
+        setSelectedSection((current) =>
+            String(current) === String(sectionId) ? null : current
+        );
+    }, []);
 
     const hasWebsite = !!localWebsite;
 
@@ -282,9 +304,9 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
 
                         <div className="editor-sections-list">
                             {websiteSections.length > 0 ? (
-                                websiteSections.map((section, index) => (
+                                websiteSections.map((section) => (
                                     <button
-                                        key={section._id || index}
+                                        key={section._id}
                                         type="button"
                                         className={`editor-section-item ${String(selectedSection) === String(section._id)
                                             ? "active"
@@ -390,8 +412,10 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
                         <SectionSettings
                             key={activeSection._id}
                             section={activeSection}
+                            sections={websiteSections}
                             onChange={handleSectionChange}
                             onSave={handleSave}
+                            onDeleteSection={handleDeleteSection}
                             saving={saving}
                             websiteId={websiteId}
                         />
@@ -403,6 +427,8 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
 
             {showAddSectionPopup && (
                 <AddSectionPopup
+                    websiteId={websiteId}
+                    sectionCount={localWebsite.sections?.length || 0}
                     onClose={() => setShowAddSectionPopup(false)}
                     onAddSection={handleAddSection}
                 />

@@ -1,8 +1,9 @@
 
 const express = require("express");
+const router = express.Router();
 
 const authMiddleware = require("../../middleware/authMiddleware");
-const websiteOwnershipMiddleware = require("../../middleware/websiteOwnershipMiddleware");
+const verifyWebsiteOwnership = require("../../middleware/websiteOwnershipMiddleware");
 
 const {
   createColumnsSection,
@@ -10,15 +11,22 @@ const {
   deleteColumnsSection,
 } = require("../../controllers/sections/columnsController");
 
-const router = express.Router();
-
-router.use(authMiddleware);
-router.use(websiteOwnershipMiddleware);
-
 router
   .route("/:websiteId/sections/columns")
-  .post(createColumnsSection)
-  .patch(updateColumnsSection)
-  .delete(deleteColumnsSection);
+  .post(
+    authMiddleware,
+    verifyWebsiteOwnership,
+    createColumnsSection
+  )
+  .patch(
+    authMiddleware,
+    verifyWebsiteOwnership,
+    updateColumnsSection
+  )
+  .delete(
+    authMiddleware,
+    verifyWebsiteOwnership,
+    deleteColumnsSection
+  );
 
 module.exports = router;

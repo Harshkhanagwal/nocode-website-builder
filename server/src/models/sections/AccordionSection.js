@@ -96,6 +96,7 @@ const accordionSectionSchema = new mongoose.Schema(
             type: accordionContentSchema,
             default: () => ({}),
         },
+        visibility: { type: mongoose.Schema.Types.Mixed, default: () => ({}) },
     },
     { _id: false }
 );

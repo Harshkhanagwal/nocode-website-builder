@@ -1,9 +1,9 @@
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
 
-import { updateSection } from "../../../redux/slices/sectionSlice";
+import { deleteSection, updateSection } from "../../../redux/slices/sectionSlice";
 import "./SectionSettings.css";
 
 const SECTION_TITLES = {
@@ -121,11 +121,12 @@ function ValueEditor({
   path,
   rootName,
   onChange,
+  visibility,
+  onToggleVisibility,
+  sections,
   onRemove,
   canRemove = false,
 }) {
-  const [collapsed, setCollapsed] = useState(false);
-
   const update = (nextValue) => onChange(path, nextValue);
 
   if (Array.isArray(value)) {
@@ -139,6 +140,13 @@ function ValueEditor({
       <div className="section-settings__nested">
         <div className="section-settings__nested-header">
           <strong>{formatLabel(path.split(".").at(-1))}</strong>
+          {!path.includes(".") && onToggleVisibility && (
+            <VisibilityButton
+              name={path}
+              visible={visibility?.[path] !== false}
+              onToggle={onToggleVisibility}
+            />
+          )}
 
           <button
             type="button"
@@ -183,6 +191,9 @@ function ValueEditor({
                 path={itemPath}
                 rootName={rootName}
                 onChange={onChange}
+                visibility={visibility}
+                onToggleVisibility={onToggleVisibility}
+                sections={sections}
               />
             </div>
           );
@@ -194,33 +205,57 @@ function ValueEditor({
   if (value && typeof value === "object") {
     const entries = Object.entries(value);
 
+    if (/\.\d+$/.test(path)) {
+      return entries.map(([key, childValue]) => (
+        <ValueEditor
+          key={`${path}.${key}`}
+          value={childValue}
+          path={`${path}.${key}`}
+          rootName={rootName}
+          onChange={onChange}
+          visibility={visibility}
+          onToggleVisibility={onToggleVisibility}
+          sections={sections}
+        />
+      ));
+    }
+
     return (
       <div className="section-settings__object">
-        <button
-          type="button"
-          className="section-settings__collapse"
-          onClick={() => setCollapsed((previous) => !previous)}
-        >
-          <span>{formatLabel(path.split(".").at(-1))}</span>
-          <span>{collapsed ? "+" : "−"}</span>
-        </button>
+        <div className="section-settings__nested-header">
+          <strong>{formatLabel(path.split(".").at(-1))}</strong>
+          {!path.includes(".") && onToggleVisibility && (
+            <VisibilityButton
+              name={path}
+              visible={visibility?.[path] !== false}
+              onToggle={onToggleVisibility}
+            />
+          )}
+        </div>
 
-        {!collapsed &&
-          entries.map(([key, childValue]) => (
+        {path === "media" && value.src && <MediaPreview media={value} />}
+
+        {entries.map(([key, childValue]) => (
             <ValueEditor
               key={`${path}.${key}`}
               value={childValue}
               path={`${path}.${key}`}
               rootName={rootName}
               onChange={onChange}
+              visibility={visibility}
+              onToggleVisibility={onToggleVisibility}
+              sections={sections}
             />
-          ))}
+        ))}
       </div>
     );
   }
 
   const label = formatLabel(path.split(".").at(-1));
-  const options = SELECT_OPTIONS[path.split(".").slice(1).join(".")];
+  const normalizedPath = path.replace(/\.\d+(?=\.|$)/g, "");
+  const options = normalizedPath.endsWith("actions.type")
+    ? SELECT_OPTIONS.type
+    : SELECT_OPTIONS[normalizedPath];
 
   if (typeof value === "boolean") {
     return (
@@ -237,9 +272,16 @@ function ValueEditor({
 
   return (
     <div className="section-settings__field">
-      <label className="section-settings__field-label">
-        {label}
-      </label>
+      <div className="section-settings__field-header">
+        <label className="section-settings__field-label">{label}</label>
+        {!path.includes(".") && onToggleVisibility && (
+          <VisibilityButton
+            name={path}
+            visible={visibility?.[path] !== false}
+            onToggle={onToggleVisibility}
+          />
+        )}
+      </div>
 
       {options ? (
         <select
@@ -260,6 +302,25 @@ function ValueEditor({
         />
       )}
 
+      {path.endsWith(".href") && sections?.length > 0 && (
+        <label className="section-settings__link-target">
+          Link to section
+          <select
+            value={sections.some((item) => `#section-${item._id}` === value) ? value : ""}
+            onChange={(event) => {
+              if (event.target.value) update(event.target.value);
+            }}
+          >
+            <option value="">Choose a section target</option>
+            {sections.map((item) => (
+              <option key={item._id} value={`#section-${item._id}`}>
+                {formatLabel(item.sectionName)} — {item.variant}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
+
       {canRemove && onRemove && (
         <button type="button" onClick={onRemove}>
           Remove
@@ -269,21 +330,61 @@ function ValueEditor({
   );
 }
 
+function VisibilityButton({ name, visible, onToggle }) {
+  return (
+    <button
+      type="button"
+      className={`section-settings__visibility ${visible ? "is-visible" : ""}`}
+      onClick={() => onToggle(name)}
+      aria-label={`${visible ? "Hide" : "Show"} ${formatLabel(name)}`}
+      title={visible ? "Hide on website" : "Show on website"}
+    >
+      {visible ? <FiEye /> : <FiEyeOff />}
+    </button>
+  );
+}
+
+function MediaPreview({ media }) {
+  const [failedSrc, setFailedSrc] = useState("");
+
+  return (
+    <div className="section-settings__media-preview">
+      {media.type === "video" ? (
+        <video src={media.src} controls preload="metadata" />
+      ) : failedSrc === media.src ? (
+        <div className="section-settings__media-fallback">
+          Preview unavailable. Check the image URL.
+        </div>
+      ) : (
+        <img
+          src={media.src}
+          alt={media.alt || "Media preview"}
+          onError={() => setFailedSrc(media.src)}
+        />
+      )}
+    </div>
+  );
+}
+
 export default function SectionSettings({
   section,
+  sections = [],
   websiteId,
   onChange,
   onSave,
+  onDeleteSection,
 }) {
   const dispatch = useDispatch();
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   if (!section) return null;
 
   const sectionName = section.sectionName;
   const content = section.content || {};
+  const visibility = section.visibility || {};
 
   const updateContent = (path, value) => {
     const updatedContent = setAtPath(content, path, value);
@@ -293,6 +394,15 @@ export default function SectionSettings({
       content: updatedContent,
     });
 
+    setSaveSuccess(false);
+    setSaveError("");
+  };
+
+  const toggleVisibility = (key) => {
+    onChange({
+      ...section,
+      visibility: { ...visibility, [key]: visibility[key] === false },
+    });
     setSaveSuccess(false);
     setSaveError("");
   };
@@ -307,11 +417,13 @@ export default function SectionSettings({
         updateSection({
           websiteId,
           sectionName,
+          sectionId: section._id,
           data: {
             variant: section.variant,
             enabled: section.enabled,
             order: section.order,
             content: section.content,
+            visibility: section.visibility || {},
           },
         })
       ).unwrap();
@@ -326,6 +438,32 @@ export default function SectionSettings({
       );
     } finally {
       setSaving(false);
+    }
+  };
+
+  const removeSection = async () => {
+    const confirmed = window.confirm(
+      `Delete this ${formatLabel(sectionName)} section? This cannot be undone.`
+    );
+    if (!confirmed) return;
+
+    try {
+      setDeleting(true);
+      setSaveError("");
+      await dispatch(
+        deleteSection({
+          websiteId,
+          sectionName,
+          sectionId: section._id,
+        })
+      ).unwrap();
+      onDeleteSection?.(section._id);
+    } catch (error) {
+      setSaveError(
+        typeof error === "string" ? error : "Failed to delete this section."
+      );
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -346,29 +484,25 @@ export default function SectionSettings({
         </p>
       </header>
 
-      <div className="section-settings__field">
-        <label className="section-settings__field-label">
-          Layout Variant
+      <div className="section-settings__meta">
+        <label className="section-settings__meta-variant">
+          <span>Layout variant</span>
+          <input value={section.variant || "default"} readOnly />
         </label>
 
-        <input value={section.variant || "default"} readOnly />
-      </div>
-
-      <div className="section-settings__field">
-        <label className="section-settings__field-label">
-          Section Enabled
+        <label className="section-settings__meta-enabled">
+          <span>Enabled</span>
+          <input
+            type="checkbox"
+            checked={section.enabled !== false}
+            onChange={(event) =>
+              onChange({
+                ...section,
+                enabled: event.target.checked,
+              })
+            }
+          />
         </label>
-
-        <input
-          type="checkbox"
-          checked={section.enabled !== false}
-          onChange={(event) =>
-            onChange({
-              ...section,
-              enabled: event.target.checked,
-            })
-          }
-        />
       </div>
 
       <section className="section-settings__group">
@@ -384,6 +518,9 @@ export default function SectionSettings({
               path={key}
               rootName={sectionName}
               onChange={updateContent}
+              visibility={visibility}
+              onToggleVisibility={toggleVisibility}
+              sections={sections}
             />
           ))}
         </div>
@@ -399,15 +536,26 @@ export default function SectionSettings({
         </p>
       )}
 
-      <button
-        type="button"
-        className="section-settings__save"
-        disabled={saving}
-        onClick={saveChanges}
-      >
-        <FiSave />
-        {saving ? "Saving..." : "Save Changes"}
-      </button>
+      <div className="section-settings__actions">
+        <button
+          type="button"
+          className="section-settings__save"
+          disabled={saving || deleting}
+          onClick={saveChanges}
+        >
+          <FiSave />
+          {saving ? "Saving..." : "Save Changes"}
+        </button>
+        <button
+          type="button"
+          className="section-settings__remove-section"
+          disabled={saving || deleting}
+          onClick={removeSection}
+        >
+          <FiTrash2 />
+          {deleting ? "Deleting..." : "Delete Section"}
+        </button>
+      </div>
     </div>
   );
 }
