@@ -1,5 +1,6 @@
 import React from "react";
 import HeroSection from "../components/Elements/HeroSection/heroSection";
+import HeaderSection from "../components/Elements/Headers/HeaderSection";
 import AboutEditorial from "../components/Elements/AboutSection/AboutEditorial/AboutEditorial";
 import AboutMinimalTypography from "../components/Elements/AboutSection/AboutMinimalTypography/AboutMinimalTypography";
 import AboutTimeline from "../components/Elements/AboutSection/AboutTimeline/AboutTimeline";
@@ -23,6 +24,7 @@ const variantRenderer = (variants, fallback) => ({ data = {} }) => {
 };
 
 const sectionRegistry = {
+  header: HeaderSection,
   hero: HeroSection,
   about: variantRenderer({
     editorial: AboutEditorial,

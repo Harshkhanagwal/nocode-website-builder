@@ -21,6 +21,7 @@ const WebsiteRenderer = ({ website }) => {
                     >
                         <Component
                             data={{
+                                sectionId: section._id,
                                 sectionName: section.sectionName,
                                 variant: section.variant,
                                 content: section.content,

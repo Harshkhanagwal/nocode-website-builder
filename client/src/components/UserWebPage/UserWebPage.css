@@ -1,5 +1,11 @@
 
 /* Main website page */
+.elm-website {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
 .user-web-page {
   width: 100%;
   min-height: 100vh;
