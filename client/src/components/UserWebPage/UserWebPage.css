@@ -4,6 +4,25 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
+  font-family: var(--elm-font-body);
+  color: var(--elm-color-text);
+  line-height: var(--elm-line-height);
+}
+
+.elm-website h1,
+.elm-website h2,
+.elm-website h3,
+.elm-website h4,
+.elm-website h5,
+.elm-website h6 {
+  font-family: var(--elm-font-heading);
+}
+
+.elm-website button,
+.elm-website input,
+.elm-website textarea,
+.elm-website select {
+  font-family: var(--elm-font-body);
 }
 
 .user-web-page {

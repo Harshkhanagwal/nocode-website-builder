@@ -18,9 +18,9 @@ import ColumnSectionClassic from "../components/Elements/ColumnSection/ColumnSec
 import ColumnSectionPeople from "../components/Elements/ColumnSection/ColumnSectionPeople/ColumnSectionPeople";
 import ColumnSectionServiceCards from "../components/Elements/ColumnSection/ColumnSectionServiceCards/ColumnSectionServiceCards";
 
-const variantRenderer = (variants, fallback) => ({ data = {} }) => {
+const variantRenderer = (variants, fallback) => ({ data = {}, onSubmit }) => {
   const Component = variants[data.variant] || fallback;
-  return React.createElement(Component, { data });
+  return React.createElement(Component, { data, onSubmit });
 };
 
 const sectionRegistry = {

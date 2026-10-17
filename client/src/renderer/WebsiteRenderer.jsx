@@ -1,4 +1,5 @@
 import sectionRegistry from "./sectionRegistry";
+import { submitContactForm } from "../api/contactSubmissionApi";
 
 const WebsiteRenderer = ({ website }) => {
     const sections = [...(website?.sections || [])]
@@ -21,12 +22,16 @@ const WebsiteRenderer = ({ website }) => {
                     >
                         <Component
                             data={{
+                                websiteId: website?._id,
                                 sectionId: section._id,
                                 sectionName: section.sectionName,
                                 variant: section.variant,
                                 content: section.content,
                                 visibility: section.visibility,
                             }}
+                            onSubmit={section.sectionName === "contact"
+                                ? (fields) => submitContactForm(website?._id, fields)
+                                : undefined}
                         />
                     </div>
                 );

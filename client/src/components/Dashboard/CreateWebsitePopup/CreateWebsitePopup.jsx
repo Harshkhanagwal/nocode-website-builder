@@ -487,6 +487,24 @@ const CreateWebsitePopup = ({ modal, setModal }) => {
                                 </div>
 
 
+                                {typographyLoading && (
+                                    <div className="typography-state">
+                                        <div className="theme-loader" />
+                                        <span>Loading typography styles…</span>
+                                    </div>
+                                )}
+
+                                {!typographyLoading && typographyError && (
+                                    <div className="typography-state typography-state-error" role="alert">
+                                        {typographyError}
+                                    </div>
+                                )}
+
+                                {!typographyLoading && !typographyError && typographies.length === 0 && (
+                                    <div className="typography-state">No typography styles available.</div>
+                                )}
+
+                                {!typographyLoading && !typographyError && typographies.length > 0 && (
                                 <div className="create-popup-typography-list">
                                     {typographies.map((item) => (
                                         <label
@@ -536,6 +554,7 @@ const CreateWebsitePopup = ({ modal, setModal }) => {
                                         </label>
                                     ))}
                                 </div>
+                                )}
 
 
                                 {/* ACTIONS */}

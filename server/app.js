@@ -15,6 +15,7 @@ const aboutUsRoutes = require("./src/routes/sections/aboutUsRoutes");
 const accordionRoutes = require("./src/routes/sections/accordionRoutes");
 const columnsRoutes = require("./src/routes/sections/columnsRoutes");
 const headerRoutes = require("./src/routes/sections/headerRoutes");
+const contactSubmissionRoutes = require("./src/routes/contactSubmissionRoutes");
 
 
 app.use("/api", async (req, res, next) => {
@@ -52,6 +53,7 @@ app.use("/api/websites", accordionRoutes);
 app.use("/api/websites", columnsRoutes);
 
 app.use("/api/hero", heroRoutes);
+app.use("/api", contactSubmissionRoutes);
 
 /* -------------------- HEALTH CHECK -------------------- */
 
