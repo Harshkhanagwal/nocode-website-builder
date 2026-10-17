@@ -7,21 +7,28 @@ const WebsiteRenderer = ({ website }) => {
 
     return (
         <>
-            {sections.map((section, index) => {
+            {sections.map((section) => {
                 const Component = sectionRegistry[section.sectionName];
 
                 if (!Component) return null;
 
                 return (
-                    <Component 
-                        key={index}
-                        data={{
-                            sectionName: section.sectionName,
-                            variant: section.variant,
-                            content: section.content,
-                            visibility: section.visibility,
-                        }}
-                    />
+                    <div
+                        key={section._id}
+                        id={`section-${section._id}`}
+                        className="website-section-anchor"
+                        style={{ width: "100%", scrollMarginTop: "24px" }}
+                    >
+                        <Component
+                            data={{
+                                sectionId: section._id,
+                                sectionName: section.sectionName,
+                                variant: section.variant,
+                                content: section.content,
+                                visibility: section.visibility,
+                            }}
+                        />
+                    </div>
                 );
             })}
         </>

@@ -1,5 +1,6 @@
 
 const mongoose = require("mongoose");
+const { ensureDefaultHeader } = require("../utils/ensureDefaultHeader");
 
 const sectionSchema = new mongoose.Schema(
   {
@@ -29,8 +30,14 @@ const sectionSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.Mixed,
       default: {},
     },
+    visibility: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {},
+    },
   },
-  { _id: false }
+  // Keep MongoDB's generated _id on every section instance. The editor uses
+  // this id for selection and targeted updates.
+  { _id: true }
 );
 
 const websiteSchema = new mongoose.Schema(
@@ -77,5 +84,11 @@ const websiteSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Every validation/save path repairs legacy websites and keeps the required
+// header first, enabled, and unique.
+websiteSchema.pre("validate", function ensureWebsiteHeader() {
+  ensureDefaultHeader(this);
+});
 
 module.exports = mongoose.model("Website", websiteSchema);

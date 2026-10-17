@@ -19,6 +19,12 @@ router
   //   getHeroSection
   // )
   .post(
+    (req, res, next) => {
+      console.log("HERO ROUTE MATCHED");
+      console.log("URL:", req.originalUrl);
+      console.log("PARAMS:", req.params);
+      next();
+    },
     protect,
     verifyWebsiteOwnership,
     createHeroSection
@@ -28,10 +34,12 @@ router
     verifyWebsiteOwnership,
     updateHeroSection
   )
+
   .delete(
     protect,
     verifyWebsiteOwnership,
     deleteHeroSection
   );
+
 
 module.exports = router;

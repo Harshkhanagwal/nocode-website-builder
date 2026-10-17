@@ -178,46 +178,68 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
         [localWebsite, reduxWebsite]
     );
 
-    const handleAddSection = (section) => {
-        // TODO: build the new section object and add it to the draft, e.g.
-        // setLocalWebsite((prev) => ({ ...prev, sections: [...prev.sections, newSection] }));
-        console.log("Selected section:", section);
+    const handleAddSection = async (createdSection) => {
+        if (!createdSection?._id) {
+            throw new Error("Created section ID is missing.");
+        }
+
+        setLocalWebsite((previous) => ({
+            ...previous,
+            sections: [
+                ...(previous.sections || []),
+                createdSection,
+            ],
+        }));
+
+        setSelectedSection(createdSection._id);
     };
+
+    const handleDeleteSection = useCallback((sectionId) => {
+        setLocalWebsite((previous) => ({
+            ...previous,
+            sections: previous.sections.filter(
+                (section) => String(section._id) !== String(sectionId)
+            ),
+        }));
+        setSelectedSection((current) =>
+            String(current) === String(sectionId) ? null : current
+        );
+    }, []);
 
     const hasWebsite = !!localWebsite;
 
-/* Preview scaling -------------------------------------------------- */
-useEffect(() => {
-    if (!hasWebsite) return; // canvas isn't rendered yet
+    /* Preview scaling -------------------------------------------------- */
+    useEffect(() => {
+        if (!hasWebsite) return; // canvas isn't rendered yet
 
-    const calculateScale = () => {
-        const canvas = previewCanvasRef.current;
-        if (!canvas) return;
+        const calculateScale = () => {
+            const canvas = previewCanvasRef.current;
+            if (!canvas) return;
 
-        if (device !== "desktop") {
-            setPreviewScale(1);
-            return;
+            if (device !== "desktop") {
+                setPreviewScale(1);
+                return;
+            }
+
+            const availableWidth = canvas.clientWidth - 48;
+            const scale = Math.min(1, availableWidth / DEVICE_WIDTHS.desktop);
+            setPreviewScale(Math.max(scale, 0.35));
+        };
+
+        calculateScale();
+
+        const observer = new ResizeObserver(calculateScale);
+        if (previewCanvasRef.current) {
+            observer.observe(previewCanvasRef.current);
         }
 
-        const availableWidth = canvas.clientWidth - 48;
-        const scale = Math.min(1, availableWidth / DEVICE_WIDTHS.desktop);
-        setPreviewScale(Math.max(scale, 0.35));
-    };
+        window.addEventListener("resize", calculateScale);
 
-    calculateScale();
-
-    const observer = new ResizeObserver(calculateScale);
-    if (previewCanvasRef.current) {
-        observer.observe(previewCanvasRef.current);
-    }
-
-    window.addEventListener("resize", calculateScale);
-
-    return () => {
-        observer.disconnect();
-        window.removeEventListener("resize", calculateScale);
-    };
-}, [device, hasWebsite]);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener("resize", calculateScale);
+        };
+    }, [device, hasWebsite]);
 
     const deviceWidth = DEVICE_WIDTHS[device];
     const deviceHeight = DEVICE_HEIGHTS[device];
@@ -282,13 +304,13 @@ useEffect(() => {
 
                         <div className="editor-sections-list">
                             {websiteSections.length > 0 ? (
-                                websiteSections.map((section, index) => (
+                                websiteSections.map((section) => (
                                     <button
-                                        key={section._id || index}
+                                        key={section._id}
                                         type="button"
                                         className={`editor-section-item ${String(selectedSection) === String(section._id)
-                                                ? "active"
-                                                : ""
+                                            ? "active"
+                                            : ""
                                             }`}
                                         onClick={() => setSelectedSection(section._id)}
                                     >
@@ -390,9 +412,12 @@ useEffect(() => {
                         <SectionSettings
                             key={activeSection._id}
                             section={activeSection}
+                            sections={websiteSections}
                             onChange={handleSectionChange}
                             onSave={handleSave}
+                            onDeleteSection={handleDeleteSection}
                             saving={saving}
+                            websiteId={websiteId}
                         />
                     ) : (
                         <p>Select a section from the sidebar to view its settings.</p>
@@ -402,6 +427,8 @@ useEffect(() => {
 
             {showAddSectionPopup && (
                 <AddSectionPopup
+                    websiteId={websiteId}
+                    sectionCount={localWebsite.sections?.length || 0}
                     onClose={() => setShowAddSectionPopup(false)}
                     onAddSection={handleAddSection}
                 />
