@@ -1,4 +1,5 @@
 const Website = require("../models/Website");
+const { ensureDefaultHeader } = require("../utils/ensureDefaultHeader");
 
 const createSlug = (text) => {
   return text
@@ -99,6 +100,8 @@ const getWebsite = async (req, res) => {
       });
     }
 
+    if (ensureDefaultHeader(website)) await website.save();
+
     return res.status(200).json({
       success: true,
       website,
@@ -132,6 +135,11 @@ const updateWebsite = async (req, res) => {
     }
 
     if (name !== undefined) {
+      const header = website.sections.find((section) => section.sectionName === "header");
+      const defaultLogoText = header?.content?.logo?.text === website.name;
+      if (header && defaultLogoText && header.content.logo.type === "text") {
+        header.content.logo.text = name;
+      }
       website.name = name;
     }
 
@@ -229,6 +237,8 @@ const getWebsiteById = async (req, res) => {
         message: "Website not found",
       });
     }
+
+    if (ensureDefaultHeader(website)) await website.save();
 
     return res.status(200).json({
       success: true,

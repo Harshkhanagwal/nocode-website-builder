@@ -1,5 +1,6 @@
 
 const mongoose = require("mongoose");
+const { ensureDefaultHeader } = require("../utils/ensureDefaultHeader");
 
 const sectionSchema = new mongoose.Schema(
   {
@@ -83,5 +84,11 @@ const websiteSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Every validation/save path repairs legacy websites and keeps the required
+// header first, enabled, and unique.
+websiteSchema.pre("validate", function ensureWebsiteHeader() {
+  ensureDefaultHeader(this);
+});
 
 module.exports = mongoose.model("Website", websiteSchema);

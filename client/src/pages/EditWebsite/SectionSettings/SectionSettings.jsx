@@ -1,12 +1,13 @@
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { FiEye, FiEyeOff, FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp, FiEye, FiEyeOff, FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
 
 import { deleteSection, updateSection } from "../../../redux/slices/sectionSlice";
 import "./SectionSettings.css";
 
 const SECTION_TITLES = {
+  header: "Header Section",
   hero: "Hero Section",
   about: "About Section",
   accordion: "Accordion Section",
@@ -15,6 +16,7 @@ const SECTION_TITLES = {
 };
 
 const SECTION_DESCRIPTIONS = {
+  header: "Edit your logo, navigation, and header actions.",
   hero: "Edit your headline, actions, and hero media.",
   about: "Edit your introduction, highlights, and actions.",
   accordion: "Manage your FAQ content and answers.",
@@ -23,6 +25,8 @@ const SECTION_DESCRIPTIONS = {
 };
 
 const ARRAY_TEMPLATES = {
+  "header.navigation": { label: "New Link", href: "#" },
+  "header.actions": { text: "Get Started", href: "#", type: "primary" },
   "hero.actions": {
     text: "Get Started",
     href: "#",
@@ -67,11 +71,29 @@ const ARRAY_TEMPLATES = {
 };
 
 const SELECT_OPTIONS = {
+  "logo.type": ["text", "image"],
   type: ["primary", "secondary"],
   mediaType: ["image", "video"],
   "media.type": ["image", "video"],
   "map.type": ["embed", "link"],
   "form.fields.type": ["text", "email", "tel", "textarea", "url"],
+};
+
+const HEADER_VARIANTS = [
+  "minimal-centered",
+  "minimal-right",
+  "centered-brand",
+  "floating-solid",
+  "floating-glass",
+];
+
+const SECTION_VARIANTS = {
+  header: HEADER_VARIANTS,
+  hero: ["split", "centered", "fullscreen-image", "cinematic-corner"],
+  about: ["editorial", "minimal-typography", "timeline", "bento-grid"],
+  contact: ["dark-split-screen", "terminal-code-editor", "floating-form-card", "minimal-typography"],
+  accordion: ["borderless-minimal", "dark-futuristic", "rounded-cards", "two-column-faq"],
+  columns: ["bento", "classic", "people", "service-cards"],
 };
 
 const LABEL_OVERRIDES = {
@@ -96,6 +118,12 @@ const formatLabel = (key) =>
   key
     .replace(/([A-Z])/g, " $1")
     .replace(/^./, (character) => character.toUpperCase());
+
+const formatVariantLabel = (variant) =>
+  variant
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
 const getAtPath = (object, path) =>
   path.split(".").reduce((value, key) => value?.[key], object);
@@ -135,12 +163,18 @@ function ValueEditor({
       ARRAY_TEMPLATES[templatePath] ||
       ARRAY_TEMPLATES[path] ||
       {};
+    const maxItems = rootName === "header" && path === "navigation"
+      ? 8
+      : rootName === "header" && path === "actions"
+        ? 2
+        : Infinity;
+    const canReorder = rootName === "header" && path === "navigation";
 
     return (
       <div className="section-settings__nested">
         <div className="section-settings__nested-header">
           <strong>{formatLabel(path.split(".").at(-1))}</strong>
-          {!path.includes(".") && onToggleVisibility && (
+          {!path.includes(".") && onToggleVisibility && (rootName !== "header" || visibility?.[path] !== undefined) && (
             <VisibilityButton
               name={path}
               visible={visibility?.[path] !== false}
@@ -152,6 +186,7 @@ function ValueEditor({
             type="button"
             className="section-settings__icon-button"
             onClick={() => update([...value, clone(template)])}
+            disabled={value.length >= maxItems}
             aria-label={`Add ${formatLabel(path)}`}
           >
             <FiPlus /> Add
@@ -173,6 +208,33 @@ function ValueEditor({
                 <strong>
                   {formatLabel(path.split(".").at(-1))} {index + 1}
                 </strong>
+
+                {canReorder && (
+                  <span className="section-settings__reorder">
+                    <button
+                      type="button"
+                      className="section-settings__icon-button"
+                      disabled={index === 0}
+                      aria-label={`Move link ${index + 1} up`}
+                      onClick={() => {
+                        const next = [...value];
+                        [next[index - 1], next[index]] = [next[index], next[index - 1]];
+                        update(next);
+                      }}
+                    ><FiChevronUp /></button>
+                    <button
+                      type="button"
+                      className="section-settings__icon-button"
+                      disabled={index === value.length - 1}
+                      aria-label={`Move link ${index + 1} down`}
+                      onClick={() => {
+                        const next = [...value];
+                        [next[index], next[index + 1]] = [next[index + 1], next[index]];
+                        update(next);
+                      }}
+                    ><FiChevronDown /></button>
+                  </span>
+                )}
 
                 <button
                   type="button"
@@ -224,7 +286,7 @@ function ValueEditor({
       <div className="section-settings__object">
         <div className="section-settings__nested-header">
           <strong>{formatLabel(path.split(".").at(-1))}</strong>
-          {!path.includes(".") && onToggleVisibility && (
+          {!path.includes(".") && onToggleVisibility && (rootName !== "header" || visibility?.[path] !== undefined) && (
             <VisibilityButton
               name={path}
               visible={visibility?.[path] !== false}
@@ -234,6 +296,9 @@ function ValueEditor({
         </div>
 
         {path === "media" && value.src && <MediaPreview media={value} />}
+        {path === "logo" && value.type === "image" && value.image && (
+          <MediaPreview media={{ type: "image", src: value.image, alt: value.text }} />
+        )}
 
         {entries.map(([key, childValue]) => (
             <ValueEditor
@@ -253,9 +318,11 @@ function ValueEditor({
 
   const label = formatLabel(path.split(".").at(-1));
   const normalizedPath = path.replace(/\.\d+(?=\.|$)/g, "");
-  const options = normalizedPath.endsWith("actions.type")
-    ? SELECT_OPTIONS.type
-    : SELECT_OPTIONS[normalizedPath];
+  const options = normalizedPath === "logo.type"
+    ? SELECT_OPTIONS["logo.type"]
+    : normalizedPath.endsWith("actions.type")
+      ? SELECT_OPTIONS.type
+      : SELECT_OPTIONS[normalizedPath];
 
   if (typeof value === "boolean") {
     return (
@@ -274,7 +341,7 @@ function ValueEditor({
     <div className="section-settings__field">
       <div className="section-settings__field-header">
         <label className="section-settings__field-label">{label}</label>
-        {!path.includes(".") && onToggleVisibility && (
+        {!path.includes(".") && onToggleVisibility && (rootName !== "header" || visibility?.[path] !== undefined) && (
           <VisibilityButton
             name={path}
             visible={visibility?.[path] !== false}
@@ -384,7 +451,19 @@ export default function SectionSettings({
 
   const sectionName = section.sectionName;
   const content = section.content || {};
-  const visibility = section.visibility || {};
+  const variantOptions = SECTION_VARIANTS[sectionName] || [];
+  const currentVariant = section.variant || variantOptions[0] || "default";
+  const availableVariants = variantOptions.includes(currentVariant)
+    ? variantOptions
+    : [currentVariant, ...variantOptions];
+  const visibility = sectionName === "header"
+    ? {
+      ...(section.visibility || {}),
+      logo: content.logo?.visibility !== false,
+      navigation: content.settings?.showNavigation !== false,
+      actions: content.settings?.showActions !== false,
+    }
+    : section.visibility || {};
 
   const updateContent = (path, value) => {
     const updatedContent = setAtPath(content, path, value);
@@ -399,6 +478,34 @@ export default function SectionSettings({
   };
 
   const toggleVisibility = (key) => {
+    if (sectionName === "header" && key === "logo") {
+      onChange({
+        ...section,
+        content: {
+          ...content,
+          logo: { ...(content.logo || {}), visibility: content.logo?.visibility === false },
+        },
+      });
+      setSaveSuccess(false);
+      setSaveError("");
+      return;
+    }
+    if (sectionName === "header" && (key === "navigation" || key === "actions")) {
+      const setting = key === "navigation" ? "showNavigation" : "showActions";
+      onChange({
+        ...section,
+        content: {
+          ...content,
+          settings: {
+            ...(content.settings || {}),
+            [setting]: content.settings?.[setting] === false,
+          },
+        },
+      });
+      setSaveSuccess(false);
+      setSaveError("");
+      return;
+    }
     onChange({
       ...section,
       visibility: { ...visibility, [key]: visibility[key] === false },
@@ -420,8 +527,8 @@ export default function SectionSettings({
           sectionId: section._id,
           data: {
             variant: section.variant,
-            enabled: section.enabled,
-            order: section.order,
+            enabled: sectionName === "header" ? true : section.enabled,
+            order: sectionName === "header" ? 0 : section.order,
             content: section.content,
             visibility: section.visibility || {},
           },
@@ -487,10 +594,25 @@ export default function SectionSettings({
       <div className="section-settings__meta">
         <label className="section-settings__meta-variant">
           <span>Layout variant</span>
-          <input value={section.variant || "default"} readOnly />
+          {availableVariants.length > 0 ? (
+            <select
+              value={currentVariant}
+              onChange={(event) => onChange({
+                ...section,
+                variant: event.target.value,
+                ...(sectionName === "header" ? { enabled: true, order: 0 } : {}),
+              })}
+            >
+              {availableVariants.map((variant) => (
+                <option key={variant} value={variant}>{formatVariantLabel(variant)}</option>
+              ))}
+            </select>
+          ) : (
+            <input value={section.variant || "default"} readOnly />
+          )}
         </label>
 
-        <label className="section-settings__meta-enabled">
+        {sectionName !== "header" && <label className="section-settings__meta-enabled">
           <span>Enabled</span>
           <input
             type="checkbox"
@@ -502,7 +624,7 @@ export default function SectionSettings({
               })
             }
           />
-        </label>
+        </label>}
       </div>
 
       <section className="section-settings__group">
@@ -546,7 +668,7 @@ export default function SectionSettings({
           <FiSave />
           {saving ? "Saving..." : "Save Changes"}
         </button>
-        <button
+        {sectionName !== "header" && <button
           type="button"
           className="section-settings__remove-section"
           disabled={saving || deleting}
@@ -554,7 +676,7 @@ export default function SectionSettings({
         >
           <FiTrash2 />
           {deleting ? "Deleting..." : "Delete Section"}
-        </button>
+        </button>}
       </div>
     </div>
   );

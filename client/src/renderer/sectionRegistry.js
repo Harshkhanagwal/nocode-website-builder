@@ -1,5 +1,6 @@
 import React from "react";
 import HeroSection from "../components/Elements/HeroSection/heroSection";
+import HeaderSection from "../components/Elements/Headers/HeaderSection";
 import AboutEditorial from "../components/Elements/AboutSection/AboutEditorial/AboutEditorial";
 import AboutMinimalTypography from "../components/Elements/AboutSection/AboutMinimalTypography/AboutMinimalTypography";
 import AboutTimeline from "../components/Elements/AboutSection/AboutTimeline/AboutTimeline";
@@ -17,12 +18,13 @@ import ColumnSectionClassic from "../components/Elements/ColumnSection/ColumnSec
 import ColumnSectionPeople from "../components/Elements/ColumnSection/ColumnSectionPeople/ColumnSectionPeople";
 import ColumnSectionServiceCards from "../components/Elements/ColumnSection/ColumnSectionServiceCards/ColumnSectionServiceCards";
 
-const variantRenderer = (variants, fallback) => ({ data = {} }) => {
+const variantRenderer = (variants, fallback) => ({ data = {}, onSubmit }) => {
   const Component = variants[data.variant] || fallback;
-  return React.createElement(Component, { data });
+  return React.createElement(Component, { data, onSubmit });
 };
 
 const sectionRegistry = {
+  header: HeaderSection,
   hero: HeroSection,
   about: variantRenderer({
     editorial: AboutEditorial,

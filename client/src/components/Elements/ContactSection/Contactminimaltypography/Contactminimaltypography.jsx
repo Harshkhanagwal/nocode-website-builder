@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ContactMinimalTypography.css";
+import "./Contactminimaltypography.css";
 
 /* ------------------------------------------------------------------ */
 /* Dummy data – used when no props are passed, so nothing throws.      */

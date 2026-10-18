@@ -1,4 +1,3 @@
-
 import React from "react";
 import "./AboutMinimalTypography.css";
 
@@ -12,7 +11,7 @@ const defaultData = {
       "We are a team dedicated to creating meaningful digital experiences through technology, creativity, and collaboration.",
     media: {
       type: "image",
-      src: "https://images.unsplash.com/photo-1791335234192-d1cfc722bddb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
+      src: "https://images.unsplash.com/photo-1791335234192-d1cfc722bddb?q=80&w=2070&auto=format&fit=crop",
       alt: "Our team working together",
     },
     highlights: [
@@ -49,10 +48,27 @@ const defaultData = {
   },
 };
 
-const AboutMinimalTypography = ({
-  data = defaultData,
-}) => {
-  const { content, visibility } = data;
+const AboutMinimalTypography = ({ data }) => {
+  // Safely handle missing or incomplete data.
+  const content = {
+    ...defaultData.content,
+    ...(data?.content ?? {}),
+    media: {
+      ...defaultData.content.media,
+      ...(data?.content?.media ?? {}),
+    },
+    highlights:
+      data?.content?.highlights ??
+      defaultData.content.highlights,
+    actions:
+      data?.content?.actions ??
+      defaultData.content.actions,
+  };
+
+  const visibility = {
+    ...defaultData.visibility,
+    ...(data?.visibility ?? {}),
+  };
 
   return (
     <section
@@ -60,7 +76,7 @@ const AboutMinimalTypography = ({
       aria-labelledby="about-MinimalTypography-heading"
     >
       <div className="elm-container about-MinimalTypography__container">
-        {visibility.eyebrow && (
+        {visibility.eyebrow && content.eyebrow && (
           <p className="elm-small about-MinimalTypography__eyebrow">
             {content.eyebrow}
           </p>
@@ -68,7 +84,7 @@ const AboutMinimalTypography = ({
 
         <div className="about-MinimalTypography__intro">
           <div className="about-MinimalTypography__heading">
-            {visibility.headline && (
+            {visibility.headline && content.headline && (
               <h1
                 id="about-MinimalTypography-heading"
                 className="elm-h1 about-MinimalTypography__title"
@@ -79,59 +95,61 @@ const AboutMinimalTypography = ({
           </div>
 
           <div className="about-MinimalTypography__copy">
-            {visibility.subheadline && (
+            {visibility.subheadline && content.subheadline && (
               <h2 className="elm-h4 about-MinimalTypography__subheadline">
                 {content.subheadline}
               </h2>
             )}
 
-            {visibility.description && (
+            {visibility.description && content.description && (
               <p className="elm-p about-MinimalTypography__description">
                 {content.description}
               </p>
             )}
 
             {visibility.actions &&
-              content.actions?.map((action, index) => (
+              Array.isArray(content.actions) &&
+              content.actions.map((action, index) => (
                 <a
-                  key={`${action.href}-${index}`}
-                  href={action.href}
+                  key={`${action.href ?? "#"}-${index}`}
+                  href={action.href || "#"}
                   className={`elm-btn about-MinimalTypography__action ${
                     action.type === "secondary"
                       ? "elm-btn-secondary"
                       : "elm-btn-primary"
                   }`}
                 >
-                  {action.text}
+                  {action.text || "Learn More"}
                   <span aria-hidden="true">↗</span>
                 </a>
               ))}
           </div>
         </div>
 
-        {visibility.media && content.media && (
-          <div className="about-MinimalTypography__media">
-            {content.media.type === "image" && (
+        {visibility.media &&
+          content.media?.type === "image" &&
+          content.media.src && (
+            <div className="about-MinimalTypography__media">
               <img
                 className="elm-img-cover about-MinimalTypography__image"
                 src={content.media.src}
                 alt={content.media.alt || ""}
                 loading="lazy"
               />
-            )}
-          </div>
-        )}
+            </div>
+          )}
 
         {visibility.highlights &&
-          content.highlights?.length > 0 && (
+          Array.isArray(content.highlights) &&
+          content.highlights.length > 0 && (
             <div className="about-MinimalTypography__highlights">
               {content.highlights.map((item, index) => (
                 <article
                   className="about-MinimalTypography__highlight"
-                  key={`${item.title}-${index}`}
+                  key={`${item.title || "highlight"}-${index}`}
                 >
                   <span className="about-MinimalTypography__number">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <h3 className="elm-h3 about-MinimalTypography__highlight-title">

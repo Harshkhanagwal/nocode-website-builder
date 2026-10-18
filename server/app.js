@@ -14,6 +14,8 @@ const contactRoutes = require("./src/routes/sections/contactRoutes");
 const aboutUsRoutes = require("./src/routes/sections/aboutUsRoutes");
 const accordionRoutes = require("./src/routes/sections/accordionRoutes");
 const columnsRoutes = require("./src/routes/sections/columnsRoutes");
+const headerRoutes = require("./src/routes/sections/headerRoutes");
+const contactSubmissionRoutes = require("./src/routes/contactSubmissionRoutes");
 
 
 app.use("/api", async (req, res, next) => {
@@ -43,6 +45,7 @@ app.use("/api/color-themes", colorThemeRoutes);
 app.use("/api/typographies", typographyRoutes);
 
 app.use("/api/websites", websiteRoutes);
+app.use("/api/websites", headerRoutes);
 app.use("/api/websites", heroRoutes);
 app.use("/api/websites", contactRoutes);
 app.use("/api/websites", aboutUsRoutes);
@@ -50,6 +53,7 @@ app.use("/api/websites", accordionRoutes);
 app.use("/api/websites", columnsRoutes);
 
 app.use("/api/hero", heroRoutes);
+app.use("/api", contactSubmissionRoutes);
 
 /* -------------------- HEALTH CHECK -------------------- */
 
