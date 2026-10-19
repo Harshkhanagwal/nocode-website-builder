@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createWebsite,
   getUserWebsites,
-  getWebsiteById
+  getWebsiteById,
+  updateWebsite,
+  deleteWebsiteById,
 } from "../../api/websiteApi";
 
 // Create website
@@ -54,6 +56,30 @@ export const fetchWebsiteById = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch website"
       );
+    }
+  }
+);
+
+export const saveWebsiteSettings = createAsyncThunk(
+  "project/updateWebsite",
+  async ({ id, ...websiteData }, { rejectWithValue }) => {
+    try {
+      const data = await updateWebsite(id, websiteData);
+      return data.website;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Failed to update website");
+    }
+  }
+);
+
+export const removeWebsite = createAsyncThunk(
+  "project/deleteWebsite",
+  async (websiteId, { rejectWithValue }) => {
+    try {
+      await deleteWebsiteById(websiteId);
+      return websiteId;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Failed to delete website");
     }
   }
 );
@@ -125,6 +151,15 @@ const projectSlice = createSlice({
       .addCase(fetchWebsiteById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(saveWebsiteSettings.fulfilled, (state, action) => {
+        const index = state.projects.findIndex((project) => project._id === action.payload._id);
+        if (index !== -1) state.projects[index] = { ...state.projects[index], ...action.payload };
+        if (state.currentWebsite?._id === action.payload._id) state.currentWebsite = action.payload;
+      })
+      .addCase(removeWebsite.fulfilled, (state, action) => {
+        state.projects = state.projects.filter((project) => project._id !== action.payload);
+        if (state.currentWebsite?._id === action.payload) state.currentWebsite = null;
       })
   },
 });

@@ -32,6 +32,16 @@ export const getUserWebsites = async () => {
   return response.data;
 };
 
+export const updateWebsite = async (id, websiteData) => {
+  const response = await API.put(`/websites/${id}`, websiteData);
+  return response.data;
+};
+
+export const deleteWebsiteById = async (id) => {
+  const response = await API.delete(`/websites/${id}`);
+  return response.data;
+};
+
 // export const getWebsiteById = async (websiteId) => {
 //   const response = await API.get(`/websites/${websiteId}`);
 //   return response.data;

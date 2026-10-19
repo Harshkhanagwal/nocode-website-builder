@@ -120,7 +120,7 @@ const getWebsite = async (req, res) => {
 const updateWebsite = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, theme, typography } = req.body;
+    const { name, slug, theme, typography } = req.body;
 
     const website = await Website.findOne({
       _id: id,
@@ -143,6 +143,18 @@ const updateWebsite = async (req, res) => {
       website.name = name;
     }
 
+    if (slug !== undefined) {
+      const normalizedSlug = createSlug(slug);
+      if (!normalizedSlug) {
+        return res.status(400).json({ success: false, message: "Slug must contain letters or numbers" });
+      }
+      const slugOwner = await Website.findOne({ slug: normalizedSlug, _id: { $ne: id } });
+      if (slugOwner) {
+        return res.status(409).json({ success: false, message: "This slug is already in use" });
+      }
+      website.slug = normalizedSlug;
+    }
+
     if (theme !== undefined) {
       website.theme = theme;
     }
@@ -152,6 +164,7 @@ const updateWebsite = async (req, res) => {
     }
 
     await website.save();
+    await website.populate("theme typography");
 
     return res.status(200).json({
       success: true,

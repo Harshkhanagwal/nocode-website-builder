@@ -6,7 +6,7 @@ import { logout } from "../../redux/slices/authSlice";
 
 import { FiLogOut } from "react-icons/fi";
 
-import NamedLogo from "../../assets/NamedLogoWithIcon.png"
+import NamedLogo from "../../assets/NamedLogo.png"
 
 import {
     LuLayoutGrid,
