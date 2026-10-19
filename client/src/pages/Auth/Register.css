@@ -27,6 +27,23 @@
   text-align: center;
 }
 
+
+
+.register-logo img{
+   width: 100px;
+    aspect-ratio: inherit;
+}
+
+.register-logo {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 20px;
+
+}
+/* 
 .register-logo {
   width: 42px;
   height: 42px;
@@ -41,7 +58,7 @@
 
   background: var(--color-primary);
   border-radius: var(--radius-lg);
-}
+} */
 
 .register-title {
   margin: 0 0 8px;

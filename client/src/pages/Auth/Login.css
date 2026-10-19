@@ -31,9 +31,12 @@
   text-align: center;
 }
 
+.login-logo img{
+   width: 100px;
+    aspect-ratio: inherit;
+}
+
 .login-logo {
-  width: 42px;
-  height: 42px;
 
   display: flex;
   align-items: center;
@@ -41,13 +44,6 @@
 
   margin: 0 auto 20px;
 
-  color: var(--color-text-inverse);
-
-  font-size: 18px;
-  font-weight: var(--font-weight-semibold);
-
-  background: var(--color-primary);
-  border-radius: var(--radius-lg);
 }
 
 .login-title {

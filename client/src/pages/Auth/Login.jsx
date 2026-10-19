@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { login } from "../../redux/slices/authSlice";
 
+import Logo from '../../assets/Icon_Logo.png'
+
 import "./Login.css";
 
 const Login = () => {
@@ -43,7 +45,9 @@ const Login = () => {
       <section className="login-card">
 
         <div className="login-header">
-          <div className="login-logo">L</div>
+          <div className="login-logo">
+            <img src={Logo} alt="Logo" />
+          </div>
 
           <h1 className="login-title">
             Welcome back

@@ -15,6 +15,8 @@ import AddSectionPopup from "./AddSectionPopup/AddSectionPopup";
 import SectionSettings from "./SectionSettings/SectionSettings";
 import "./EditWebsite.css";
 
+import Logo from "../../assets/NamedLogoWithIcon.png"
+
 const devices = [
     { id: "desktop", name: "Desktop", icon: FiMonitor },
     { id: "tablet", name: "Tablet", icon: FiTablet },
@@ -23,6 +25,8 @@ const devices = [
 
 const DEVICE_WIDTHS = { desktop: 1440, tablet: 768, mobile: 390 };
 const DEVICE_HEIGHTS = { desktop: 900, tablet: 1024, mobile: 844 };
+
+
 
 /**
  * TODO: replace with your real API call (or a Redux thunk).
@@ -273,7 +277,10 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
         <div className="editor-page">
             <header className="editor-header">
                 <div className="editor-header-left">
-                    <div className="editor-logo">OurPlatform</div>
+                    <div className="editor-logo">
+
+                        <img src={Logo} alt="Logo" />
+                    </div>
                     <div className="editor-header-divider" />
                     <div className="editor-website-name">
                         {localWebsite.name || "Untitled Website"}
@@ -367,7 +374,7 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
 
                         <div className="editor-preview-url">
                             {localWebsite.slug
-                                ? `ourplatform.com/${localWebsite.slug}`
+                                ? `webkie.com/${localWebsite.slug}`
                                 : "Website Preview"}
                         </div>
                     </div>

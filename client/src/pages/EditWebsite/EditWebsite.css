@@ -90,6 +90,11 @@
   letter-spacing: -0.03em;
 }
 
+.editor-logo img{
+  width: 160px;
+
+}
+
 .editor-header-divider {
   width: 1px;
   height: 22px;

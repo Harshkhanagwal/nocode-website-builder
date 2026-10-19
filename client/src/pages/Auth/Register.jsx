@@ -4,6 +4,9 @@ import { register } from "../../redux/slices/authSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Logo from '../../assets/Icon_Logo.png'
+
+
 const Register = () => {
 
     const navigate = useNavigate();
@@ -44,7 +47,9 @@ const Register = () => {
             <section className="register-card">
 
                 <div className="register-header">
-                    <div className="register-logo">L</div>
+                    <div className="register-logo">
+                        <img src={Logo} alt="Logo" />
+                    </div>
 
                     <h1 className="register-title">
                         Create your account
