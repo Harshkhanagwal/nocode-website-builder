@@ -30,24 +30,16 @@
 /* =========================
    Logo
 ========================= */
+.dashboard-logo img{
+  width :190px;
+  margin-bottom: 30px;
+
+}
 
 .dashboard-logo {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 36px;
-  height: 36px;
-
-  margin: 0 8px 32px;
-
-  border-radius: var(--radius-md);
-
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
-
-  font-size: 16px;
-  font-weight: var(--font-weight-bold);
 }
 
 /* =========================

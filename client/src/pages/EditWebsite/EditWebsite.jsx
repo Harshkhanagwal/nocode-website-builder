@@ -11,9 +11,12 @@ import {
 } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWebsiteById } from "../../redux/slices/projectSlice";
+import ThemeSettingsPopup from "../../components/Dashboard/ThemeSettingsPopup/ThemeSettingsPopup";
 import AddSectionPopup from "./AddSectionPopup/AddSectionPopup";
 import SectionSettings from "./SectionSettings/SectionSettings";
 import "./EditWebsite.css";
+
+import Logo from "../../assets/NamedLogo.png"
 
 const devices = [
     { id: "desktop", name: "Desktop", icon: FiMonitor },
@@ -23,6 +26,8 @@ const devices = [
 
 const DEVICE_WIDTHS = { desktop: 1440, tablet: 768, mobile: 390 };
 const DEVICE_HEIGHTS = { desktop: 900, tablet: 1024, mobile: 844 };
+
+
 
 /**
  * TODO: replace with your real API call (or a Redux thunk).
@@ -55,6 +60,7 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
     const [device, setDevice] = useState("desktop");
     const [previewScale, setPreviewScale] = useState(1);
     const [showAddSectionPopup, setShowAddSectionPopup] = useState(false);
+    const [showThemeSettings, setShowThemeSettings] = useState(false);
     const [saving, setSaving] = useState(false);
     const [previewReady, setPreviewReady] = useState(false);
 
@@ -273,7 +279,10 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
         <div className="editor-page">
             <header className="editor-header">
                 <div className="editor-header-left">
-                    <div className="editor-logo">OurPlatform</div>
+                    <div className="editor-logo">
+
+                        <img src={Logo} alt="Logo" />
+                    </div>
                     <div className="editor-header-divider" />
                     <div className="editor-website-name">
                         {localWebsite.name || "Untitled Website"}
@@ -336,7 +345,7 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
                     </div>
 
                     <div className="editor-sidebar-footer">
-                        <button type="button" className="editor-theme-button">
+                        <button type="button" className="editor-theme-button" onClick={() => setShowThemeSettings(true)}>
                             <FiSettings />
                             <span>Theme Settings</span>
                         </button>
@@ -367,7 +376,7 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
 
                         <div className="editor-preview-url">
                             {localWebsite.slug
-                                ? `ourplatform.com/${localWebsite.slug}`
+                                ? `webkie.com/${localWebsite.slug}`
                                 : "Website Preview"}
                         </div>
                     </div>
@@ -431,6 +440,15 @@ const EditWebsite = ({ website: initialWebsite, websiteId }) => {
                     sectionCount={localWebsite.sections?.length || 0}
                     onClose={() => setShowAddSectionPopup(false)}
                     onAddSection={handleAddSection}
+                />
+            )}
+            {showThemeSettings && (
+                <ThemeSettingsPopup
+                    website={localWebsite}
+                    onClose={() => setShowThemeSettings(false)}
+                    onSaved={(updatedWebsite) => {
+                        window.location.assign(`/${updatedWebsite.slug}/edit`);
+                    }}
                 />
             )}
         </div>

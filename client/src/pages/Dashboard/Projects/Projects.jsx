@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { FiEye, FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
+import { FiEye, FiEdit2, FiTrash2, FiPlus, FiSettings } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 
 import "./Projects.css";
 import CreateWebsitePopup from "../../../components/Dashboard/CreateWebsitePopup/CreateWebsitePopup";
-import { fetchUserWebsites } from "../../../redux/slices/projectSlice";
+import ThemeSettingsPopup from "../../../components/Dashboard/ThemeSettingsPopup/ThemeSettingsPopup";
+import { fetchUserWebsites, removeWebsite } from "../../../redux/slices/projectSlice";
 
 const Projects = () => {
   const [createModal, setCreateModal] = useState(false);
+  const [settingsWebsite, setSettingsWebsite] = useState(null);
+  const [deleteWebsite, setDeleteWebsite] = useState(null);
+  const [deleteConfirmation, setDeleteConfirmation] = useState("");
+  const [deleteError, setDeleteError] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -20,6 +26,21 @@ const Projects = () => {
   useEffect(() => {
     dispatch(fetchUserWebsites());
   }, [dispatch]);
+
+  const confirmDelete = async () => {
+    if (!deleteWebsite || deleteConfirmation.trim() !== deleteWebsite.name) return;
+    setDeleting(true);
+    setDeleteError("");
+    try {
+      await dispatch(removeWebsite(deleteWebsite._id)).unwrap();
+      setDeleteWebsite(null);
+      setDeleteConfirmation("");
+    } catch (error) {
+      setDeleteError(error);
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   return (
     <div className="dashboard-page">
@@ -57,7 +78,7 @@ const Projects = () => {
         {!loading && !error && (
           <div className="dashboard-project-grid">
             {projects.map((project) => (
-              <article className="project-card">
+              <article className="project-card" key={project._id}>
 
                 <div className="project-card-top">
 
@@ -77,6 +98,10 @@ const Projects = () => {
 
 
                   <div className="project-card-actions">
+
+                    <button type="button" className="project-action-btn" title="Theme settings" aria-label={`Theme settings for ${project.name}`} onClick={() => setSettingsWebsite(project)}>
+                      <FiSettings />
+                    </button>
 
                     <Link
                       to={`/${project.slug}`}
@@ -100,6 +125,8 @@ const Projects = () => {
                       type="button"
                       className="project-action-btn delete"
                       title="Delete website"
+                      aria-label={`Delete ${project.name}`}
+                      onClick={() => { setDeleteWebsite(project); setDeleteConfirmation(""); setDeleteError(""); }}
                     >
                       <FiTrash2 />
                     </button>
@@ -157,6 +184,22 @@ const Projects = () => {
           modal={createModal}
           setModal={setCreateModal}
         />
+      )}
+      {settingsWebsite && <ThemeSettingsPopup website={settingsWebsite} onClose={() => setSettingsWebsite(null)} />}
+      {deleteWebsite && (
+        <div className="delete-confirm-overlay" onClick={() => !deleting && setDeleteWebsite(null)}>
+          <section className="delete-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-dialog-title" onClick={(event) => event.stopPropagation()}>
+            <h2 id="delete-dialog-title">Delete website?</h2>
+            <p>This will permanently delete <strong>{deleteWebsite.name}</strong> and its website data. Type the website name to confirm.</p>
+            <label htmlFor="delete-website-confirmation">Website name</label>
+            <input id="delete-website-confirmation" autoFocus value={deleteConfirmation} onChange={(event) => setDeleteConfirmation(event.target.value)} placeholder={deleteWebsite.name} onKeyDown={(event) => { if (event.key === "Enter") confirmDelete(); }} />
+            {deleteError && <p className="delete-confirm-error" role="alert">{deleteError}</p>}
+            <div className="delete-confirm-actions">
+              <button type="button" className="button secondary" disabled={deleting} onClick={() => setDeleteWebsite(null)}>Cancel</button>
+              <button type="button" className="button danger" disabled={deleting || deleteConfirmation.trim() !== deleteWebsite.name} onClick={confirmDelete}>{deleting ? "Deleting…" : "Delete website"}</button>
+            </div>
+          </section>
+        </div>
       )}
     </div>
   );

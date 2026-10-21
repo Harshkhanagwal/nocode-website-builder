@@ -6,6 +6,8 @@ import { logout } from "../../redux/slices/authSlice";
 
 import { FiLogOut } from "react-icons/fi";
 
+import NamedLogo from "../../assets/NamedLogo.png"
+
 import {
     LuLayoutGrid,
     LuPanelsTopLeft,
@@ -24,7 +26,7 @@ const DashboardLayout = () => {
             <aside className="dashboard-sidebar">
                 {/* Logo */}
                 <div className="dashboard-logo">
-                    HK
+                    <img src={NamedLogo} alt="Named Logo" />
                 </div>
 
                 {/* Navigation */}
