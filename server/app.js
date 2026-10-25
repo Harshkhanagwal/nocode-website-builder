@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
+
 const app = express();
 
 const authRoutes = require("./src/routes/authRoutes");
@@ -56,7 +57,6 @@ app.use("/api/websites", columnsRoutes);
 app.use("/api/llm", llmRoutes)
 
 app.use("/api/hero", heroRoutes);
-app.use("/api", contactSubmissionRoutes);
 
 /* -------------------- HEALTH CHECK -------------------- */
 
@@ -88,6 +88,7 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal server error",
   });
 });
+
 
 module.exports = app;
 
