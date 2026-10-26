@@ -1,0 +1,170 @@
+{
+  "name": "Creative Developer Portfolio",
+  "sections": [
+    {
+      "sectionName": "header",
+      "variant": "minimal-right",
+      "enabled": true,
+      "order": 0,
+      "content": {
+        "logo": { "type": "text", "text": "Alex Morgan", "image": "", "href": "/", "visibility": true },
+        "navigation": [
+          { "label": "Home", "href": "#home" },
+          { "label": "About", "href": "#about" },
+          { "label": "Projects", "href": "#projects" },
+          { "label": "Contact", "href": "#contact" }
+        ],
+        "actions": [{ "text": "Let's Talk", "href": "#contact", "type": "primary" }],
+        "settings": { "sticky": true, "showNavigation": true, "showActions": true, "mobileMenu": true }
+      }
+    },
+    {
+      "sectionName": "hero",
+      "variant": "split",
+      "enabled": true,
+      "order": 1,
+      "content": {
+        "eyebrow": "FULL STACK DEVELOPER",
+        "headline": "Building Digital Experiences That Matter",
+        "subheadline": "I design and develop modern digital products.",
+        "description": "I combine thoughtful design, clean code, and modern technologies to create websites and applications that solve real problems.",
+        "actions": [
+          { "text": "View My Work", "href": "#projects", "type": "primary" },
+          { "text": "Contact Me", "href": "#contact", "type": "secondary" }
+        ],
+        "media": { "type": "image", "src": "/images/hero.png", "alt": "Developer workspace", "poster": "" },
+        "trustIndicators": [
+          { "type": "text", "content": "Building for the web", "src": "", "alt": "", "icon": "code" }
+        ],
+        "features": [],
+        "additionalContent": "Turning ideas into functional products."
+      },
+      "visibility": {
+        "eyebrow": true,
+        "headline": true,
+        "subheadline": true,
+        "description": true,
+        "actions": true,
+        "media": true,
+        "trustIndicators": true,
+        "features": false,
+        "additionalContent": false
+      }
+    },
+    {
+      "sectionName": "about",
+      "variant": "bento-grid",
+      "enabled": true,
+      "order": 2,
+      "content": {
+        "eyebrow": "ABOUT ME",
+        "headline": "Developer With a Product Mindset",
+        "subheadline": "Technology meets creativity.",
+        "description": "I enjoy solving complex problems and building scalable applications with intuitive user experiences.",
+        "href": "#about",
+        "media": { "type": "image", "src": "/images/about.png", "alt": "Developer working on a project" },
+        "highlights": [
+          { "title": "Frontend Development", "description": "Building responsive and accessible interfaces." },
+          { "title": "Backend Development", "description": "Designing APIs and reliable application services." },
+          { "title": "Continuous Learning", "description": "Exploring AI and emerging technologies." }
+        ],
+        "actions": [{ "text": "Learn More", "href": "#contact", "type": "primary" }],
+        "additionalContent": "Focused on learning, building, and improving."
+      }
+    },
+    {
+      "sectionName": "columns",
+      "variant": "service-cards",
+      "enabled": true,
+      "order": 3,
+      "content": {
+        "eyebrow": "WHAT I DO",
+        "headline": "My Expertise",
+        "subheadline": "From concept to production.",
+        "href": "#services",
+        "items": [
+          { "title": "Web Development", "description": "Modern, responsive websites and web applications.", "icon": "code" },
+          { "title": "API Development", "description": "Secure and maintainable backend services.", "icon": "server" },
+          { "title": "AI Integration", "description": "Integrating language models and AI-powered workflows.", "icon": "brain" }
+        ]
+      }
+    },
+    {
+      "sectionName": "columns",
+      "variant": "project-grid",
+      "enabled": true,
+      "order": 4,
+      "content": {
+        "eyebrow": "SELECTED WORK",
+        "headline": "Projects I've Built",
+        "subheadline": "A selection of experiments and real-world applications.",
+        "href": "#projects",
+        "items": [
+          {
+            "title": "AI Interview Prep",
+            "description": "An application for preparing for interviews with AI-powered feedback.",
+            "image": "/images/project-1.png",
+            "href": "#",
+            "tags": ["React", "Node.js", "AI"]
+          },
+          {
+            "title": "AI Content Studio",
+            "description": "A platform for generating and organizing digital content.",
+            "image": "/images/project-2.png",
+            "href": "#",
+            "tags": ["MERN", "LLMs", "APIs"]
+          },
+          {
+            "title": "Website Builder",
+            "description": "A visual website builder with reusable sections and themes.",
+            "image": "/images/project-3.png",
+            "href": "#",
+            "tags": ["React", "MongoDB", "AI"]
+          }
+        ]
+      }
+    },
+    {
+      "sectionName": "testimonials",
+      "variant": "minimal-cards",
+      "enabled": true,
+      "order": 5,
+      "content": {
+        "eyebrow": "TESTIMONIALS",
+        "headline": "What People Say",
+        "subheadline": "Feedback from people I've worked with.",
+        "items": []
+      }
+    },
+    {
+      "sectionName": "contact",
+      "variant": "minimal-typography",
+      "enabled": true,
+      "order": 6,
+      "content": {
+        "eyebrow": "GET IN TOUCH",
+        "headline": "Have a Project in Mind?",
+        "subheadline": "Let's discuss how we can build something useful together.",
+        "href": "#contact",
+        "additionalContent": "Send me a message and I'll get back to you.",
+        "contactDetails": [
+          { "type": "email", "label": "Email", "value": "hello@example.com", "href": "mailto:hello@example.com" }
+        ],
+        "form": {
+          "title": "Send a Message",
+          "submitText": "Send Message",
+          "successMessage": "Your message has been sent successfully.",
+          "fields": [
+            { "name": "name", "label": "Full Name", "type": "text", "placeholder": "Enter your name", "required": true, "options": [] },
+            { "name": "email", "label": "Email Address", "type": "email", "placeholder": "Enter your email", "required": true, "options": [] },
+            { "name": "message", "label": "Message", "type": "textarea", "placeholder": "Tell me about your project", "required": true, "options": [] }
+          ]
+        },
+        "socialLinks": [
+          { "platform": "github", "url": "https://github.com/example" },
+          { "platform": "linkedin", "url": "https://linkedin.com/in/example" }
+        ]
+      }
+    }
+  ]
+}

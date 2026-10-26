@@ -1,0 +1,35 @@
+/* Testimonials section */
+.lp-testimonials { padding-bottom: 105px; }
+
+.lp-quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+.lp-quote-card { padding: 22px 20px 17px; border: 1px solid var(--color-border-light); border-radius: 8px; background: var(--color-surface); }
+
+.lp-quote-stars { color: var(--color-primary); font-size: 10px; letter-spacing: 2px; }
+
+.lp-quote-card blockquote { min-height: 103px; margin-top: 17px; color: var(--color-text-secondary); font-size: 11px; line-height: 1.85; }
+
+.lp-quote-person { display: flex; align-items: center; gap: 9px; padding-top: 14px; border-top: 1px solid var(--color-border-light); }
+
+.lp-quote-avatar { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 50%; color: var(--color-text-inverse); font-size: 8px; font-weight: 700; }
+
+.lp-quote-avatar.sage { background: color-mix(in srgb, var(--color-primary) 72%, var(--color-surface-active)); }
+
+.lp-quote-avatar.peach { background: color-mix(in srgb, var(--color-info) 74%, var(--color-surface-active)); }
+
+.lp-quote-avatar.blue { background: color-mix(in srgb, var(--color-success) 70%, var(--color-surface-active)); }
+
+.lp-quote-person strong, .lp-quote-person small { display: block; }
+
+.lp-quote-person strong { font-size: 9px; }
+
+.lp-quote-person small { margin-top: 3px; color: var(--color-text-muted); font-size: 8px; }
+
+.lp-quote-arrow { margin-left: auto; color: var(--color-text-light); font-size: 13px; }
+
+.lp-placeholder-note { margin-top: 18px; color: var(--color-text-light); text-align: center; font-size: 8px; }
+
+@media (max-width: 760px) {
+.lp-quote-grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+.lp-quote-card blockquote { min-height: auto; }
+}
