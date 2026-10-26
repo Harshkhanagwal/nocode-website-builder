@@ -16,6 +16,7 @@ const llm = async (req, res) => {
         message: error.message,
         ...(error.websiteId && { websiteId: error.websiteId }),
         ...(error.sectionName && { failedSection: error.sectionName }),
+        ...(error.details && { details: error.details }),
       });
     }
     console.error("Website generation failed");

@@ -4,13 +4,15 @@ const { sectionCatalog, sectionSchemas } = require("./sections/sectionSchemas");
 const { getAvailableThemes } = require("./services/themeService");
 const { getAvailableTypographies } = require("./services/typographyService");
 const { createWebsiteRecord, appendValidatedSection, getCompleteWebsite } = require("./services/websiteAssembler");
+const { createImageSearchContext } = require("./services/imageService");
 
 class WebsiteGenerationError extends Error {
-  constructor(message, websiteId = null, sectionName = null) {
+  constructor(message, websiteId = null, sectionName = null, details = null) {
     super(message);
     this.name = "WebsiteGenerationError";
     this.websiteId = websiteId;
     this.sectionName = sectionName;
+    this.details = details;
   }
 }
 
@@ -48,6 +50,7 @@ async function generateWebsite({ prompt, websiteName, ownerId }) {
     throw new WebsiteGenerationError("Could not create the website");
   }
 
+  const requestImageContext = createImageSearchContext();
   for (const sectionPlan of plan.sections) {
     try {
       const generated = await generateSection({
@@ -55,6 +58,8 @@ async function generateWebsite({ prompt, websiteName, ownerId }) {
         prompt: `${sectionPlan.prompt}\n\nUser's full request: ${prompt}`,
         designDirection: plan.designDirection,
         websiteName: plan.name,
+        websiteDescription: prompt,
+        imageContext: requestImageContext,
       });
       await appendValidatedSection(
         website,
@@ -64,10 +69,14 @@ async function generateWebsite({ prompt, websiteName, ownerId }) {
         sectionSchemas[sectionPlan.sectionName],
       );
     } catch (error) {
+      const mongooseDetails = error.errors
+        ? Object.values(error.errors).map((issue) => ({ path: issue.path, message: issue.message })).slice(0, 12)
+        : null;
       throw new WebsiteGenerationError(
         `Website generation stopped while creating the ${sectionPlan.sectionName} section`,
         String(website._id),
         sectionPlan.sectionName,
+        error.validationDetails || mongooseDetails || [{ message: error.message }],
       );
     }
   }
