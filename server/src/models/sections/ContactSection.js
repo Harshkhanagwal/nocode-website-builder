@@ -21,7 +21,7 @@ const contactFieldSchema = new mongoose.Schema(
     label: { type: String, default: "", trim: true },
     type: {
       type: String,
-      enum: ["text", "email", "tel", "textarea", "select"],
+      enum: ["text", "email", "tel", "textarea", "select", "url"],
       default: "text",
     },
     placeholder: { type: String, default: "", trim: true },
@@ -43,7 +43,7 @@ const contactMapSchema = new mongoose.Schema(
   {
     type: {
       type: String,
-      enum: ["embed"],
+      enum: ["embed", "link"],
       default: "embed",
     },
     src: { type: String, default: "", trim: true },
