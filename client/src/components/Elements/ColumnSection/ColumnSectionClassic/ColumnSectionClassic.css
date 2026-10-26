@@ -26,6 +26,10 @@
   max-width: 680px;
   margin: 0 auto var(--elm-space-3xl, 64px);
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .ColumnSectionClassic__eyebrow {
