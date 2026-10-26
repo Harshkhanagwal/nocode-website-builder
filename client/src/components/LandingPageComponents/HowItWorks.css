@@ -1,0 +1,41 @@
+/* HowItWorks section */
+.lp-how { border-block: 1px solid var(--color-border-light); background: color-mix(in srgb, var(--color-surface) 23%, var(--color-background)); }
+
+.lp-how .lp-container { display: grid; grid-template-columns: .85fr 1.15fr; gap: 100px; align-items: center; }
+
+.lp-how-intro h2 { margin-top: 17px; }
+
+.lp-how-intro > p { max-width: 335px; margin: 14px 0 18px; }
+
+.lp-text-link { display: inline-flex; align-items: center; gap: 8px; color: var(--color-primary) !important; font-size: 10px; font-weight: 600; }
+
+.lp-steps { display: grid; gap: 0; }
+
+.lp-step { min-height: 104px; display: grid; grid-template-columns: 39px 1fr 18px; gap: 17px; align-items: start; }
+
+.lp-step-marker { height: 100%; display: flex; align-items: flex-start; flex-direction: column; }
+
+.lp-step-marker > span:first-child { width: 31px; height: 31px; display: grid; place-items: center; flex: 0 0 auto; color: var(--color-primary); border: 1px solid color-mix(in srgb, var(--color-primary) 45%, var(--color-border)); border-radius: 50%; background: var(--color-primary-soft); font-size: 9px; font-weight: 600; }
+
+.lp-step-line { width: 1px; height: 43px; margin: 5px 0 0 15px; background: var(--color-border); }
+
+.lp-step h3 { margin-top: 3px; font-size: 13px; }
+
+.lp-step p { max-width: 430px; margin-top: 8px; color: var(--color-text-muted); font-size: 10px; line-height: 1.75; }
+
+.lp-step-arrow { margin-top: 9px; color: var(--color-text-light); font-size: 14px; }
+
+@media (max-width: 1000px) {
+.lp-how .lp-container { gap: 55px; }
+}
+
+@media (max-width: 760px) {
+.lp-how .lp-container { grid-template-columns: 1fr; gap: 39px; }
+.lp-steps { max-width: 560px; }
+}
+
+@media (max-width: 520px) {
+.lp-step { grid-template-columns: 33px 1fr 14px; gap: 12px; min-height: 111px; }
+.lp-step h3 { font-size: 12px; }
+.lp-step p { font-size: 9px; }
+}

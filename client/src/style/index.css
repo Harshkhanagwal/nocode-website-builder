@@ -10,84 +10,43 @@
 
 :root {
 
-
-  /* Primary - Softer Lime */
-  /* --color-primary: #A8DB55;
-  --color-primary-hover: #96C747;
-  --color-primary-soft: #303D27; */
+  --color-primary: #67E8F9;
+  --color-primary-hover: #22D3EE;
+  --color-primary-soft: #164E63;
 
   /* Background & Surfaces */
-  /* --color-background: #181B19;
-  --color-surface: #222623;
-  --color-surface-hover: #2A302B;
-  --color-surface-active: #343C34; */
+  --color-background: #10191A;
+  --color-surface: #1B2A2D;
+  --color-surface-hover: #243639;
+  --color-surface-active: #30464A;
 
   /* Text */
-  /* --color-text: #E8ECE6;
-  --color-text-secondary: #B9C1B7;
-  --color-text-muted: #929B90;
-  --color-text-light: #737D72;
-  --color-text-inverse: #20251D; */
+  --color-text: #E6F4F5;
+  --color-text-secondary: #B5D0D3;
+  --color-text-muted: #8CA9AD;
+  --color-text-light: #68878C;
+  --color-text-inverse: #102024;
 
   /* Borders */
-  /* --color-border: #3A423A;
-  --color-border-light: #303730;
-  --color-border-dark: #505B4F; */
+  --color-border: #354C50;
+  --color-border-light: #293C40;
+  --color-border-dark: #496469;
 
   /* Success */
-  /* --color-success: #91CC65;
-  --color-success-soft: #293A28; */
+  --color-success: #86D6A1;
+  --color-success-soft: #203B2B;
 
   /* Warning */
-  /* --color-warning: #E8BB62;
-  --color-warning-soft: #3A3222; */
+  --color-warning: #F0C66B;
+  --color-warning-soft: #3A3221;
 
   /* Danger */
-  /* --color-danger: #F07878;
-  --color-danger-soft: #3D2929; */
+  --color-danger: #F08080;
+  --color-danger-soft: #402729;
 
   /* Info */
-  /* --color-info: #80C5D6;
-  
-
-/* Primary - Lime Green */
---color-primary: #A8DB55;
---color-primary-hover: #B8E66B;
---color-primary-soft: #354627;
-
-/* Background & Surfaces */
---color-background: #151915;
---color-surface: #202620;
---color-surface-hover: #2B332A;
---color-surface-active: #364033;
-
-/* Text */
---color-text: #F0F4EB;
---color-text-secondary: #C4CEBD;
---color-text-muted: #9AA691;
---color-text-light: #7F8B76;
---color-text-inverse: #20271A;
-
-/* Borders */
---color-border: #424C3D;
---color-border-light: #30392E;
---color-border-dark: #56634F;
-
-/* Success */
---color-success: #A8DB55;
---color-success-soft: #354627;
-
-/* Warning */
---color-warning: #F0C15E;
---color-warning-soft: #44361F;
-
-/* Danger */
---color-danger: #F07878;
---color-danger-soft: #452929;
-
-/* Info */
---color-info: #75C8DD;
---color-info-soft: #263B40;
+  --color-info: #7DD3FC;
+  --color-info-soft: #203442;
 
   /* ---------- Typography ---------- */
   --font-family:

@@ -1,0 +1,39 @@
+/* Header section */
+.lp-header { height: 76px; position: relative; z-index: 10; background: var(--color-background); border-bottom: 1px solid var(--color-border-light); }
+
+.lp-header-inner { width: min(1320px, calc(100% - 64px)); height: 100%; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+
+.lp-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--color-text); font-size: 21px; font-weight: 700; letter-spacing: -1px; }
+.lp-brand img { display: block; width: auto; height: 27px; object-fit: contain; }
+
+.lp-brand-mark { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 10px; color: var(--color-text-inverse); background: var(--color-primary); font-size: 17px; }
+
+.lp-brand-period { color: var(--color-primary); }
+
+.lp-nav { display: flex; align-items: center; gap: clamp(20px, 3vw, 39px); }
+
+.lp-nav > a, .lp-signin { color: var(--color-text-secondary); font-size: 12px; font-weight: 500; transition: color var(--transition-fast); }
+
+.lp-nav > a:hover, .lp-signin:hover { color: var(--color-primary); }
+
+.lp-header-actions { display: flex; align-items: center; gap: 22px; }
+
+.lp-menu-toggle, .lp-mobile-actions { display: none; }
+
+.lp-mini-brand .lp-brand-mark { width: 19px; height: 19px; font-size: 10px; border-radius: 5px; }
+
+@media (max-width: 760px) {
+.lp-header { height: 66px; }
+.lp-header-inner { width: calc(100% - 40px); }
+.lp-header-actions { display: none; }
+.lp-menu-toggle { width: 36px; height: 36px; display: grid; place-items: center; color: var(--color-text); border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-surface); font-size: 18px; }
+.lp-nav { position: absolute; display: none; top: 65px; left: 0; right: 0; padding: 17px 20px 22px; border-bottom: 1px solid var(--color-border); background: var(--color-background); box-shadow: var(--shadow-lg); }
+.lp-nav.is-open { display: flex; align-items: stretch; flex-direction: column; gap: 0; }
+.lp-nav > a { padding: 12px 2px; border-bottom: 1px solid var(--color-border-light); }
+.lp-mobile-actions { display: flex; align-items: center; gap: 16px; padding-top: 16px; }
+.lp-mobile-actions .lp-button { margin-left: auto; }
+}
+
+@media (max-width: 520px) {
+.lp-mini-brand .lp-brand-mark { width: 16px; height: 16px; }
+}

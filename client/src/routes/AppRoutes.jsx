@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import Home from "../pages/Home/Home";
+import LandingPage from "../pages/LandingPage/LandingPage";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import NotFound from "../pages/NotFound/NotFound";
@@ -53,7 +53,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       {/* Home */}
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<LandingPage />} />
 
       {/* Public */}
       <Route element={<PublicRoute />}>
