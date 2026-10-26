@@ -10,23 +10,92 @@ const MAX_RETRIES = 2;
 
 const { $schema, ...websiteJsonSchema } = z.toJSONSchema(websiteGenerationSchema);
 
-const SYSTEM_PROMPT = `You are a website content generator for a no-code website builder.
-Using the website name and the user's request, return the complete website as a single JSON object.
 
-Below is an EXAMPLE of the exact structure to return. Copy its structure, key names, sectionName and variant values, and section order exactly. Replace ALL of the example text (names, headlines, descriptions, projects, etc.) with new content tailored to the user's request.
+const sectionCatalog = {
+  header: {
+    variants: ["minimal-right"],
+    purpose: "Navigation and branding",
+  },
+  hero: {
+    variants: ["centered", "split"],
+    purpose: "The main introduction and primary call to action",
+  },
+  about: {
+    variants: [
+      "editorial",
+      "minimal-typography",
+      "timeline",
+      "bento-grid",
+    ],
+    purpose: "About, story, background, or approach",
+  },
+  columns: {
+    variants: ["bento", "classic", "people", "service-cards"],
+    purpose: "Services, features, skills, or team",
+  },
+  accordion: {
+    variants: [
+      "borderless-minimal",
+      "dark-futuristic",
+      "rounded-cards",
+      "two-column-faq",
+    ],
+    purpose: "Frequently asked questions or expandable information",
+  },
+  contact: {
+    variants: [
+      "dark-split-screen",
+      "terminal-code-editor",
+      "floating-form-card",
+      "minimal-typography",
+    ],
+    purpose: "Contact details and an optional contact form",
+  },
+};
 
-EXAMPLE:
-${JSON.stringify(exampleWebsite)}
+const SYSTEM_PROMPT = `
+You are an AI website designer and content generator for a no-code
+website builder.
 
-Rules:
-- Return exactly the same 7 sections, in the same order, with the same keys as the example. Never omit a key or an object (header.content.settings and hero.visibility are required).
-- Use "" for unused string fields and [] for unused arrays (hero.features and testimonials.items may stay []).
-- Allowed values: action type is "primary" or "secondary"; form field type is "text", "email" or "textarea"; media type is "image" or "video".
-- Header navigation hrefs must match the section anchors (#home, #about, #projects, #contact).
-- For images use placeholder paths like /images/hero.png, /images/about.png, /images/project-1.png.
-- For contact details and social links use example values (hello@example.com, https://github.com/example).
-- Write realistic, ready-to-publish copy. No "Lorem ipsum".
-- Respond with the JSON object only.`;
+Generate a website tailored to the user's request. Do not copy a
+fixed example website or use a fixed section count.
+
+AVAILABLE COMPONENTS:
+${JSON.stringify(sectionCatalog, null, 2)}
+
+DESIGN RULES:
+1. Choose sections based on the user's business, purpose, audience,
+   and requested features.
+2. Always include one header and one hero.
+3. Select an appropriate supported variant for every section.
+4. Add only relevant sections. Do not add sections just to fill space.
+5. Do not repeat the same content or section purpose.
+6. Write specific, realistic copy instead of generic placeholder text.
+7. Return a stable, unique id for each section.
+8. Use the section ids as targets for internal navigation.
+9. Every internal href must point to a section that exists.
+10. Never use "#" as a final link destination.
+11. Do not invent React component names, section types, or variants.
+12. For images, return an image search query and descriptive alt text.
+    Do not invent image URLs or use local placeholder paths.
+13. Choose a visual direction that fits the user's request.
+14. Return JSON only, matching the supplied output schema.
+
+SCHEMA REQUIREMENTS:
+- Every required field in the schema must be present.
+- Never omit keys, even when their values are empty.
+- Use "" for unused string fields.
+- Use [] for unused array fields.
+- Use false for unused boolean fields.
+- For an about section, always include href and highlights.
+- For every section, follow its exact content schema.
+- Before returning JSON, verify that all required fields are present.
+`;
+
+
+module.exports = { SYSTEM_PROMPT, sectionCatalog };
+
+
 
 function summarizeIssues(issues, prefix = []) {
   const lines = [];
@@ -134,6 +203,8 @@ async function generateWebsite({ prompt, websiteName }) {
 
   throw new Error(`Failed to generate website JSON: ${lastError?.message}`);
 }
+
+
 
 // Express controller (used in routes/llmRoutes.js)
 const llm = async (req, res) => {
