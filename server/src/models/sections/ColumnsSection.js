@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+const imageAttributionSchema = new mongoose.Schema({
+  photographer: { type: String, default: "" },
+  photographerUrl: { type: String, default: "" },
+  sourceName: { type: String, default: "Unsplash" },
+  sourceUrl: { type: String, default: "" },
+}, { _id: false });
+
 const columnItemSchema = new mongoose.Schema(
   {
     icon: {
@@ -20,6 +27,9 @@ const columnItemSchema = new mongoose.Schema(
       trim: true,
       maxlength: 1000,
     },
+    role: { type: String, default: "", trim: true, maxlength: 150 },
+    image: { type: String, default: "", trim: true, maxlength: 1000 },
+    imageAttribution: { type: imageAttributionSchema, default: () => ({}) },
   },
   { _id: false }
 );

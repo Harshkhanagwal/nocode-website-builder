@@ -1,6 +1,13 @@
 
 const mongoose = require("mongoose");
 
+const imageAttributionSchema = new mongoose.Schema({
+  photographer: { type: String, default: "" },
+  photographerUrl: { type: String, default: "" },
+  sourceName: { type: String, default: "Unsplash" },
+  sourceUrl: { type: String, default: "" },
+}, { _id: false });
+
 const aboutMediaSchema = new mongoose.Schema(
   {
     type: {
@@ -18,6 +25,7 @@ const aboutMediaSchema = new mongoose.Schema(
       default: "Our team working together",
       trim: true,
     },
+    imageAttribution: { type: imageAttributionSchema, default: () => ({}) },
   },
   { _id: false }
 );

@@ -1,6 +1,13 @@
 
 const mongoose = require("mongoose");
 
+const imageAttributionSchema = new mongoose.Schema({
+  photographer: { type: String, default: "" },
+  photographerUrl: { type: String, default: "" },
+  sourceName: { type: String, default: "Unsplash" },
+  sourceUrl: { type: String, default: "" },
+}, { _id: false });
+
 const heroActionSchema = new mongoose.Schema(
   {
     text: {
@@ -43,6 +50,7 @@ const heroMediaSchema = new mongoose.Schema(
       trim: true,
       maxlength: 250,
     },
+    imageAttribution: { type: imageAttributionSchema, default: () => ({}) },
     poster: {
       type: String,
       default: "",
