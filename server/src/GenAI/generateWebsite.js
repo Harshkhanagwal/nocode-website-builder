@@ -35,6 +35,7 @@ async function generateWebsite({ prompt, websiteName, ownerId }) {
       }
     }
   } catch (error) {
+    console.log(error)
     throw new WebsiteGenerationError("Could not create a valid website plan");
   }
 
