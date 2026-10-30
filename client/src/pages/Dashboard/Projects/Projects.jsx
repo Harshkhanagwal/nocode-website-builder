@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { FiEye, FiEdit2, FiTrash2, FiPlus, FiSettings } from "react-icons/fi";
+import { FiEye, FiEdit2, FiTrash2, FiPlus, FiSettings, FiZap} from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
 
 import "./Projects.css";
 import CreateWebsitePopup from "../../../components/Dashboard/CreateWebsitePopup/CreateWebsitePopup";
+import CreateWithAIPopup from "../../../components/Dashboard/CreateWebsitePopup/CreateWithAIPopup";
 import ThemeSettingsPopup from "../../../components/Dashboard/ThemeSettingsPopup/ThemeSettingsPopup";
 import { fetchUserWebsites, removeWebsite } from "../../../redux/slices/projectSlice";
 
 const Projects = () => {
   const [createModal, setCreateModal] = useState(false);
+  const [aiModal, setAiModal] = useState(false);
   const [settingsWebsite, setSettingsWebsite] = useState(null);
   const [deleteWebsite, setDeleteWebsite] = useState(null);
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
@@ -53,13 +55,31 @@ const Projects = () => {
           </p>
         </div>
 
-        <button
+        {/* <button
           onClick={() => setCreateModal(!createModal)}
           className="dashboard-create-btn"
         >
           <FiPlus />
           <span>Create New Website</span>
-        </button>
+        </button> */}
+        <div className="dashboard-header-actions">
+    <button
+      type="button"
+      onClick={() => setAiModal(true)}
+      className="dashboard-create-btn dashboard-ai-btn"
+    >
+      <FiZap />
+      <span>Create Website with AI</span>
+    </button>
+
+    <button
+      onClick={() => setCreateModal(!createModal)}
+      className="dashboard-create-btn"
+    >
+      <FiPlus />
+      <span>Create New Website</span>
+    </button>
+</div>
       </div>
 
       <section className="dashboard-projects">
@@ -186,6 +206,7 @@ const Projects = () => {
         />
       )}
       {settingsWebsite && <ThemeSettingsPopup website={settingsWebsite} onClose={() => setSettingsWebsite(null)} />}
+      {aiModal && <CreateWithAIPopup setAiModal={setAiModal} onClose={() => setAiModal(false)} />}
       {deleteWebsite && (
         <div className="delete-confirm-overlay" onClick={() => !deleting && setDeleteWebsite(null)}>
           <section className="delete-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-dialog-title" onClick={(event) => event.stopPropagation()}>
