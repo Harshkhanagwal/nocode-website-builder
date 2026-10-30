@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { FiChevronDown, FiChevronUp, FiEye, FiEyeOff, FiPlus, FiSave, FiTrash2 } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp, FiEye, FiEyeOff, FiPlus, FiSave, FiSearch, FiTrash2, FiX } from "react-icons/fi";
 
 import { deleteSection, updateSection } from "../../../redux/slices/sectionSlice";
 import "./SectionSettings.css";
@@ -362,11 +362,16 @@ function ValueEditor({
           ))}
         </select>
       ) : (
-        <input
-          value={value ?? ""}
-          maxLength={1000}
-          onChange={(event) => update(event.target.value)}
-        />
+        <>
+          <input
+            value={value ?? ""}
+            maxLength={1000}
+            onChange={(event) => update(event.target.value)}
+          />
+          {["src", "image"].includes(path.split(".").at(-1)) && (
+            <ImageSearchPicker onSelect={update} />
+          )}
+        </>
       )}
 
       {path.endsWith(".href") && sections?.length > 0 && (
@@ -394,6 +399,73 @@ function ValueEditor({
         </button>
       )}
     </div>
+  );
+}
+
+function ImageSearchPicker({ onSelect }) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const search = async (event) => {
+    event.preventDefault();
+    if (!query.trim()) return;
+    setLoading(true);
+    setError("");
+    try {
+      const apiBaseUrl = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+      const response = await fetch(`${apiBaseUrl}/images/unsplash?query=${encodeURIComponent(query.trim())}`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Image search failed.");
+      setImages(data.results || []);
+    } catch (searchError) {
+      setError(searchError.message || "Image search failed.");
+      setImages([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <button type="button" className="section-settings__icon-button" onClick={() => setOpen(true)}>
+        <FiSearch /> Search Unsplash
+      </button>
+      {open && (
+        <div className="modal-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setOpen(false)}>
+          <section className="modal" role="dialog" aria-modal="true" aria-labelledby="image-search-title" style={{ maxWidth: "min(1100px, 96vw)", height: "min(820px, 88vh)", display: "flex", flexDirection: "column" }}>
+            <header className="modal-header">
+              <div>
+                <h2 className="modal-title" id="image-search-title">Search Unsplash</h2>
+                <p className="section-settings__description">Find an image and select it to fill the source URL.</p>
+              </div>
+              <button type="button" className="section-settings__icon-button" aria-label="Close image search" onClick={() => setOpen(false)}><FiX /></button>
+            </header>
+            <div className="modal-content" style={{ display: "flex", flexDirection: "column", gap: 14, minHeight: 0, flex: 1 }}>
+              <form onSubmit={search} style={{ display: "flex", gap: 8 }}>
+                <input className="modal-input" aria-label="Search images" placeholder="Try: modern architecture, mountain lake..." value={query} onChange={(event) => setQuery(event.target.value)} />
+                <button className="section-settings__save" type="submit" disabled={loading || !query.trim()}>{loading ? "Searching…" : "Search"}</button>
+              </form>
+              {error && <p className="section-settings__error">{error}</p>}
+              <div style={{ overflowY: "auto", minHeight: 0, flex: 1 }}>
+                {images.length > 0 ? (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(190px, 1fr))", gap: 12 }}>
+                    {images.map((image) => (
+                      <button key={image.id} type="button" onClick={() => { onSelect(image.url); setOpen(false); }} aria-label={`Select photo by ${image.author}`} style={{ padding: 0, border: "1px solid var(--color-border)", borderRadius: 10, overflow: "hidden", textAlign: "left", background: "var(--color-surface)", cursor: "pointer" }}>
+                        <img src={image.thumb} alt={image.description || "Unsplash result"} style={{ display: "block", width: "100%", height: 170, objectFit: "cover" }} />
+                        <span style={{ display: "block", padding: "8px 10px", color: "var(--color-text-secondary)", fontSize: 11 }}>Photo by {image.author} on Unsplash</span>
+                      </button>
+                    ))}
+                  </div>
+                ) : !loading && !error ? <p className="section-settings__empty">Search for an image to see results here.</p> : null}
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -424,7 +424,7 @@
 /* Primary */
 
 .elm-btn-primary {
-  color: var(--elm-color-secondary);
+  color: var(--elm-color-background);
   background-color: var(--elm-color-primary);
 }
 
@@ -436,7 +436,7 @@
 /* Secondary */
 
 .elm-btn-secondary {
-  color: var(--elm-color-primary);
+  color: var(--elm-color-background);
   background-color: var(--elm-color-secondary);
 
   border-color: var(--elm-color-border-dark);

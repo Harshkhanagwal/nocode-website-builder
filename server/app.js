@@ -17,6 +17,7 @@ const columnsRoutes = require("./src/routes/sections/columnsRoutes");
 const headerRoutes = require("./src/routes/sections/headerRoutes");
 const contactSubmissionRoutes = require("./src/routes/contactSubmissionRoutes");
 const llmRoutes = require("./src/routes/llmRoutes")
+const imageSearchRoutes = require("./src/routes/imageSearchRoutes");
 
 
 app.use("/api", async (req, res, next) => {
@@ -54,6 +55,7 @@ app.use("/api/websites", accordionRoutes);
 app.use("/api/websites", columnsRoutes);
 
 app.use("/api/llm", llmRoutes)
+app.use("/api/images", imageSearchRoutes);
 
 app.use("/api/hero", heroRoutes);
 app.use("/api", contactSubmissionRoutes);
