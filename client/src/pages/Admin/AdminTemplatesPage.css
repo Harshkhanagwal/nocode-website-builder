@@ -1,0 +1,46 @@
+.admin-template-page {
+  min-height: 100vh;
+  padding: 42px clamp(20px, 5vw, 72px);
+  background: #f7f8fa;
+  color: #172033;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.admin-template-page header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1180px;
+  margin: 0 auto 28px;
+}
+
+.admin-template-page header p {
+  margin: 0 0 6px;
+  color: #5364d8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.admin-template-page h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: -.04em;
+}
+
+.admin-template-page a {
+  color: #4856c8;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-template-page section {
+  max-width: 1180px;
+  min-height: 65vh;
+  margin: 0 auto;
+  border: 1px dashed #d9dde6;
+  border-radius: 14px;
+  background: #ffffff80;
+}

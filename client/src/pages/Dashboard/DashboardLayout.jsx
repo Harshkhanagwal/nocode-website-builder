@@ -12,6 +12,7 @@ import {
     LuLayoutGrid,
     LuPanelsTopLeft,
     LuBell,
+    LuShieldCheck,
 } from "react-icons/lu";
 
 const DashboardLayout = () => {
@@ -68,6 +69,20 @@ const DashboardLayout = () => {
                         </span>
                         <span>Notifications</span>
                     </NavLink>
+
+                    {user?.admin === true && (
+                        <NavLink
+                            to="/admin"
+                            className={({ isActive }) =>
+                                `dashboard-nav-link ${isActive ? "active" : ""}`
+                            }
+                        >
+                            <span className="dashboard-nav-icon">
+                                <LuShieldCheck />
+                            </span>
+                            <span>Admin Panel</span>
+                        </NavLink>
+                    )}
                 </nav>
 
                 <div className="dashboard-sidebar-bottom">

@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       select: false,
     },
+
+    admin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

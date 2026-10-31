@@ -7,6 +7,7 @@ import Register from "../pages/Auth/Register";
 import NotFound from "../pages/NotFound/NotFound";
 
 import ProtectedRoute from "./ProtectedRoute";
+import AdminRoute from "./AdminRoute";
 import PublicRoute from "./PublicRoute";
 
 import DashboardLayout from "../pages/Dashboard/DashboardLayout";
@@ -17,6 +18,8 @@ import Queries from "../pages/Dashboard/Queries/Queries";
 import { getAllWebsites } from "../api/websiteApi";
 import UserWebPage from "../components/UserWebPage/UserWebPage";
 import EditWebsite from "../pages/EditWebsite/EditWebsite";
+import AdminPanel from "../pages/Admin/AdminPanel";
+import AdminTemplatesPage from "../pages/Admin/AdminTemplatesPage";
 
 const AppRoutes = () => {
   const [websites, setWebsites] = useState([]);
@@ -63,6 +66,10 @@ const AppRoutes = () => {
 
       {/* Protected */}
       <Route element={<ProtectedRoute />}>
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin/templates" element={<AdminTemplatesPage />} />
+        </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Projects />} />
           <Route path="templates" element={<Templates />} />
