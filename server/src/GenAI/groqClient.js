@@ -7,7 +7,7 @@ const isRetryable = (error) => {
   return !status || status === 408 || status === 429 || status >= 500;
 };
 
-async function completeJson({ system, user, schema, label, normalize }) {
+async function completeJson({ system, user, schema, label, normalize, temperature = 0.4 }) {
   let lastError;
   const messages = [
     { role: "system", content: `${system}\nReturn one valid JSON object matching this schema: ${JSON.stringify(schema.toJSONSchema())}` },
@@ -19,7 +19,7 @@ async function completeJson({ system, user, schema, label, normalize }) {
       const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
       const completion = await groq.chat.completions.create({
         model: process.env.GROQ_MODEL || "openai/gpt-oss-20b",
-        temperature: 0.4,
+        temperature,
         max_completion_tokens: 4096,
         ...(String(process.env.GROQ_MODEL || "openai/gpt-oss-20b").startsWith("openai/gpt-oss") && { reasoning_effort: "low" }),
         response_format: { type: "json_object" },

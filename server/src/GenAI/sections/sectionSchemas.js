@@ -116,11 +116,51 @@ const sectionSchemas = {
 
 const sectionTypes = Object.keys(sectionSchemas);
 const sectionCatalog = {
-  hero: { variants: ["split", "centered", "fullscreen-image", "cinematic-corner"], purpose: "Main introduction and call to action" },
-  about: { variants: ["editorial", "minimal-typography", "timeline", "bento-grid"], purpose: "Business story, approach, or background" },
-  columns: { variants: ["bento", "classic", "people", "service-cards"], purpose: "Services, features, or team" },
-  accordion: { variants: ["borderless-minimal", "dark-futuristic", "rounded-cards", "two-column-faq"], purpose: "Frequently asked questions" },
-  contact: { variants: ["dark-split-screen", "terminal-code-editor", "floating-form-card", "minimal-typography"], purpose: "Contact details and inquiry form" },
+  hero: {
+    purpose: "Main introduction and call to action",
+    variants: {
+      split: "Product or service introduction with copy alongside supporting imagery.",
+      centered: "Focused, text-led introduction for personal brands, campaigns, and concise offers.",
+      "fullscreen-image": "Image-led introduction for travel, hospitality, venues, and visual destinations.",
+      "cinematic-corner": "High-impact editorial treatment for premium, creative, or cinematic brands.",
+    },
+  },
+  about: {
+    purpose: "Business story, approach, or background",
+    variants: {
+      editorial: "Narrative story with a clear headline and supporting image.",
+      "minimal-typography": "Concise, text-first story when simplicity and message matter most.",
+      timeline: "Chronological milestones, history, or a step-by-step journey.",
+      "bento-grid": "Several distinct values, capabilities, or story highlights presented together.",
+    },
+  },
+  columns: {
+    purpose: "Services, features, products, or team",
+    variants: {
+      bento: "A varied set of product features or capabilities with different levels of emphasis.",
+      classic: "A straightforward, balanced list of offerings or benefits.",
+      people: "Named team members, experts, or contributors with roles and portraits.",
+      "service-cards": "Clearly defined services or packages with concise descriptions.",
+    },
+  },
+  accordion: {
+    purpose: "Frequently asked questions or details visitors may want to expand",
+    variants: {
+      "borderless-minimal": "Quiet, editorial questions that should not dominate the page.",
+      "dark-futuristic": "Technology or advanced product questions suited to a dark visual direction.",
+      "rounded-cards": "Approachable consumer, wellness, or service questions grouped into cards.",
+      "two-column-faq": "A longer FAQ where two-column scanning improves readability.",
+    },
+  },
+  contact: {
+    purpose: "A relevant next step, inquiry form, or real contact information",
+    variants: {
+      "dark-split-screen": "Prominent inquiry for high-contrast or premium services.",
+      "terminal-code-editor": "Developer tools, software products, and technical audiences.",
+      "floating-form-card": "Lead-generation and consultation requests where the form is primary.",
+      "minimal-typography": "Text-led contact details for editorial or understated brands.",
+    },
+  },
 };
 
 function getSectionGenerationSchema(sectionName) {
