@@ -12,6 +12,10 @@ export const createWebsite = async (websiteData) => {
 
   return response.data;
 };
+export const createWebsiteWithAI = async (data) => {
+  const response = await API.post("/llm/create-with-ai", data, { timeout: 90000 });
+  return response.data;
+};
 
 // Get all websites
 export const getAllWebsites = async () => {
