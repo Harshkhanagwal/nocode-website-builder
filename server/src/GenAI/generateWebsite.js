@@ -16,6 +16,11 @@ class WebsiteGenerationError extends Error {
   }
 }
 
+function isSupportedSectionPlan(section) {
+  const variants = sectionCatalog[section?.sectionName]?.variants;
+  return Boolean(variants && Object.prototype.hasOwnProperty.call(variants, section.variant));
+}
+
 async function generateWebsite({ prompt, websiteName, ownerId }) {
   if (typeof prompt !== "string" || !prompt.trim()) throw new WebsiteGenerationError("A website prompt is required");
   const [themes, typographies] = await Promise.all([getAvailableThemes(), getAvailableTypographies()]);
@@ -27,15 +32,24 @@ async function generateWebsite({ prompt, websiteName, ownerId }) {
     const validThemeIds = new Set(themes.map((theme) => String(theme._id)));
     const validTypographyIds = new Set(typographies.map((item) => String(item._id)));
     if (!validThemeIds.has(plan.themeId) || !validTypographyIds.has(plan.typographyId)) {
-      throw new Error("Planner selected an unavailable theme or typography");
+      throw Object.assign(new Error("Planner selected an unavailable theme or typography"), {
+        validationDetails: [{ message: "Select themeId and typographyId from the supplied database records." }],
+      });
     }
     for (const section of plan.sections) {
-      if (!sectionCatalog[section.sectionName]?.variants.includes(section.variant) || !sectionSchemas[section.sectionName]) {
-        throw new Error("Planner selected an unsupported section type or variant");
+      if (!isSupportedSectionPlan(section) || !sectionSchemas[section.sectionName]) {
+        throw Object.assign(new Error("Planner selected an unsupported section type or variant"), {
+          validationDetails: [{ path: `sections.${section.sectionName}.variant`, message: "Choose a variant from the supported variant list for that section." }],
+        });
       }
     }
   } catch (error) {
-    throw new WebsiteGenerationError("Could not create a valid website plan");
+    throw new WebsiteGenerationError(
+      "Could not create a valid website plan",
+      null,
+      null,
+      error.validationDetails || [{ message: "Check planner output against the available themes, typographies, section types, and variants." }],
+    );
   }
 
   let website;
@@ -88,4 +102,4 @@ async function generateWebsite({ prompt, websiteName, ownerId }) {
   }
 }
 
-module.exports = { generateWebsite, WebsiteGenerationError };
+module.exports = { generateWebsite, WebsiteGenerationError, isSupportedSectionPlan };

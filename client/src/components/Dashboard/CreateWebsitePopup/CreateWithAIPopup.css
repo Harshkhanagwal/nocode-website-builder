@@ -1,0 +1,147 @@
+/* =========================================================
+   CREATE WITH AI POPUP
+   Reuses .modal-overlay, .create-website-modal, .create-modal-*,
+   .create-field-*, .create-website-input and .theme-loader
+   from CreateWebsitePopup.css. Only new pieces live here.
+========================================================= */
+
+.ai-modal {
+  width: min(560px, 100%);
+}
+
+.ai-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+
+/* =========================================================
+   TEXTAREA (same look as .create-website-input)
+========================================================= */
+
+.create-website-textarea {
+  display: block;
+
+  width: 100%;
+  min-height: 140px;
+
+  box-sizing: border-box;
+
+  padding: 12px 14px 30px;
+
+  border: 1px solid var(--color-border-dark);
+
+  border-radius: 9px;
+
+  outline: none;
+
+  color: var(--color-text);
+
+  background: var(--color-surface);
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  resize: vertical;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.create-website-textarea:hover {
+  border-color: var(--color-text-muted);
+}
+
+.create-website-textarea:focus {
+  border-color: var(--color-primary);
+
+  box-shadow:
+    0 0 0 3px var(--color-primary-soft);
+}
+
+.create-website-textarea::placeholder {
+  color: var(--color-text-light);
+}
+
+.create-website-textarea:disabled,
+.create-website-input:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+.create-textarea-counter {
+  position: absolute;
+
+  right: 14px;
+  bottom: 10px;
+
+  color: var(--color-text-muted);
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+  pointer-events: none;
+}
+
+.create-textarea-counter.error {
+  color: var(--color-danger);
+}
+
+
+/* =========================================================
+   STATES
+========================================================= */
+
+.ai-error {
+  padding: 10px 12px;
+
+  border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent);
+
+  border-radius: 9px;
+
+  color: var(--color-danger);
+
+  background: var(--color-danger-soft);
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.ai-loading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  color: var(--color-text-muted);
+
+  font-size: 12px;
+}
+
+
+
+.ai-success {
+  padding: 10px 12px;
+
+  border: 1px solid color-mix(in srgb, var(--color-success) 35%, transparent);
+
+  border-radius: 9px;
+
+  color: var(--color-success);
+
+  background: var(--color-success-soft);
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}

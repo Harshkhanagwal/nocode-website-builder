@@ -1,4 +1,5 @@
 const Typography = require("../models/Typography");
+const Website = require("../models/Website");
 
 // Get all typography presets
 const getTypographies = async (req, res) => {
@@ -15,6 +16,23 @@ const getTypographies = async (req, res) => {
   } catch (error) {
     console.error("Get typographies error:", error);
 
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch typographies",
+    });
+  }
+};
+
+const getAllTypographiesForAdmin = async (req, res) => {
+  try {
+    const typographies = await Typography.find().sort({ createdAt: -1 });
+    return res.status(200).json({
+      success: true,
+      count: typographies.length,
+      typographies,
+    });
+  } catch (error) {
+    console.error("Admin typography list error:", error.message);
     return res.status(500).json({
       success: false,
       message: "Failed to fetch typographies",
@@ -143,6 +161,13 @@ const deleteTypography = async (req, res) => {
   try {
     const { id } = req.params;
 
+    if (await Website.exists({ typography: id })) {
+      return res.status(409).json({
+        success: false,
+        message: "This typography preset is used by one or more websites. Reassign those websites before deleting it.",
+      });
+    }
+
     const typography = await Typography.findByIdAndDelete(id);
 
     if (!typography) {
@@ -168,6 +193,7 @@ const deleteTypography = async (req, res) => {
 
 module.exports = {
   getTypographies,
+  getAllTypographiesForAdmin,
   getTypography,
   createTypography,
   updateTypography,
