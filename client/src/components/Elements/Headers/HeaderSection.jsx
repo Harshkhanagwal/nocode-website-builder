@@ -16,6 +16,7 @@ const HeaderSection = ({ data = {} }) => {
   const menuId = `elm-header-navigation-${sectionId || "default"}`;
   const showNavigation = settings.showNavigation !== false && navigation.length > 0;
   const showActions = settings.showActions !== false && actions.length > 0;
+  const keepLinkOnWebsite = (href) => (!href || href === "/" ? "#home" : href);
 
   useEffect(() => {
     if (!menuOpen) return undefined;
@@ -38,7 +39,7 @@ const HeaderSection = ({ data = {} }) => {
     <header className={headerClass}>
       <div className="elm-header__inner">
         {logo.visibility !== false && (
-          <a className="elm-header__logo" href={logo.href || "/"} aria-label={logo.text || "Home"}>
+          <a className="elm-header__logo" href={keepLinkOnWebsite(logo.href)} aria-label={logo.text || "Home"}>
             {logo.type === "image" && logo.image ? (
               <img className="elm-header__logo-image" src={logo.image} alt={logo.text || "Website logo"} />
             ) : (
@@ -70,7 +71,7 @@ const HeaderSection = ({ data = {} }) => {
             {navigation.map((item, index) => (
               <a
                 className="elm-header__link"
-                href={item.href || "#"}
+                href={keepLinkOnWebsite(item.href)}
                 key={`${item.href}-${index}`}
                 onClick={() => setMenuOpen(false)}
               >
@@ -85,7 +86,7 @@ const HeaderSection = ({ data = {} }) => {
             {actions.map((action, index) => (
               <a
                 className={`elm-header__action elm-header__action--${action.type === "secondary" ? "secondary" : "primary"}`}
-                href={action.href || "#"}
+                href={keepLinkOnWebsite(action.href)}
                 key={`${action.href}-${index}`}
                 onClick={() => setMenuOpen(false)}
               >
