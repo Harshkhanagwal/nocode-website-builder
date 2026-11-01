@@ -10,24 +10,13 @@ const colorThemeRoutes = require("./src/routes/colorThemeRoutes");
 const typographyRoutes = require("./src/routes/typographyRoutes");
 const websiteRoutes = require("./src/routes/websiteRoutes");
 const heroRoutes = require("./src/routes/sections/heroRoutes");
-const connectDB = require('./src/config/db')
 const contactRoutes = require("./src/routes/sections/contactRoutes");
 const aboutUsRoutes = require("./src/routes/sections/aboutUsRoutes");
 const accordionRoutes = require("./src/routes/sections/accordionRoutes");
 const columnsRoutes = require("./src/routes/sections/columnsRoutes");
 const headerRoutes = require("./src/routes/sections/headerRoutes");
 const contactSubmissionRoutes = require("./src/routes/contactSubmissionRoutes");
-const llmRoutes = require("./src/routes/llmRoutes")
-
-
-app.use("/api", async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
+const llmRoutes = require("./src/routes/llmRoutes");
 
 // Middleware
 app.use(
@@ -53,8 +42,9 @@ app.use("/api/websites", contactRoutes);
 app.use("/api/websites", aboutUsRoutes);
 app.use("/api/websites", accordionRoutes);
 app.use("/api/websites", columnsRoutes);
+app.use("/api/contact-submissions", contactSubmissionRoutes);
 
-app.use("/api/llm", llmRoutes)
+app.use("/api/llm", llmRoutes);
 
 app.use("/api/hero", heroRoutes);
 

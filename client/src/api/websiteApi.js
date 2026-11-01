@@ -1,9 +1,4 @@
-import axios from "axios";
-
-const API = axios.create({
-  baseURL: "http://localhost:3001/api",
-  withCredentials: true,
-});
+import API from "./axiosInstance";
 
 export const createWebsite = async (websiteData) => {
   const response = await API.post("/websites", websiteData);

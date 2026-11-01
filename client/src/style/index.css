@@ -9,44 +9,44 @@
 ========================================================= */
 
 :root {
-
-  --color-primary: #67E8F9;
-  --color-primary-hover: #22D3EE;
-  --color-primary-soft: #164E63;
+  /* Primary - Electric Emerald */
+  --color-primary: #39ED7B;
+  --color-primary-hover: #56F58F;
+  --color-primary-soft: #123D25;
 
   /* Background & Surfaces */
-  --color-background: #10191A;
-  --color-surface: #1B2A2D;
-  --color-surface-hover: #243639;
-  --color-surface-active: #30464A;
+  --color-background: #070A08;
+  --color-surface: #0D120F;
+  --color-surface-hover: #151D18;
+  --color-surface-active: #202B23;
 
   /* Text */
-  --color-text: #E6F4F5;
-  --color-text-secondary: #B5D0D3;
-  --color-text-muted: #8CA9AD;
-  --color-text-light: #68878C;
-  --color-text-inverse: #102024;
+  --color-text: #F2F5F2;
+  --color-text-secondary: #B9C4BC;
+  --color-text-muted: #87948B;
+  --color-text-light: #626F66;
+  --color-text-inverse: #071109;
 
   /* Borders */
-  --color-border: #354C50;
-  --color-border-light: #293C40;
-  --color-border-dark: #496469;
+  --color-border: #29342D;
+  --color-border-light: #1B241E;
+  --color-border-dark: #3D4B41;
 
   /* Success */
-  --color-success: #86D6A1;
-  --color-success-soft: #203B2B;
+  --color-success: #39D98A;
+  --color-success-soft: #123D2B;
 
   /* Warning */
-  --color-warning: #F0C66B;
-  --color-warning-soft: #3A3221;
+  --color-warning: #F2C66D;
+  --color-warning-soft: #3B301D;
 
   /* Danger */
-  --color-danger: #F08080;
-  --color-danger-soft: #402729;
+  --color-danger: #F07878;
+  --color-danger-soft: #402323;
 
   /* Info */
-  --color-info: #7DD3FC;
-  --color-info-soft: #203442;
+  --color-info: #70BFFF;
+  --color-info-soft: #1B3045;
 
   /* ---------- Typography ---------- */
   --font-family:
@@ -124,6 +124,16 @@
 /* =========================================================
    2. BASE
 ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 
 .app {
   width: 100%;

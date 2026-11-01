@@ -1,10 +1,5 @@
 
-import axios from "axios";
-
-const sectionApi = axios.create({
-  baseURL: "http://localhost:3001/api",
-  withCredentials: true,
-});
+import API from "./axiosInstance";
 
 // Create a section
 export const createSectionApi = async ({
@@ -12,7 +7,7 @@ export const createSectionApi = async ({
   sectionName,
   data,
 }) => {
-  const response = await sectionApi.post(
+  const response = await API.post(
     `/websites/${websiteId}/sections/${sectionName}`,
     data
   );
@@ -27,7 +22,7 @@ export const updateSectionApi = async ({
   sectionId,
   data,
 }) => {
-  const response = await sectionApi.patch(
+  const response = await API.patch(
     `/websites/${websiteId}/sections/${sectionName}?sectionId=${encodeURIComponent(sectionId)}`,
     data
   );
@@ -41,7 +36,7 @@ export const deleteSectionApi = async ({
   sectionName,
   sectionId,
 }) => {
-  const response = await sectionApi.delete(
+  const response = await API.delete(
     `/websites/${websiteId}/sections/${sectionName}?sectionId=${encodeURIComponent(sectionId)}`
   );
 
