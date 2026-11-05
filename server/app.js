@@ -53,7 +53,7 @@ app.use("/api/hero", heroRoutes);
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
-    message: "Harsh's Portfolio API is running",
+    message: "Webkie API is running",
   });
 });
 
