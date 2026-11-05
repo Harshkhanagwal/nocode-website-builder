@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ContactFloatingFormCard.css";
+import "./Contactfloatingformcard.css";
 
 /* ------------------------------------------------------------------ */
 /* Dummy data (used when no `data` prop is passed, so nothing throws)  */
