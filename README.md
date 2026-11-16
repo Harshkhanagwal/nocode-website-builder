@@ -1,255 +1,328 @@
 # AI-Powered No-Code Website Builder
 
-Build and customize websites without writing code. This project combines
-a visual, section-based website builder with AI-assisted website
-generation, allowing users to create a website, customize its
-appearance, and publish or preview the result.
+A full-stack website builder that combines a reusable, section-based
+visual editor with AI-assisted website generation. The project is
+designed to let users create, customize, and render websites through
+configuration rather than writing page code.
 
-> **Project status:** In development. Features and setup instructions
-> may change as the application evolves.
+> **Status:** In development. The repository contains the manual
+> website-building workflow and a modular AI generation implementation.
+> Feature completeness and deployment instructions may change as
+> development continues.
 
 ## Overview
 
-The AI-Powered No-Code Website Builder is designed to make website
-creation accessible to users who do not have frontend development
-experience.
+The application brings together two website-creation workflows:
 
-Users can create a website through two complementary workflows:
+-   **Manual creation:** Create a website, choose a color theme and
+    typography preset, then add and configure reusable page sections.
+-   **AI-assisted creation:** Describe a website in natural language and
+    use an LLM-powered generation pipeline to plan the website and
+    generate section data.
 
--   **Manual building:** Create a website by adding reusable sections,
-    choosing layouts and variants, and customizing content and
-    appearance.
--   **AI-assisted generation:** Describe the website they want in a
-    prompt and use an LLM-powered workflow to generate a structured
-    website configuration.
+The generated or manually configured website is represented as
+structured data. The frontend renderer uses that configuration to
+assemble the page from reusable React components.
 
-The application is built around reusable sections and data-driven
-configuration. A website's content, theme, typography, and section order
-are stored as configuration rather than being hardcoded into a single
-page.
+## Key Capabilities
 
-## Goals
+### Website management
 
--   Make website creation possible without writing code.
--   Provide reusable sections and layout variants.
--   Keep website content separate from presentation.
--   Allow users to customize themes and typography.
--   Support AI-assisted generation while retaining manual editing.
--   Build a maintainable foundation that can grow as new sections and
-    capabilities are added.
+-   User registration and login.
+-   Dashboard for managing website projects.
+-   Website configuration and ownership.
+-   Website rendering through a public-facing page component.
 
-## Features
+### Visual website building
 
-### Website creation
+-   Create websites with a selected name, theme, and typography.
+-   Add and configure sections.
+-   Enable, disable, and order sections through website configuration.
+-   Reusable section components with multiple layout variants.
+-   Theme and typography settings.
 
--   Create a website from the dashboard.
--   Configure a website name and its initial appearance.
--   Associate a website with its owner.
--   Store website configuration for later editing and rendering.
+### Section library
 
-### Visual customization
+The frontend currently contains components for these section categories:
 
--   Select from predefined color themes.
--   Select typography presets.
--   Apply design choices through CSS custom properties.
--   Keep styling consistent across website sections.
+  -----------------------------------------------------------------------
+  Section category                    Examples visible in the codebase
+  ----------------------------------- -----------------------------------
+  Header                              Header section
 
-### Section-based editor
+  Hero                                Centered, split, full-screen image,
+                                      cinematic corner
 
--   Organize a website as a collection of reusable sections.
--   Enable or disable sections.
--   Control section order.
--   Support section-specific content and layout variants.
--   Extend the section registry as new section types are introduced.
+  About                               Editorial, minimal typography,
+                                      timeline, bento grid
+
+  Accordion / FAQ                     Borderless minimal, dark
+                                      futuristic, rounded cards,
+                                      two-column FAQ
+
+  Columns                             Bento, classic, people, service
+                                      cards
+
+  Contact                             Dark split screen, terminal/code
+                                      editor, floating form card, minimal
+                                      typography
+  -----------------------------------------------------------------------
+
+The repository also contains a `Footers` directory. Additional section
+types and variants can be added to the component library and registered
+with the website renderer.
 
 ### AI-assisted website generation
 
-The planned AI workflow accepts a natural-language description and turns
-it into structured website data. That data can be used to populate the
-website configuration and render the corresponding sections.
+The backend contains a modular generation pipeline built around Groq and
+structured generation modules:
 
-AI generation is intended to complement the manual builder, not replace
-the editor.
+1.  **Planning:** Generate a website plan from the user's description.
+2.  **Section generation:** Generate content and configuration for
+    individual sections.
+3.  **Supporting services:** Resolve theme, typography, and
+    image-related data.
+4.  **Assembly:** Combine the generated plan and section data into a
+    website structure.
 
-> Some capabilities may still be under development. Update this section
-> as each feature becomes available in the application.
+Relevant implementation areas include:
+
+-   `server/src/GenAI/planner/`
+-   `server/src/GenAI/sections/`
+-   `server/src/GenAI/services/`
+-   `server/src/GenAI/generateWebsite.js`
+
+The AI workflow is designed to produce structured website data that can
+be consumed by the same rendering system used by manually created
+websites.
 
 ## Technology Stack
 
-  Area                Technology
-  ------------------- ---------------------------------
-  Frontend            React.js
-  Routing             React Router
-  State management    Redux Toolkit
-  Backend             Node.js, Express.js
-  Database            MongoDB, Mongoose
-  Authentication      JWT with HTTP-only cookies
-  AI integration      LLM APIs and prompt engineering
-  Styling             CSS, CSS custom properties
-  Development tools   Git, npm, VS Code
+  -----------------------------------------------------------------------
+  Layer                               Technology
+  ----------------------------------- -----------------------------------
+  Frontend                            React, Vite
 
-## High-Level Architecture
+  Routing                             React Router
+
+  State management                    Redux Toolkit
+
+  API communication                   Axios
+
+  Backend                             Node.js, Express
+
+  Database                            MongoDB, Mongoose
+
+  Authentication                      JWT and HTTP-only cookies
+
+  AI integration                      Groq / LLM API
+
+  Styling                             CSS and CSS custom properties
+
+  Testing                             Jest/Vitest-style test files are
+                                      present; check package scripts for
+                                      the configured runner
+  -----------------------------------------------------------------------
+
+## Architecture
 
 ``` text
-                         ┌──────────────────────┐
-                         │      User            │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │   React Frontend     │
-                         │                      │
-                         │ Dashboard            │
-                         │ Website Editor       │
-                         │ Website Renderer     │
-                         └──────────┬───────────┘
-                                    │
-                          HTTP / REST API
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │   Express Backend   │
-                         │                      │
-                         │ Routes               │
-                         │ Controllers          │
-                         │ Middleware           │
-                         └──────────┬───────────┘
-                                    │
-                    ┌───────────────┴──────────────┐
-                    ▼                              ▼
-          ┌──────────────────┐          ┌──────────────────┐
-          │    MongoDB       │          │   LLM Provider   │
-          │                  │          │                  │
-          │ Users            │          │ AI generation    │
-          │ Websites         │          │ Structured data  │
-          │ Themes           │          │                  │
-          │ Typography       │          └──────────────────┘
-          │ Sections         │
-          └──────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                         React Client                         │
+│                                                             │
+│  Landing Page   Authentication   Dashboard   Website Editor │
+│                                           │                 │
+│                                     Redux Toolkit           │
+│                                           │                 │
+│                               API modules (Axios)           │
+│                                           │                 │
+│                                  Website Renderer            │
+│                              Section Registry + Variants    │
+└───────────────────────────────────────────┬─────────────────┘
+                                            │ REST API
+                                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│                       Express Server                         │
+│                                                             │
+│  Routes → Middleware → Controllers → Services / Utilities   │
+│       │                                                     │
+│       ├── Authentication and admin                          │
+│       ├── Website and section management                    │
+│       ├── Theme and typography                              │
+│       └── Contact submissions                               │
+│                                                             │
+│                      GenAI Pipeline                         │
+│             Planner → Section Generator → Assembler         │
+└───────────────────────────┬─────────────────────┬───────────┘
+                            │                     │
+                            ▼                     ▼
+                       MongoDB                Groq LLM API
 ```
 
 ### Website rendering flow
 
-1.  The application retrieves the website configuration from the
-    backend.
-2.  The renderer reads the selected theme and typography.
+1.  The client retrieves the website configuration through the API.
+2.  The renderer reads the website's theme and typography settings.
 3.  Design values are applied through CSS custom properties.
-4.  Disabled sections are filtered out.
-5.  Enabled sections are sorted by their configured order.
-6.  The section registry resolves each section to its React component.
-7.  The selected variant and section content are passed to the
-    component.
-8.  The browser renders the assembled website.
+4.  Disabled sections are excluded.
+5.  Enabled sections are ordered using their configured `order`.
+6.  The section registry maps each section type to its React component.
+7.  The renderer supplies the section's content and selected variant.
+8.  React renders the assembled website.
 
-## Core Concepts
+### Section configuration
 
-### Website configuration
-
-A website stores its identity and presentation settings along with its
-sections. The configuration is designed to be data-driven so the same
-renderer can display different websites.
-
-Conceptually, a website includes:
-
--   Name and slug
--   Owner
--   Selected color theme
--   Selected typography
--   A collection of sections
-
-### Section architecture
-
-Sections are reusable building blocks. A section configuration can
-contain information such as:
+The section model is designed around fields such as:
 
   Field           Purpose
-  --------------- --------------------------------------------
+  --------------- ------------------------------------------
   `sectionName`   Identifies the section type
-  `variant`       Selects the section layout
-  `enabled`       Determines whether the section is rendered
-  `order`         Determines its position on the page
+  `variant`       Selects a visual layout
+  `enabled`       Controls whether the section is rendered
+  `order`         Controls the section's position
   `content`       Stores section-specific data
 
-The section registry maps section types to their React components. This
-keeps the renderer independent of the implementation details of
-individual sections.
+## Repository Structure
 
-### Themes and typography
-
-Themes and typography presets are retrieved from the backend. The
-frontend applies the selected values using CSS custom properties,
-allowing sections to share the same design system.
-
-## Authentication and API Design
-
-The backend uses Express routes, controllers, and middleware to organize
-application logic.
-
-Authentication is designed around JWTs stored in HTTP-only cookies.
-Protected routes use authentication middleware, while website-specific
-operations also verify that the authenticated user owns the requested
-website.
-
-Example API areas:
-
-  Area             Responsibility
-  ---------------- ---------------------------------------------
-  Authentication   Register, login, current user, logout
-  Websites         Create and retrieve website configurations
-  Themes           Retrieve available color themes
-  Typography       Retrieve available typography presets
-  Sections         Create, update, and delete website sections
-
-Exact endpoint paths may differ between development versions. Refer to
-the backend route definitions for the current API contract.
-
-## Project Structure
-
-The following is a conceptual structure. Adjust it to match the actual
-repository before publishing.
+The following tree reflects the repository structure shared for this
+README. Generated folders and dependencies such as `node_modules`, build
+output, and logs are omitted.
 
 ``` text
-website-builder/
-│
+.
+├── README.md
 ├── client/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── features/
-│   │   │   ├── auth/
-│   │   │   ├── colorTheme/
-│   │   │   └── typography/
-│   │   ├── sections/
-│   │   ├── store/
-│   │   ├── routes/
-│   │   └── styles/
-│   └── package.json
+│   ├── public/
+│   └── src/
+│       ├── api/
+│       ├── assets/
+│       ├── components/
+│       │   ├── Dashboard/
+│       │   ├── Elements/
+│       │   │   ├── AboutSection/
+│       │   │   ├── AccordianSection/
+│       │   │   ├── ColumnSection/
+│       │   │   ├── ContactSection/
+│       │   │   ├── Footers/
+│       │   │   ├── Headers/
+│       │   │   └── HeroSection/
+│       │   ├── LandingPageComponents/
+│       │   └── UserWebPage/
+│       ├── hooks/
+│       ├── pages/
+│       │   ├── Admin/
+│       │   ├── Auth/
+│       │   ├── Dashboard/
+│       │   ├── EditWebsite/
+│       │   ├── Home/
+│       │   ├── LandingPage/
+│       │   └── NotFound/
+│       ├── redux/
+│       │   └── slices/
+│       ├── renderer/
+│       ├── routes/
+│       └── style/
 │
-├── server/
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── services/
-│   ├── utils/
-│   └── package.json
-│
-├── .gitignore
-└── README.md
+└── server/
+    ├── src/
+    │   ├── GenAI/
+    │   │   ├── planner/
+    │   │   ├── sections/
+    │   │   └── services/
+    │   ├── config/
+    │   ├── controllers/
+    │   │   └── sections/
+    │   ├── middleware/
+    │   ├── models/
+    │   │   └── sections/
+    │   ├── routes/
+    │   │   └── sections/
+    │   ├── services/
+    │   ├── utils/
+    │   └── validators/
+    ├── test/
+    └── uploads/
 ```
+
+### Frontend directory guide
+
+  ------------------------------------------------------------------------
+  Directory                            Responsibility
+  ------------------------------------ -----------------------------------
+  `client/src/api/`                    Axios instance and API modules for
+                                       authentication, websites, themes,
+                                       typography, sections, hero, and
+                                       contact submissions
+
+  `client/src/components/Elements/`    Reusable website section components
+                                       and their visual variants
+
+  `client/src/components/Dashboard/`   Dashboard creation and theme
+                                       settings popups
+
+  `client/src/pages/`                  Application pages, including
+                                       authentication, dashboard, admin,
+                                       and website editor
+
+  `client/src/redux/slices/`           Redux state slices for auth,
+                                       themes, editor, hero, projects,
+                                       sections, and typography
+
+  `client/src/renderer/`               Website renderer and section
+                                       registry
+
+  `client/src/routes/`                 Public, protected, and admin route
+                                       handling
+
+  `client/src/hooks/`                  Reusable React hooks
+
+  `client/src/style/`                  Global styles and shared style
+                                       definitions
+  ------------------------------------------------------------------------
+
+### Backend directory guide
+
+  ------------------------------------------------------------------------
+  Directory                            Responsibility
+  ------------------------------------ -----------------------------------
+  `server/src/GenAI/`                  LLM client, website generation,
+                                       planner, section generation,
+                                       schemas, and generation services
+
+  `server/src/config/`                 Database and environment
+                                       configuration
+
+  `server/src/controllers/`            Request handling and application
+                                       logic
+
+  `server/src/controllers/sections/`   Section-specific controller logic
+
+  `server/src/middleware/`             Authentication, admin access,
+                                       bootstrap, and website ownership
+                                       checks
+
+  `server/src/models/`                 Mongoose models for users,
+                                       websites, themes, typography,
+                                       submissions, and sections
+
+  `server/src/routes/`                 API route definitions
+
+  `server/src/routes/sections/`        Section-specific API routes
+
+  `server/src/utils/`                  Shared backend utilities
+
+  `server/test/`                       Backend tests
+
+  `server/uploads/`                    Upload storage directory
+  ------------------------------------------------------------------------
 
 ## Getting Started
 
 ### Prerequisites
 
-Install the following before running the project:
-
--   Node.js (LTS recommended)
--   npm
--   MongoDB, either locally or through a hosted MongoDB service
--   An API key for your selected LLM provider if AI functionality is
-    enabled
+-   Node.js and npm
+-   MongoDB instance (local or hosted)
+-   Groq API key for AI generation features
 
 ### 1. Clone the repository
 
@@ -258,89 +331,97 @@ git clone <YOUR_REPOSITORY_URL>
 cd <YOUR_REPOSITORY_DIRECTORY>
 ```
 
-### 2. Install dependencies
-
-If the repository uses separate frontend and backend packages:
+### 2. Install backend dependencies
 
 ``` bash
 cd server
 npm install
+```
 
+### 3. Install frontend dependencies
+
+``` bash
 cd ../client
 npm install
 ```
 
-### 3. Configure environment variables
+### 4. Configure environment variables
 
-Create the environment files expected by each application. For example,
-the backend may need:
+Create the environment files expected by the application. The server has
+environment configuration in `server/src/config/env.js`; check that file
+and the package source for the exact variable names.
+
+Typical values may include:
 
 ``` env
+# Server
 PORT=3001
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+GROQ_API_KEY=your_groq_api_key
 CLIENT_URL=http://localhost:5173
-
-# Add the LLM provider key if AI features are enabled
-LLM_API_KEY=your_llm_api_key
 ```
 
-The frontend may need an API base URL, depending on its configuration:
+The frontend API base URL is configured through the Axios instance. Set
+it using the variable name expected by
+`client/src/api/axiosInstance.js`.
 
-``` env
-VITE_API_BASE_URL=http://localhost:3001/api
-```
+**Do not commit `.env` files, API keys, database credentials, or JWT
+secrets.**
 
-Use the exact variable names referenced by the source code. Never commit
-real API keys, database credentials, or JWT secrets.
+### 5. Run the application
 
-### 4. Start the backend
+Start the backend from the `server` directory:
 
 ``` bash
-cd server
 npm run dev
 ```
 
-### 5. Start the frontend
-
-In a separate terminal:
+Start the frontend in a second terminal from the `client` directory:
 
 ``` bash
-cd client
 npm run dev
 ```
 
-Open the local URL printed by the frontend development server.
+Check each directory's `package.json` for the exact available scripts
+and ports. Open the local URL printed by the Vite development server.
 
-> The commands above assume a `client` and `server` folder with the
-> indicated npm scripts. Update them if your repository uses a different
-> structure or script names.
+## Security
 
-## Security Notes
-
--   Keep secrets in environment variables.
--   Do not expose private API keys in frontend code.
+-   Store secrets in environment variables.
+-   Never expose the Groq API key or other private credentials in
+    frontend code.
 -   Use HTTP-only cookies for authentication tokens.
--   Validate incoming request data on the backend.
--   Verify website ownership before allowing website modifications.
--   Configure CORS and cookie settings for the intended deployment
-    environment.
+-   Validate incoming API data on the server.
+-   Verify website ownership before modifying a website or its sections.
+-   Configure CORS and cookie security settings appropriately for local
+    development and production.
 
-## Development Roadmap
+## Tests
 
-Potential milestones for the project:
+Backend test files are located in:
 
--   [ ] Complete authentication and protected dashboard flows.
--   [ ] Complete website creation and configuration management.
--   [ ] Expand the reusable section library and layout variants.
--   [ ] Complete section editing and ordering workflows.
--   [ ] Improve theme and typography customization.
--   [ ] Integrate the AI website-generation workflow.
--   [ ] Add preview and publishing workflows.
--   [ ] Add automated tests for frontend and backend.
--   [ ] Add deployment configuration and production monitoring.
+``` text
+server/test/
+```
 
-Update the checklist as features are implemented.
+They currently cover areas including admin middleware, image services,
+website planning, and section generation. Run the test command defined
+in `server/package.json`.
+
+## Roadmap
+
+The following is a development checklist. Update it as work is
+completed.
+
+-   [ ] Complete and refine the manual website editing workflow.
+-   [ ] Expand the reusable section and variant library.
+-   [ ] Improve section settings and content editing.
+-   [ ] Complete and refine AI website planning and generation.
+-   [ ] Improve generated image and asset handling.
+-   [ ] Add end-to-end tests for website creation and editing.
+-   [ ] Finalize preview and publishing workflows.
+-   [ ] Prepare production deployment and monitoring.
 
 ## Contributing
 
@@ -348,16 +429,14 @@ Contributions, suggestions, and bug reports are welcome.
 
 1.  Fork the repository.
 2.  Create a feature branch.
-3.  Make your changes.
-4.  Test the affected functionality.
-5.  Open a pull request with a clear description of the changes.
+3.  Make and test your changes.
+4.  Open a pull request with a clear description of the change.
 
 ## License
 
-No license has been specified yet. Add a `LICENSE` file before
-presenting this project as open source, and update this section with the
-chosen license.
+No license is currently specified. Add a `LICENSE` file and update this
+section before distributing the project as open source.
 
 ------------------------------------------------------------------------
 
-**Built with React, Node.js, MongoDB, and AI.**
+**Built with React, Node.js, MongoDB, and Groq.**
