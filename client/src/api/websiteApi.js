@@ -40,8 +40,3 @@ export const deleteWebsiteById = async (id) => {
   const response = await API.delete(`/websites/${id}`);
   return response.data;
 };
-
-// export const getWebsiteById = async (websiteId) => {
-//   const response = await API.get(`/websites/${websiteId}`);
-//   return response.data;
-// };
